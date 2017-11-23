@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Home"
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home"/>
+
+    <item android:id="@+id/Shopping_list"
+        android:title="Shop"
+        android:icon="@drawable/shopping"/>
+
+
+    <item android:title="History"
+        android:id="@+id/To_Do_List"
+        android:icon="@drawable/note"/>
+    <group android:id="@+id/group_settings_id">
+        <item android:title="Needs Help ?"
+            android:icon="@drawable/help"
+            android:id="@+id/needs_help"/>
+        <item android:title="Settings"
+            android:icon="@drawable/settings"
+            android:id="@+id/setting"/>
+    </group>
+    <item android:title="Sign Out"
+        android:id="@+id/Log_Out"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"/>
+</menu>
