@@ -4,12 +4,13 @@
     <item android:title="Home"
         android:id="@+id/nav_home"
         android:icon="@drawable/home"/>
-
     <item android:id="@+id/Shopping_list"
         android:title="Shop"
         android:icon="@drawable/shopping"/>
-
-
+    <item android:title="Deposit"
+        android:id="@+id/add_deposit"
+        android:icon="@drawable/ic_add_box_black_24dp"
+        />
     <item android:title="History"
         android:id="@+id/To_Do_List"
         android:icon="@drawable/note"/>
@@ -21,6 +22,12 @@
             android:icon="@drawable/settings"
             android:id="@+id/setting"/>
     </group>
+    <item android:title="MyAccount"
+          android:id="@+id/my_account"
+          android:icon="@drawable/ic_account_box_black_24dp"/>
+    <item android:title="Mypost"
+          android:id="@+id/my_post"
+          android:icon="@drawable/ic_my_post"/>
     <item android:title="Sign Out"
         android:id="@+id/Log_Out"
         android:icon="@drawable/ic_exit_to_app_black_24dp"/>

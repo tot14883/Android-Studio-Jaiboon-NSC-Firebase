@@ -15,5 +15,10 @@
     <string name="fb_login_protocol_scheme">fb186983495194428</string>
     <string name="title_activity_single_insta">SingleInstaActivity</string>
     <string name="title_activity_shop">ShopActivity</string>
+    <string-array name="Type_Customer">
+        <item>General Customer</item>
+        <item>Temple</item>
+        <item>Foundation</item>
+    </string-array>
 
 </resources>

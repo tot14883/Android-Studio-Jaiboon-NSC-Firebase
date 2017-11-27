@@ -45,12 +45,16 @@
             android:name="com.google.android.gms.vision"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name=".ShopActivity"
-            android:label="@string/title_activity_shop"
-            android:theme="@style/AppTheme" />
         <activity android:name=".Forget_Account" />
-        <activity android:name=".AdminManager"></activity>
+        <activity android:name=".AdminManager" />
+        <activity android:name=".AdminPost" />
+        <activity android:name=".ShopManager" />
+        <activity
+            android:name=".CateGoryUser"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity android:name=".ProfileTemple" />
+        <activity android:name=".ProfileFoundation" />
+        <activity android:name=".ProfileCustomer"></activity>
     </application>
 
 </manifest>

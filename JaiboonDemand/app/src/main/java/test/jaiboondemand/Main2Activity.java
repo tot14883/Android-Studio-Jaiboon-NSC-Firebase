@@ -51,6 +51,7 @@ public class Main2Activity extends AppCompatActivity {
     private TextView textView;
     private RecyclerView mIBstaList;
     private ImageButton imageButton;
+    private MenuItem item,item1,item2,item3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +101,32 @@ public class Main2Activity extends AppCompatActivity {
                             ShopActivity()).commit();
 
                 }
+                if(menuItem.getItemId() == R.id.my_post){
 
+                }
+                if(menuItem.getItemId() == R.id.add_deposit){
+
+                }
+                if(menuItem.getItemId()== R.id.my_account) {
+                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.child("Selected").exists()){
+
+                            }
+                            else{
+                                Intent intent = new Intent(Main2Activity.this,CateGoryUser.class);
+                                startActivity(intent);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
                 if (menuItem.getItemId() == R.id.nav_home) {
                     FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
                     xfragmentTransaction.replace(R.id.containerView,new
@@ -131,20 +157,29 @@ public class Main2Activity extends AppCompatActivity {
 
         });
 
-       final Menu menu = mNavigationView.getMenu();
+
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
+                final Menu menu = mNavigationView.getMenu();
+                item = menu.findItem(R.id.Log_Out);
+                item1 = menu.findItem(R.id.add_deposit);
+                item2 = menu.findItem(R.id.my_post);
+                item3 = menu.findItem(R.id.my_account);
                 if(firebaseAuth.getCurrentUser() == null){
                     Toast.makeText(Main2Activity.this,"You not login",Toast.LENGTH_LONG).show();
-                    MenuItem item = menu.findItem(R.id.Log_Out);
+                    item1.setVisible(false);
+                    item2.setVisible(false);
+                    item3.setVisible(false);
                     item.setVisible(false);
                     textView.setText("Login ?");
                     imageButton.setEnabled(true);
                 }
                 else{
-                    MenuItem item = menu.findItem(R.id.Log_Out);
+                    item1.setVisible(true);
+                    item2.setVisible(true);
+                    item3.setVisible(true);
                     item.setVisible(true);
                     mDatabase.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
