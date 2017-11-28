@@ -25,6 +25,7 @@
       android:textColor="@color/colorPrimary"
       android:textColorHint="@color/light_blue"
       android:layout_marginTop="5dp"
+      android:singleLine="true"
       />
     <EditText
         android:id="@+id/email_users"
@@ -37,7 +38,8 @@
         android:hint="Email"
         android:textColor="@color/colorPrimary"
         android:textColorHint="@color/light_blue"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:singleLine="true"/>
     <EditText
         android:id="@+id/pass_users"
         android:layout_width="match_parent"
@@ -49,7 +51,8 @@
         android:hint="Password"
         android:textColor="@color/colorPrimary"
         android:textColorHint="@color/light_blue"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:singleLine="true"/>
     <EditText
         android:id="@+id/Con_passuser"
         android:layout_width="match_parent"
@@ -61,7 +64,8 @@
         android:hint="Con-Password"
         android:textColor="@color/colorPrimary"
         android:textColorHint="@color/light_blue"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:singleLine="true"/>
     <CheckBox
         android:id="@+id/recive_email"
         android:layout_width="wrap_content"

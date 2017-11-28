@@ -32,6 +32,7 @@ import com.facebook.login.LoginManager;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.auth.api.Auth;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,12 +47,14 @@ public class Main2Activity extends AppCompatActivity {
     private Button button;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private FirebaseUser mCurrentUser;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference mDatabaseUsers;
     private MenuItem menuItem;
     private TextView textView;
     private RecyclerView mIBstaList;
     private ImageButton imageButton;
-    private MenuItem item,item1,item2,item3;
+    private MenuItem item,item1,item2,item3,item4,item5,item6,item7,item8;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +64,13 @@ public class Main2Activity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(this.getApplicationContext());
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUser = mAuth.getCurrentUser();
+        mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mNavigationView = (NavigationView) findViewById(R.id.shitstuff) ;
+
         View headerview = mNavigationView.getHeaderView(0);
         imageButton = (ImageButton) headerview.findViewById(R.id.img_profile);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +83,61 @@ public class Main2Activity extends AppCompatActivity {
         textView = (TextView) headerview.findViewById(R.id.tv_Profile1);
 
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
+                final Menu menu = mNavigationView.getMenu();
+                item = menu.findItem(R.id.Log_Out);
+                item1 = menu.findItem(R.id.add_deposit);
+                item2 = menu.findItem(R.id.my_post);
+                item3 = menu.findItem(R.id.my_account);
+                item6 = menu.findItem(R.id.my_post_Admin);
+                item7 = menu.findItem(R.id.nav_update_shop);
+                item8 = menu.findItem(R.id.my_manager_admin);
+                if(firebaseAuth.getCurrentUser() == null ){
+                    Toast.makeText(Main2Activity.this,"You not login",Toast.LENGTH_LONG).show();
+                    item1.setVisible(false);
+                    item2.setVisible(false);
+                    item3.setVisible(false);
+                    item.setVisible(false);
+                    item6.setVisible(false);
+                    item7.setVisible(false);
+                    item8.setVisible(false);
 
+                    textView.setText("Login ?");
+                    imageButton.setEnabled(true);
+                }
+                else{
+                    mDatabase.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.child("Level").exists()){
+                                CheckAdmin();
+                            }
+                            else if(!dataSnapshot.child("Level").exists()){
+                                item1.setVisible(true);
+                                item2.setVisible(true);
+                                item3.setVisible(true);
+                                item.setVisible(true);
+                                item6.setVisible(false);
+                                item7.setVisible(false);
+                                item8.setVisible(false);
+                            }
+                            String post_name = (String)dataSnapshot.child("Name").getValue();
+                            textView.setText(post_name);
+                            imageButton.setEnabled(false);
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        };
         /**
          * Lets inflate the very first fragment
          * Here , we are inflating the TabFragment as the first Fragment
@@ -108,15 +169,62 @@ public class Main2Activity extends AppCompatActivity {
 
                 }
                 if(menuItem.getItemId()== R.id.my_account) {
-                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    mDatabaseUsers.child(mCurrentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.child("Selected").exists()){
-
+                                if(dataSnapshot.child("Selected").getValue().equals("Customer")) {
+                                    Intent intent = new Intent(Main2Activity.this, ProfileCustomer.class);
+                                    intent.putExtra("Current","Yes");
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                if(dataSnapshot.child("Selected").child("Temple").exists()) {
+                                    Intent intent = new Intent(Main2Activity.this, ProfileTemple.class);
+                                    intent.putExtra("Current","Yes");
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                if(dataSnapshot.child("Selected").child("Foundation").exists()) {
+                                    Intent intent = new Intent(Main2Activity.this, ProfileFoundation.class);
+                                    intent.putExtra("Current","Yes");
+                                    startActivity(intent);
+                                    finish();
+                                }
                             }
                             else{
-                                Intent intent = new Intent(Main2Activity.this,CateGoryUser.class);
-                                startActivity(intent);
+                                AlertDialog.Builder b = new AlertDialog.Builder(Main2Activity.this);
+                                b.setTitle("เลือกชนิดลูกค้า");
+                                String[] types = {"General Customer", "Temple","Foundation"};
+                                b.setItems(types, new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                        dialog.dismiss();
+                                        switch(which){
+                                            case 0:
+                                                Intent intent = new Intent(Main2Activity.this,ProfileCustomer.class);
+                                                intent.putExtra("Current","No");
+                                                startActivity(intent);
+                                                break;
+                                            case 1:
+                                                Intent intent1 = new Intent(Main2Activity.this,ProfileTemple.class);
+                                                intent1.putExtra("Current","No");
+                                                startActivity(intent1);
+                                                break;
+                                            case 2:
+                                                Intent intent2 = new Intent(Main2Activity.this,ProfileFoundation.class);
+                                                intent2.putExtra("Current","No");
+                                                startActivity(intent2);
+                                                break;
+                                        }
+                                    }
+
+                                });
+
+                                b.show();
+
                             }
                         }
 
@@ -152,51 +260,17 @@ public class Main2Activity extends AppCompatActivity {
 
                     dialog.show();
                 }
+                if(menuItem.getItemId()== R.id.nav_update_shop){
+                     Intent intent = new Intent(Main2Activity.this,AdminPost.class);
+                     startActivity(intent);
+                }
+                if (menuItem.getItemId() == R.id.my_manager_admin){}
+                if(menuItem.getItemId() == R.id.my_post_Admin){}
                 return false;
             }
 
         });
 
-
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
-                final Menu menu = mNavigationView.getMenu();
-                item = menu.findItem(R.id.Log_Out);
-                item1 = menu.findItem(R.id.add_deposit);
-                item2 = menu.findItem(R.id.my_post);
-                item3 = menu.findItem(R.id.my_account);
-                if(firebaseAuth.getCurrentUser() == null){
-                    Toast.makeText(Main2Activity.this,"You not login",Toast.LENGTH_LONG).show();
-                    item1.setVisible(false);
-                    item2.setVisible(false);
-                    item3.setVisible(false);
-                    item.setVisible(false);
-                    textView.setText("Login ?");
-                    imageButton.setEnabled(true);
-                }
-                else{
-                    item1.setVisible(true);
-                    item2.setVisible(true);
-                    item3.setVisible(true);
-                    item.setVisible(true);
-                    mDatabase.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            String post_name = (String)dataSnapshot.child("Name").getValue();
-                            textView.setText(post_name);
-                            imageButton.setEnabled(false);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-        };
 
         /**
          * Setup Drawer Toggle of the Toolbar
@@ -213,7 +287,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+         mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
@@ -230,6 +304,27 @@ public class Main2Activity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void CheckAdmin() {
+                    final Menu menu = mNavigationView.getMenu();
+                    item = menu.findItem(R.id.Log_Out);
+                    item1 = menu.findItem(R.id.add_deposit);
+                    item2 = menu.findItem(R.id.my_post);
+                    item3 = menu.findItem(R.id.my_account);
+                    item4 = menu.findItem(R.id.To_Do_List);
+                    item5 = menu.findItem(R.id.needs_help);
+                    item6 = menu.findItem(R.id.my_post_Admin);
+                    item7 = menu.findItem(R.id.nav_update_shop);
+                    item8 = menu.findItem(R.id.my_manager_admin);
+                    item1.setVisible(false);
+                    item2.setVisible(false);
+                    item3.setVisible(false);
+                    item4.setVisible(false);
+                    item5.setVisible(false);
+                    item6.setVisible(true);
+                    item7.setVisible(true);
+                    item8.setVisible(true);
     }
    /* public void onBackPressed() {//When Click Button BackPressed show command Dialog
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);

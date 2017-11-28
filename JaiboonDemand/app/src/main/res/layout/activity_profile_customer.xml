@@ -95,13 +95,23 @@
                 android:layout_height="wrap_content"
                 android:text="*กรอกข้อมูลทุกอย่างตามความเป็นจริงปัจจุบัน"/>
             <Button
-                android:id="@+id/submit_profile_foun"
+                android:id="@+id/submit_profile_Cus"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/transparan_mode"
-                android:text="Submit"/>
+                android:text="Submit"
+                android:onClick="ButtonClickeCreated"/>
+            <Button
+                android:id="@+id/submit_update_Cus"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/transparan_mode"
+                android:text="Submit"
+                android:onClick="ButtonClickeUpdated"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

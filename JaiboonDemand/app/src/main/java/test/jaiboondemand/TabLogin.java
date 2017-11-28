@@ -235,12 +235,7 @@ public class TabLogin extends Fragment {
                 mProgress.show();
                 String email = emailUsers.getText().toString().trim();
                 String Pass = passUsers.getText().toString().trim();
-                if(email.equals("ToT14883")){
-                    Intent intent = new Intent(getActivity(),AdminManager.class);
-                    startActivity(intent);
-                }
-                else {
-                    if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(Pass)) {
+                if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(Pass)) {
                         mAuth.signInWithEmailAndPassword(email, Pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -248,14 +243,12 @@ public class TabLogin extends Fragment {
                                     checkUserExists();
                                 } else {
                                     Toast.makeText(getActivity(), "Email or PassWord Incorrect !!!!", Toast.LENGTH_LONG).show();
-
+                                    mProgress.dismiss();
                                 }
                             }
                         });
                     } else {
-
                     }
-                }
             }
         });
 
@@ -330,7 +323,7 @@ public class TabLogin extends Fragment {
                             final String user_id = mAuth.getCurrentUser().getUid();
                             String name = mAuth.getCurrentUser().getDisplayName();
                             DatabaseReference current_user_do = mDBusers.child(user_id);
-                            current_user_do.child("Name").setValue(name);
+                            current_user_do.child(user_id).child("Name").setValue(name);
                             mProgress.dismiss();
                         } else {
                             // If sign in fails, display a message to the user.

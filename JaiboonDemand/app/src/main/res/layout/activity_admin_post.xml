@@ -40,10 +40,6 @@
             android:onClick="submitButtonPosted"
             android:text="Submit"
             android:layout_marginTop="50dp"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="exitButton"
-            android:text="exit" />
+
 
 </LinearLayout>

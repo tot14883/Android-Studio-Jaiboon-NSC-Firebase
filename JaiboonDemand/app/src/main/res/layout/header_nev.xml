@@ -5,26 +5,15 @@
     android:layout_height="wrap_content"
     android:id="@+id/login_account"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <ImageButton
         android:id="@+id/img_profile"
         app:layout_widthPercent="100%"
-        app:layout_aspectRatio="178%"
+        app:layout_aspectRatio="500%"
         android:scaleType="fitXY"
         android:alpha="0.7"
         android:adjustViewBounds="true"/>
-    <!-- The rest of your layout -->
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_HeadUser"
-        app:civ_border_color="@android:color/white"
-        app:civ_border_width="2dp"
-        app:layout_widthPercent="25%"
-        app:layout_aspectRatio="100%"
-        app:layout_marginLeftPercent="5%"
-        android:layout_marginTop="25dp"
-        android:layout_gravity="top|left"
-        android:src="@drawable/ic_person_add_black_24dp"
-        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

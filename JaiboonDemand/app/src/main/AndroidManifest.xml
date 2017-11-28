@@ -54,7 +54,7 @@
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".ProfileTemple" />
         <activity android:name=".ProfileFoundation" />
-        <activity android:name=".ProfileCustomer"></activity>
+        <activity android:name=".ProfileCustomer" />
     </application>
 
 </manifest>
