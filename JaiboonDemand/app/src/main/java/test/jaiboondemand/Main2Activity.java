@@ -177,19 +177,16 @@ public class Main2Activity extends AppCompatActivity {
                                     Intent intent = new Intent(Main2Activity.this, ProfileCustomer.class);
                                     intent.putExtra("Current","Yes");
                                     startActivity(intent);
-                                    finish();
                                 }
-                                if(dataSnapshot.child("Selected").child("Temple").exists()) {
+                                if(dataSnapshot.child("Selected").getValue().equals("Temple")) {
                                     Intent intent = new Intent(Main2Activity.this, ProfileTemple.class);
                                     intent.putExtra("Current","Yes");
                                     startActivity(intent);
-                                    finish();
                                 }
-                                if(dataSnapshot.child("Selected").child("Foundation").exists()) {
+                                if(dataSnapshot.child("Selected").getValue().equals("Foundation")) {
                                     Intent intent = new Intent(Main2Activity.this, ProfileFoundation.class);
                                     intent.putExtra("Current","Yes");
                                     startActivity(intent);
-                                    finish();
                                 }
                             }
                             else{
@@ -249,6 +246,7 @@ public class Main2Activity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             mAuth.signOut();
                             LoginManager.getInstance().logOut();
+                            startActivity(getIntent());
                             Snackbar.make(mDrawerLayout,"ออกจากระบบเรียบร้อย",Snackbar.LENGTH_LONG).show();
                         }
                     });

@@ -73,7 +73,7 @@ public class TabHostDonate extends Fragment {
         public CharSequence getPageTitle(int position) {
 
             switch (position){
-                case 0:return "Donate";
+                case 0:return "Temple";
             }
             return null;
         }

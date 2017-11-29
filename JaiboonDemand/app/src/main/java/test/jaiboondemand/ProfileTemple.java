@@ -49,13 +49,14 @@ public class ProfileTemple extends AppCompatActivity {
 
         databaseReference = database.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
+        final String user_id = mAuth.getCurrentUser().getUid();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
               if(Exists.equals("Yes")){
                   btn_submit.setVisibility(View.INVISIBLE);
                   btn_update.setVisibility(View.VISIBLE);
-                  databaseReference.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                  databaseReference.child(user_id).addValueEventListener(new ValueEventListener() {
                       @Override
                       public void onDataChange(DataSnapshot dataSnapshot) {
                           String post_name = (String)dataSnapshot.child("Name_temple").getValue();
@@ -114,14 +115,21 @@ public class ProfileTemple extends AppCompatActivity {
                 }
             });
         }
-        Intent intent = new Intent(ProfileTemple.this,Main2Activity.class);
-        startActivity(intent);
+        onRestart();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Intent intent = new Intent(ProfileTemple.this,Main2Activity.class);
+        finish();
+        startActivity(intent);
     }
 
     public void ButtonClickeUpdated(View view) {

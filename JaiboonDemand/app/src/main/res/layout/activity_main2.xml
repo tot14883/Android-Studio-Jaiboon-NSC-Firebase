@@ -30,10 +30,7 @@
         android:layout_width="match_parent"
         android:id="@+id/drawerLayout"
         android:layout_weight="1">
-     <!-- <android.support.v4.widget.SwipeRefreshLayout
-            android:layout_width=""
-            android:layout_height="">
-            </android.support.v4.widget.SwipeRefreshLayout>-->
+
         <FrameLayout
             android:orientation="vertical"
             android:layout_width="match_parent"

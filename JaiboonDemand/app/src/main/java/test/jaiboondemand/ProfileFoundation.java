@@ -94,28 +94,28 @@ public class ProfileFoundation extends AppCompatActivity {
         final String Country_foun = country_foun.getText().toString().trim();
         final String Phone_foun = phone_foun.getText().toString().trim();
         if(!TextUtils.isEmpty(Name_foun) && !TextUtils.isEmpty(Name_Owner) && !TextUtils.isEmpty(Address_foun) &&
-            !TextUtils.isEmpty(Post_foun) && !TextUtils.isEmpty(Country_foun) && !TextUtils.isEmpty(Phone_foun)){
+            !TextUtils.isEmpty(Post_foun) && !TextUtils.isEmpty(Country_foun) && !TextUtils.isEmpty(Phone_foun)) {
             databaseReference.addValueEventListener(new ValueEventListener() {
-               @Override
-               public void onDataChange(DataSnapshot dataSnapshot) {
-                   databaseReference.child(user_id).child("Name_foun").setValue(Name_foun);
-                   databaseReference.child(user_id).child("Name_Owner").setValue(Name_Owner);
-                   databaseReference.child(user_id).child("Address_foun").setValue(Address_foun);
-                   databaseReference.child(user_id).child("Post_foun").setValue(Post_foun);
-                   databaseReference.child(user_id).child("Country_foun").setValue(Country_foun);
-                   databaseReference.child(user_id).child("Phone_foun").setValue(Phone_foun);
-                   databaseReference.child(user_id).child("Selected").setValue("Foundation");
-               }
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    databaseReference.child(user_id).child("Name_foun").setValue(Name_foun);
+                    databaseReference.child(user_id).child("Name_Owner").setValue(Name_Owner);
+                    databaseReference.child(user_id).child("Address_foun").setValue(Address_foun);
+                    databaseReference.child(user_id).child("Post_foun").setValue(Post_foun);
+                    databaseReference.child(user_id).child("Country_foun").setValue(Country_foun);
+                    databaseReference.child(user_id).child("Phone_foun").setValue(Phone_foun);
+                    databaseReference.child(user_id).child("Selected").setValue("Foundation");
+                }
 
-               @Override
-               public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-               }
-           });
+                }
+            });
         }
-        Intent intent = new Intent(ProfileFoundation.this,Main2Activity.class);
-        startActivity(intent);
-    }
+            onRestart();
+        }
+
 
     public void ButtonClickeUpdated(View view) {
     }
@@ -125,4 +125,13 @@ public class ProfileFoundation extends AppCompatActivity {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Intent intent = new Intent(ProfileFoundation.this,Main2Activity.class);
+        finish();
+        startActivity(intent);
+    }
+
 }

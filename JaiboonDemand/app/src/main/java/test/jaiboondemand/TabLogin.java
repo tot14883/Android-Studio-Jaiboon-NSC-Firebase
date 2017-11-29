@@ -336,11 +336,10 @@ public class TabLogin extends Fragment {
     }
 
     public void checkUserExists(){
-        final String user_id = mAuth.getCurrentUser().getUid();
         mDBusers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.hasChild(user_id)){
+                if(dataSnapshot.hasChild(mAuth.getCurrentUser().getUid())){
                     Intent loginIntent = new Intent(getActivity(),Main2Activity.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     getActivity().finish();

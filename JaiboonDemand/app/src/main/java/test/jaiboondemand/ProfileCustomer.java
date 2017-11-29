@@ -180,14 +180,20 @@ public class ProfileCustomer extends AppCompatActivity {
 
                 }
             });
-        Intent intent = new Intent(ProfileCustomer.this, Main2Activity.class);
-        finish();
-        startActivity(intent);
+       onRestart();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Intent intent = new Intent(ProfileCustomer.this, Main2Activity.class);
+        finish();
+        startActivity(intent);
     }
 }

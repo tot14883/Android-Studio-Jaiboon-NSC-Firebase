@@ -18,13 +18,17 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class DonateSocial extends Fragment {
     private RecyclerView mIBstaList;
     private DatabaseReference mDatabase;
+    private DatabaseReference databaseReference;
     private FloatingActionButton floatingActionButton;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -46,6 +50,8 @@ public class DonateSocial extends Fragment {
                 startActivity(intent);
             }
         });
+       databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -55,10 +61,32 @@ public class DonateSocial extends Fragment {
                     floatingActionButton.setVisibility(View.INVISIBLE);
                 }
                 else{
-                    floatingActionButton.setVisibility(View.VISIBLE);
+                    databaseReference.child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.child("Selected").exists()){
+                            if(dataSnapshot.child("Selected").getValue().equals("Customer")) {
+                                floatingActionButton.setVisibility(View.INVISIBLE);
+                            }
+                            else if(!dataSnapshot.child("Selected").getValue().equals("Customer")) {
+                                floatingActionButton.setVisibility(View.VISIBLE);
+                            }
+                         }
+                         else if(!dataSnapshot.child("Selected").exists()){
+                            floatingActionButton.setVisibility(View.INVISIBLE);
+                         }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
             }
         };
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
 
 
