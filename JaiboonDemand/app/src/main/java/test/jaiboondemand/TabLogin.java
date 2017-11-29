@@ -290,6 +290,7 @@ public class TabLogin extends Fragment {
                 String name = mAuth.getCurrentUser().getDisplayName();
                 DatabaseReference current_user_do = mDBusers.child(user_id);
                 current_user_do.child("Name").setValue(name);
+                current_user_do.child("ID").setValue(mAuth.getCurrentUser().getEmail());
                 mProgress.dismiss();
                 if(!task.isSuccessful()){
                     Log.w("","signInWithCredentail",task.getException());
@@ -324,6 +325,7 @@ public class TabLogin extends Fragment {
                             String name = mAuth.getCurrentUser().getDisplayName();
                             DatabaseReference current_user_do = mDBusers.child(user_id);
                             current_user_do.child(user_id).child("Name").setValue(name);
+                            current_user_do.child(user_id).child("ID").setValue(mAuth.getCurrentUser().getEmail());
                             mProgress.dismiss();
                         } else {
                             // If sign in fails, display a message to the user.

@@ -116,13 +116,21 @@ public class Main2Activity extends AppCompatActivity {
                                 CheckAdmin();
                             }
                             else if(!dataSnapshot.child("Level").exists()){
-                                item1.setVisible(true);
-                                item2.setVisible(true);
-                                item3.setVisible(true);
-                                item.setVisible(true);
-                                item6.setVisible(false);
-                                item7.setVisible(false);
-                                item8.setVisible(false);
+                                 item1.setVisible(true);
+                                 item3.setVisible(true);
+                                 item.setVisible(true);
+                                 item2.setVisible(false);
+                                 item6.setVisible(false);
+                                 item7.setVisible(false);
+                                 item8.setVisible(false);
+                               if(dataSnapshot.child("Selected").exists()){
+                                   if(dataSnapshot.child("Selected").getValue().equals("Customer")){
+                                       item2.setVisible(false);
+                                   }
+                                   else if(!dataSnapshot.child("Selected").getValue().equals("Customer")){
+                                       item2.setVisible(true);
+                                   }
+                               }
                             }
                             String post_name = (String)dataSnapshot.child("Name").getValue();
                             textView.setText(post_name);
@@ -163,7 +171,9 @@ public class Main2Activity extends AppCompatActivity {
 
                 }
                 if(menuItem.getItemId() == R.id.my_post){
-
+                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.containerView,new
+                            UserPost()).commit();
                 }
                 if(menuItem.getItemId() == R.id.add_deposit){
 

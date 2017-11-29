@@ -22,13 +22,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class DonateSocial extends Fragment {
     private RecyclerView mIBstaList;
-    private DatabaseReference mDatabase;
-    private DatabaseReference databaseReference;
+    private DatabaseReference mDatabase,databaseReference;
+    private Query mDatatype;
     private FloatingActionButton floatingActionButton;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -42,52 +43,19 @@ public class DonateSocial extends Fragment {
         mIBstaList.setHasFixedSize(true);
         mIBstaList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        floatingActionButton = (FloatingActionButton) x.findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),PostActivity.class);
-                startActivity(intent);
-            }
-        });
+
        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+       mDatatype = FirebaseDatabase.getInstance().getReference().child("Jaiboon").orderByChild("Type").equalTo("Temple");
 
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() == null){
-                    floatingActionButton.setVisibility(View.INVISIBLE);
-                }
-                else{
-                    databaseReference.child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.child("Selected").exists()){
-                            if(dataSnapshot.child("Selected").getValue().equals("Customer")) {
-                                floatingActionButton.setVisibility(View.INVISIBLE);
-                            }
-                            else if(!dataSnapshot.child("Selected").getValue().equals("Customer")) {
-                                floatingActionButton.setVisibility(View.VISIBLE);
-                            }
-                         }
-                         else if(!dataSnapshot.child("Selected").exists()){
-                            floatingActionButton.setVisibility(View.INVISIBLE);
-                         }
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-                }
             }
         };
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
 
 
         return x;
@@ -101,7 +69,7 @@ public class DonateSocial extends Fragment {
                 Insta.class,
                 R.layout.insta_row,
                 InstaViewHolde.class,
-                mDatabase
+                mDatatype
         ) {
             @Override
             protected void populateViewHolder(InstaViewHolde viewHolder, Insta model, int position) {

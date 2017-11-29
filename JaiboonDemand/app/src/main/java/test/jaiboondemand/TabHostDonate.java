@@ -17,7 +17,7 @@ public class TabHostDonate extends Fragment {
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
-    public static int int_items = 1 ;
+    public static int int_items = 2 ;
 
     @Nullable
     @Override
@@ -54,6 +54,7 @@ public class TabHostDonate extends Fragment {
         {
             switch (position){
                case 0:return new DonateSocial();
+                case 1:return new foundation_donate();
             }
             return null;
         }
@@ -74,6 +75,7 @@ public class TabHostDonate extends Fragment {
 
             switch (position){
                 case 0:return "Temple";
+                case 1:return "Foundation";
             }
             return null;
         }

@@ -55,7 +55,7 @@ public class SignUp extends Fragment {
             @Override
             public void onClick(View view) {
                 final String name = userName.getText().toString().trim();
-                String email = Email.getText().toString().trim();
+                final String email = Email.getText().toString().trim();
                 String pass = Password.getText().toString().trim();
                 String conpass = Con_Pass.getText().toString().trim();
                 if (Con_Pass.getText().toString().equals(Password.getText().toString())) {
@@ -70,6 +70,7 @@ public class SignUp extends Fragment {
                                     String user_email = mAuth.getCurrentUser().getUid();
                                     DatabaseReference current_user_db = mDatabase.child(user_email);
                                     current_user_db.child("Name").setValue(name);
+                                    current_user_db.child("ID").setValue(email);
                                     mProgress.dismiss();
 
                                     Toast.makeText(getContext(), "Success !!", Toast.LENGTH_SHORT).show();

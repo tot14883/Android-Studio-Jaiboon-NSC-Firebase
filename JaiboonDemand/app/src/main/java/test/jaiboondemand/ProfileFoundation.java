@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
 public class ProfileFoundation extends AppCompatActivity {
-    private EditText name_foun,name_owner,address_foun,post_foun,country_foun,phone_foun;
+    private EditText name_foun,name_owner,address_foun,post_foun,country_foun,phone_foun,input_type;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
@@ -41,6 +41,7 @@ public class ProfileFoundation extends AppCompatActivity {
         phone_foun =(EditText) findViewById(R.id.input_phone_foun);
         button_submit = (Button) findViewById(R.id.submit_profile_foun);
         butto_update = (Button)findViewById(R.id.submit_update_foun);
+        input_type = (EditText) findViewById(R.id.input_type_foun);
 
         Exists = getIntent().getExtras().getString("Current");
 
@@ -58,12 +59,14 @@ public class ProfileFoundation extends AppCompatActivity {
                      public void onDataChange(DataSnapshot dataSnapshot) {
                          String post_name = (String)dataSnapshot.child("Name_foun").getValue();
                          String post_owner = (String)dataSnapshot.child("Name_Owner").getValue();
+                         String Type_foun = (String) dataSnapshot.child("Type_foun").getValue();
                          String address = (String)dataSnapshot.child("Address_foun").getValue();
                          String post = (String)dataSnapshot.child("Post_foun").getValue();
                          String country = (String)dataSnapshot.child("Country_foun").getValue();
                          String Phone = (String)dataSnapshot.child("Phone_foun").getValue();
                          name_foun.setText(post_name);
                          name_owner.setText(post_owner);
+                         input_type.setText(Type_foun);
                          address_foun.setText(address);
                          post_foun.setText(post);
                          country_foun.setText(country);
@@ -89,6 +92,7 @@ public class ProfileFoundation extends AppCompatActivity {
         final String user_id = mAuth.getCurrentUser().getUid();
         final String Name_foun = name_foun.getText().toString().trim();
         final String Name_Owner = name_owner.getText().toString().trim();
+        final String Type_foun = input_type.getText().toString().trim();
         final String Address_foun = address_foun.getText().toString().trim();
         final String Post_foun = post_foun.getText().toString().trim();
         final String Country_foun = country_foun.getText().toString().trim();
@@ -100,6 +104,7 @@ public class ProfileFoundation extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     databaseReference.child(user_id).child("Name_foun").setValue(Name_foun);
                     databaseReference.child(user_id).child("Name_Owner").setValue(Name_Owner);
+                    databaseReference.child(user_id).child("Type_foun").setValue(Type_foun);
                     databaseReference.child(user_id).child("Address_foun").setValue(Address_foun);
                     databaseReference.child(user_id).child("Post_foun").setValue(Post_foun);
                     databaseReference.child(user_id).child("Country_foun").setValue(Country_foun);
