@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_margin="20dp"
     >
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Post Title"
+            android:layout_below="@id/post_image"
             android:layout_margin="5dp"
             android:id="@+id/textTitle"/>
         <TextView
@@ -25,7 +26,17 @@
             android:layout_height="match_parent"
             android:text="Post Description"
             android:layout_margin="5dp"
-            android:id="@+id/textDescription"/>
-    </LinearLayout>
+            android:id="@+id/textDescription"
+            android:layout_below="@id/textTitle"/>
+        <ImageView
+            android:id="@+id/overflow"
+            android:layout_width="@dimen/ic_album_overflow_width"
+            android:layout_height="@dimen/ic_album_overflow_height"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/ic_album_overflow_margin_top"
+            android:scaleType="centerCrop"
+            android:layout_below="@id/post_image"
+            android:src="@drawable/ic_more_vert_black_24dp"/>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

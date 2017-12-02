@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -90,10 +92,11 @@ public class DonateSocial extends Fragment {
         };
         mIBstaList.setAdapter(FBRA);
         mAuth.addAuthStateListener(mAuthListener);
-    }
 
+    }
     public static class InstaViewHolde extends RecyclerView.ViewHolder{
         View mView;
+        private ImageView imageView;
         public InstaViewHolde(View itemView) {
             super(itemView);
             mView = itemView;
@@ -110,6 +113,8 @@ public class DonateSocial extends Fragment {
            ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
            Picasso.with(ctx).load(image).into(post_image);
         }
+
     }
+
 }
 
