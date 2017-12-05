@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical"
+    tools:context="test.jaiboondemand.Shopdetail">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        >
+        <ImageView
+            android:id="@+id/show_product"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/add_image"
+            android:adjustViewBounds="true"
+            />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/text_name_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="25sp"
+        android:layout_gravity="center"/>
+    <TextView
+        android:id="@+id/text_price_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="price"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center" />
+    <TextView
+        android:id="@+id/text_des_product"
+        android:textSize="20dp"
+        android:text="description"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/button_add_cart"
+        android:layout_width="match_parent"
+        android:text="add"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.5" />
+</LinearLayout>
