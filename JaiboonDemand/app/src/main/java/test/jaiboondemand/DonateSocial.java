@@ -81,6 +81,7 @@ public class DonateSocial extends Fragment {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getName());
                 viewHolder.setImage(getActivity().getApplicationContext(), model.getImage());
+
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

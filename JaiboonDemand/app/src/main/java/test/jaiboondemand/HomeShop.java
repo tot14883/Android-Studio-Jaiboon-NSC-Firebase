@@ -35,7 +35,7 @@ public class HomeShop extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        x =  inflater.inflate(R.layout.activity_home_shop,null);
+        x =  inflater.inflate(R.layout.activity_home_shop,container,false);
 
         mSList = (RecyclerView) x.findViewById(R.id.Shop_list);
         mSList.setHasFixedSize(true);
@@ -71,21 +71,15 @@ public class HomeShop extends Fragment {
                 viewHolder.setPTitle(model.getNameproduct());
                 viewHolder.setCount(model.getPriceproduct());
                 viewHolder.setProImage(getActivity().getApplicationContext(),model.getImageproduct());
+
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(getActivity(),"Clicked",Toast.LENGTH_LONG).show();
+                        Intent shop_activity = new Intent(getActivity(),Shopdetail.class);
+                        shop_activity.putExtra("PostID", post_key);
+                        startActivity(shop_activity);
                     }
                 });
-              /*  viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                      /*  Intent shop_activity = new Intent(getActivity(),Shopdetail.class);
-                     //   singleInstaActivity.putExtra("PostID", post_key);
-                        startActivity(shop_activity);*/
-                      ///  Toast.makeText(getActivity(),"Clicked",Toast.LENGTH_LONG).show();
-                 /*   }
-                });*/
             }
         };
         mSList.setAdapter(FBRA);
