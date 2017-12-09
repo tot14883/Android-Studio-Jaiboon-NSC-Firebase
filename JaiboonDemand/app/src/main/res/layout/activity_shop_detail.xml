@@ -39,17 +39,20 @@
         android:id="@+id/text_des_product"
         android:textSize="20dp"
         android:text="description"
-        android:layout_marginTop="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/button_add_cart"
-        android:layout_width="match_parent"
-        android:text="add"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <View
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="0.5" />
+    <Button
+        android:id="@+id/button_add_cart"
+        android:layout_width="match_parent"
+        android:text="add"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:onClick="AddcartClicked"
+        />
 </LinearLayout>

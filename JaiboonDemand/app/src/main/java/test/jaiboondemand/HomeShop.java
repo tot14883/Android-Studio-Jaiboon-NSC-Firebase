@@ -24,6 +24,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 public class HomeShop extends Fragment {
@@ -42,6 +44,7 @@ public class HomeShop extends Fragment {
         mSList.setLayoutManager(new GridLayoutManager(getActivity(),2));
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("ShopJaiboon");
+        mDatabase.keepSynced(true);
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -101,9 +104,19 @@ public class HomeShop extends Fragment {
             Count_product.setText(PCount+" บาท");
 
         }
-        public void setProImage(Context ctx,String image){
-            ImageView img_product = (ImageView) mView.findViewById(R.id.Img_Product);
-            Picasso.with(ctx).load(image).into(img_product);
+        public void setProImage(final Context ctx, final String image){
+            final ImageView img_product = (ImageView) mView.findViewById(R.id.Img_Product);
+            Picasso.with(ctx).load(image).networkPolicy(NetworkPolicy.OFFLINE).into(img_product, new Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError() {
+                    Picasso.with(ctx).load(image).into(img_product);
+                }
+            });
         }
     }
 }

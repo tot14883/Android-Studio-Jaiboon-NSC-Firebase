@@ -58,6 +58,7 @@ public class ProfileCustomer extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         databaseReference = database.getInstance().getReference().child("Users");
+        databaseReference.keepSynced(true);
 
 
          mAuthListener = new FirebaseAuth.AuthStateListener() {

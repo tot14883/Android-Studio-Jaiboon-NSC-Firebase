@@ -47,6 +47,7 @@ public class ProfileFoundation extends AppCompatActivity {
 
 
         databaseReference = database.getInstance().getReference().child("Users");
+        databaseReference.keepSynced(true);
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override

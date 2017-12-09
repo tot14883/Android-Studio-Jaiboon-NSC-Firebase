@@ -24,6 +24,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 public class UserPost extends Fragment {
@@ -58,6 +60,7 @@ public class UserPost extends Fragment {
             }
         };
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
+        mDatabase.keepSynced(true);
         mDatabase.getKey();
         return  x;
     }
@@ -130,9 +133,20 @@ public class UserPost extends Fragment {
             TextView post_Name = (TextView) mView.findViewById(R.id.text_Name);
             post_Name.setText(Name);
         }
-        public void setImage(Context ctx,String image){
-            ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
-            Picasso.with(ctx).load(image).into(post_image);
+        public void setImage(final Context ctx, final String image){
+            final ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
+            Picasso.with(ctx).load(image).networkPolicy(NetworkPolicy.OFFLINE).into(post_image, new Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError() {
+                    Picasso.with(ctx).load(image).into(post_image);
+                }
+            });
+
         }
     }
 }

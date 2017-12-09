@@ -28,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 public class DonateSocial extends Fragment {
@@ -50,7 +52,7 @@ public class DonateSocial extends Fragment {
 
        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
        mDatatype = FirebaseDatabase.getInstance().getReference().child("Jaiboon").orderByChild("Type").equalTo("Temple");
-
+       mDatatype.keepSynced(true);
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -117,9 +119,20 @@ public class DonateSocial extends Fragment {
             TextView post_Name = (TextView) mView.findViewById(R.id.text_Name);
             post_Name.setText(Name);
         }
-        public void setImage(Context ctx,String image){
-           ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
-           Picasso.with(ctx).load(image).into(post_image);
+        public void setImage(final Context ctx, final String image){
+           final ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
+          // Picasso.with(ctx).load(image).into(post_image);
+           Picasso.with(ctx).load(image).networkPolicy(NetworkPolicy.OFFLINE).into(post_image, new Callback() {
+               @Override
+               public void onSuccess() {
+
+               }
+
+               @Override
+               public void onError() {
+                   Picasso.with(ctx).load(image).into(post_image);
+               }
+           });
         }
 
     }

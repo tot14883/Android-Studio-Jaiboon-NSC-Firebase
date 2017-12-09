@@ -48,6 +48,7 @@ public class ProfileTemple extends AppCompatActivity {
         Exists = getIntent().getExtras().getString("Current");
 
         databaseReference = database.getInstance().getReference().child("Users");
+        databaseReference.keepSynced(true);
         mAuth = FirebaseAuth.getInstance();
         final String user_id = mAuth.getCurrentUser().getUid();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
