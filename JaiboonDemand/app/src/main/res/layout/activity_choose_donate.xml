@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="test.jaiboondemand.post_activity.ChooseDonate">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".7">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/choose_product">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+    <Button
+        android:id="@+id/Button_choosen"
+        android:onClick="btn_choose"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/choose_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+ เพิ่มสิ่งที่ต้องการ"/>
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SUBMIT"
+        android:onClick="Post_donate"/>
+</LinearLayout>

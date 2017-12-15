@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        >
+        <ImageView
+            android:id="@+id/show_product1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/add_image"
+            android:adjustViewBounds="true"
+            />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/text_name_product1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="25sp"
+        android:layout_gravity="center"/>
+    <TextView
+        android:id="@+id/text_price_product1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="price"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center" />
+    <TextView
+        android:id="@+id/text_des_product1"
+        android:textSize="20dp"
+        android:text="description"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.5" />
+    <Button
+        android:id="@+id/button_add_cart1"
+        android:layout_width="match_parent"
+        android:text="add"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:onClick="donateClicked"
+        />
+</LinearLayout>
