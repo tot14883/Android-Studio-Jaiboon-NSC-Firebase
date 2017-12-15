@@ -48,6 +48,7 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
+
     <include layout="@layout/content_single_insta" />
 
 </android.support.design.widget.CoordinatorLayout>

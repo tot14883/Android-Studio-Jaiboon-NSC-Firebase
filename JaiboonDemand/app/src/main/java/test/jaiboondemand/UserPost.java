@@ -80,7 +80,7 @@ public class UserPost extends Fragment {
                  final int position1 = position;
 
                  viewHolder.setTitle(model.getTitle());
-                 viewHolder.setDesc(model.getName());
+                 viewHolder.setDesc("by "+model.getName());
                  viewHolder.setImage(getActivity().getApplicationContext(),model.getImage());
                  viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                      @Override

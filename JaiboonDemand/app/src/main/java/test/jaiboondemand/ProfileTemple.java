@@ -60,7 +60,7 @@ public class ProfileTemple extends AppCompatActivity {
                   databaseReference.child(user_id).addValueEventListener(new ValueEventListener() {
                       @Override
                       public void onDataChange(DataSnapshot dataSnapshot) {
-                          String post_name = (String)dataSnapshot.child("Name").getValue();
+                          String post_name = (String)dataSnapshot.child("Name_User").getValue();
                           String Name_Leader = (String)dataSnapshot.child("Name_Owner").getValue();
                           String address = (String)dataSnapshot.child("Address").getValue();
                           String post = (String)dataSnapshot.child("Post").getValue();
@@ -102,6 +102,7 @@ public class ProfileTemple extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     databaseReference.child(user_id).child("Name").setValue(Name_Temple);
+                    databaseReference.child(user_id).child("Name_User").setValue(Name_Temple);
                     databaseReference.child(user_id).child("Name_Owner").setValue(Name_Leader);
                     databaseReference.child(user_id).child("Address").setValue(Address_Temple);
                     databaseReference.child(user_id).child("Post").setValue(Post_Temple);

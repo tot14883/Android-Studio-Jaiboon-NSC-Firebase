@@ -58,7 +58,7 @@ public class ProfileFoundation extends AppCompatActivity {
                  databaseReference.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                      @Override
                      public void onDataChange(DataSnapshot dataSnapshot) {
-                         String post_name = (String)dataSnapshot.child("Name").getValue();
+                         String post_name = (String)dataSnapshot.child("Name_User").getValue();
                          String post_owner = (String)dataSnapshot.child("Name_Owner").getValue();
                          String Type_foun = (String) dataSnapshot.child("Type").getValue();
                          String address = (String)dataSnapshot.child("Address").getValue();
@@ -104,6 +104,7 @@ public class ProfileFoundation extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     databaseReference.child(user_id).child("Name").setValue(Name_foun);
+                    databaseReference.child(user_id).child("Name_User").setValue(Name_foun);
                     databaseReference.child(user_id).child("Name_Owner").setValue(Name_Owner);
                     databaseReference.child(user_id).child("Type").setValue(Type_foun);
                     databaseReference.child(user_id).child("Address").setValue(Address_foun);

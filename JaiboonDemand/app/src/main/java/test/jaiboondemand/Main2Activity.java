@@ -164,6 +164,7 @@ public class Main2Activity extends AppCompatActivity {
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.containerView,new TabHostDonate()).commit();
+
         /**
          * Setup click events on the Navigation View Items.
          */

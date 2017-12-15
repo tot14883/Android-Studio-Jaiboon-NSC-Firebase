@@ -48,9 +48,9 @@ public class badgeLayout extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                    String Total_price = (String)dataSnapshot.child("priceproduct").getValue();
+                    /*String Total_price = (String)dataSnapshot.child("priceproduct").getValue();
                     int total_price = Integer.parseInt(Total_price);
-                    total_cart.setText(String.valueOf(total_price));
+                    total_cart.setText(String.valueOf(total_price));*/
             }
 
             @Override

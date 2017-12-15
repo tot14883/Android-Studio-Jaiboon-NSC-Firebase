@@ -25,6 +25,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import test.jaiboondemand.post_activity.ChooseDonate;
+
 public class PostActivity extends AppCompatActivity {
     public static final int GALLERY_REQUEST = 2;
     private Uri uri = null;
@@ -89,20 +91,20 @@ public class PostActivity extends AppCompatActivity {
                            if(dataSnapshot.child("Selected").exists()) {
                                newPost.child("title").setValue(titleValue);
                                newPost.child("desc").setValue(titleDesc);
-                               newPost.child("image").setValue(downloadurl.toString());
-                               newPost.child("uid").setValue(mCurrentUser.getUid());
+                               newPost.child("uid").setValue(mAuth.getCurrentUser().getUid());
                                newPost.child("Type").setValue(dataSnapshot.child("Selected").getValue());
-                               newPost.child("Name").setValue(dataSnapshot.child("Name").getValue());
+                               newPost.child("Name").setValue(dataSnapshot.child("Name_User").getValue());
                                newPost.child("username").setValue(dataSnapshot.child("Name").getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
                                    @Override
                                    public void onComplete(@NonNull Task<Void> task) {
                                        if (task.isSuccessful()) {
-                                           Intent mainActivityIntent = new Intent(PostActivity.this, Main2Activity.class);
+                                           Intent mainActivityIntent = new Intent(PostActivity.this,ChooseDonate.class);
                                            startActivity(mainActivityIntent);
                                            finish();
                                        }
                                    }
                                });
+                               newPost.child("image").setValue(downloadurl.toString());
                            }
                            else if(!dataSnapshot.child("Selected").exists()){
                                Intent errorpost = new Intent(PostActivity.this,Main2Activity.class);

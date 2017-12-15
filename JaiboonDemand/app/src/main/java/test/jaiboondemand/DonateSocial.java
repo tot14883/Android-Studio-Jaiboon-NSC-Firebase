@@ -81,7 +81,7 @@ public class DonateSocial extends Fragment {
                 final String post_key = getRef(position).getKey().toString();
 
                 viewHolder.setTitle(model.getTitle());
-                viewHolder.setDesc(model.getName());
+                viewHolder.setDesc("by "+model.getName());
                 viewHolder.setImage(getActivity().getApplicationContext(), model.getImage());
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {

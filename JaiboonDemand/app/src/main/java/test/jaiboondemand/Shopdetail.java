@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 
 public class Shopdetail extends AppCompatActivity {
     private String post_key = null;
+    private DatabaseReference mDatedonate;
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabaseUsers;
     private DatabaseReference mDatapush;
@@ -39,6 +40,8 @@ public class Shopdetail extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("ShopJaiboon");
         mDatabase.keepSynced(true);
 
+        mDatedonate = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
+
         ProductImage =(ImageView) findViewById(R.id.show_product);
         productName = (TextView) findViewById(R.id.text_name_product);
         productPrice = (TextView) findViewById(R.id.text_price_product);
@@ -52,9 +55,9 @@ public class Shopdetail extends AppCompatActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                  if(firebaseAuth.getCurrentUser() == null){
-                      addProduct.setVisibility(View.INVISIBLE);
-                  }
+                if(firebaseAuth.getCurrentUser() == null){
+                    addProduct.setVisibility(View.INVISIBLE);
+                }
             }
         };
 
@@ -103,13 +106,12 @@ public class Shopdetail extends AppCompatActivity {
           mDatabaseUsers.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
               @Override
               public void onDataChange(DataSnapshot dataSnapshot) {
-
-                  newPost.child("nameproduct").setValue(pro_name);
-                  newPost.child("descproduct").setValue(pro_desc);
-                  newPost.child("priceproduct").setValue(pro_price);
-                  newPost.child("imageproduct").setValue(pro_image);
-                  newPost.child("uid").setValue(user_id);
-
+                      newPost.child("nameproduct").setValue(pro_name);
+                      newPost.child("descproduct").setValue(pro_desc);
+                      newPost.child("priceproduct").setValue(pro_price);
+                      newPost.child("imageproduct").setValue(pro_image);
+                      newPost.child("uid").setValue(user_id);
+                      Toast.makeText(Shopdetail.this,"Add into Cart",Toast.LENGTH_LONG).show();
               }
 
               @Override
@@ -117,6 +119,5 @@ public class Shopdetail extends AppCompatActivity {
 
               }
           });
-        Toast.makeText(Shopdetail.this,"Add into Cart",Toast.LENGTH_LONG).show();
     }
 }
