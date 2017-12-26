@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="test.jaiboondemand.TabLogin"
+    android:padding="50dp"
+    xmlns:fb="http://schemas.android.com/apk/res-auto">
+
+    <EditText
+        android:id="@+id/et_MailLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/transparan_mode"
+        android:drawableLeft="@drawable/ic_mail_outline"
+        android:drawablePadding="10dp"
+        android:focusable="false"
+        android:gravity="center"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/light_blue"
+        app:layout_marginTopPercent="2%" />
+
+    <EditText
+        android:id="@+id/et_PassLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_MailLog"
+        android:background="@drawable/transparan_mode"
+        android:drawableLeft="@drawable/ic_lock_outline"
+        android:drawablePadding="10dp"
+        android:focusable="false"
+        android:gravity="center"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/light_blue"
+        app:layout_marginTopPercent="1%"/>
+
+    <Button
+        android:id="@+id/btn_Login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_PassLog"
+        android:background="@drawable/transparan_mode"
+        android:text="@string/login"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        app:layout_marginTopPercent="3%"
+        />
+
+    <TextView
+        android:id="@+id/tv_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_Login"
+        android:text="@string/reg"
+        android:textAlignment="center"
+        app:layout_marginTopPercent="1%"/>
+
+    <TextView
+        android:id="@+id/tv_OR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_reg"
+        android:layout_marginTop="46dp"
+        android:text="OR "
+        android:textAlignment="center"
+        android:textColor="@color/textcolor" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_OR"
+        android:layout_marginTop="26dp"
+        android:text="Login with : "
+        android:textAlignment="center"
+        android:textColor="@color/intext2"
+        app:layout_marginBottomPercent="2%" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_below="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btn_sign_in"
+        android:layout_below="@id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        />
+
+
+
+
+</android.support.percent.PercentRelativeLayout>
