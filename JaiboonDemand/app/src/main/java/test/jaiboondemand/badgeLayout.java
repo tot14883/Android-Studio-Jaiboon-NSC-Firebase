@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
@@ -56,7 +57,8 @@ public class badgeLayout extends AppCompatActivity {
                 for(DataSnapshot d : dataSnapshot.getChildren()){
                     if(d.child("uid").getValue().equals(mAuth.getCurrentUser().getUid())){
                         String Total_price = (String) String.valueOf(d.child("priceproduct").getValue());
-                        total_price[0] = (total_price[0] + Integer.parseInt(Total_price));
+                        String amount = (String) String.valueOf(d.child("amount").getValue());
+                        total_price[0] = (total_price[0] + Integer.parseInt(Total_price)*Integer.parseInt(amount));
 
                     }
 
@@ -94,6 +96,8 @@ public class badgeLayout extends AppCompatActivity {
             protected void populateViewHolder(RecycleCart viewHolder, Insta model, int position) {
                 final String post_key = getRef(position).getKey().toString();
                 final int position1 = position;
+                final boolean[] c = {false};
+                final int[] num1 = {1};
 
 
                 viewHolder.setName(model.getNameproduct());
@@ -109,6 +113,24 @@ public class badgeLayout extends AppCompatActivity {
                     }
                 });
                 viewHolder.Clicked();
+                viewHolder.spinner_cart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        if(num1[0] !=1) {
+                            String item = parent.getItemAtPosition(position).toString();
+                            getRef(position1).child("amount").setValue(item);
+                        }
+
+                        else {
+                            num1[0]++;
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
                 viewHolder.cart_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -135,6 +157,10 @@ public class badgeLayout extends AppCompatActivity {
         mRcart.setAdapter(FBRA);
 
     }
+
+    public void PayMoney(View view) {
+    }
+
     public static class RecycleCart extends RecyclerView.ViewHolder{
         View mView;
         private Spinner spinner_cart;
@@ -143,9 +169,9 @@ public class badgeLayout extends AppCompatActivity {
         public RecycleCart(View itemView) {
             super(itemView);
             mView = itemView;
-        }
-        public void setTotal(){//ทำตรงนี้
             spinner_cart = (Spinner) mView.findViewById(R.id.spinner_product);
+        }
+        public void setTotal(){
             spinner_sel = spinner_cart.getSelectedItemPosition();
             String[] value = mView.getResources().getStringArray(R.array.Cost);
             cost = Integer.valueOf(value[spinner_sel]);

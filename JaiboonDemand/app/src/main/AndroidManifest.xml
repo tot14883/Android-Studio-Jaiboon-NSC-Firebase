@@ -61,11 +61,11 @@
         <activity android:name=".thingDonate" />
         <activity android:name=".post_activity.ChooseDonate" />
         <activity android:name=".ShopDonate.Main3Activity" />
-        <activity android:name=".ShopDonate.TabShop" />
-        <activity android:name=".ShopDonate.HomeDonate" />
         <activity android:name=".ShopDonate.DonateDetail" />
         <activity android:name=".must_product.NeedProduct" />
-        <activity android:name=".placenearby.Main4Activity"></activity>
+        <activity android:name=".placenearby.Main4Activity" />
+        <activity android:name=".Pay.PayActivity" />
+
     </application>
 
 </manifest>

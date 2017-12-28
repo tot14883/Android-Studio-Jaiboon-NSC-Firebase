@@ -3,23 +3,30 @@ package test.jaiboondemand;
 import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,10 +37,13 @@ import com.squareup.picasso.Picasso;
 
 import test.jaiboondemand.map.map_content;
 import test.jaiboondemand.must_product.NeedProduct;
+import test.jaiboondemand.post_activity.Comment;
 
 public class SingleInstaActivity extends AppCompatActivity {
     private  String post_key;
     private DatabaseReference mDatabase;
+    private DatabaseReference mDataUser;
+    private DatabaseReference mDatacomment;
     private ImageView singlePostImage;
     private TextView singlePostTitle,Local_text,text_Desc;
     private CollapsingToolbarLayout mCollapsing = null;
@@ -44,6 +54,8 @@ public class SingleInstaActivity extends AppCompatActivity {
     private Button btn_Donate;
     private ImageButton btn_local;
     private String user_id,Name;
+    private RecyclerView recyclerView;
+    private EditText mCommentEditTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +63,11 @@ public class SingleInstaActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         post_key = getIntent().getExtras().getString("PostID");
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
+        mDataUser = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatacomment = FirebaseDatabase.getInstance().getReference().child("Comment");
 
         singlePostTitle = (TextView) findViewById(R.id.Title);
         Local_text = (TextView) findViewById(R.id.localtion_text);
@@ -61,9 +76,22 @@ public class SingleInstaActivity extends AppCompatActivity {
         btn_Donate = (Button) findViewById(R.id.btn_donate);
         text_Desc = (TextView) findViewById(R.id.text_desc);
 
+        recyclerView = (RecyclerView) findViewById(R.id.comment_recycleview);
+
+
         mCollapsing = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
 
         mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() == null ){
+                    mCommentEditTextView.setVisibility(View.INVISIBLE);
+                    findViewById(R.id.iv_send).setVisibility(View.INVISIBLE);
+                    findViewById(R.id.card_comment).setVisibility(View.INVISIBLE);
+                }
+            }
+        };
 
         mDatabase.child(post_key).addValueEventListener(new ValueEventListener() {
             @Override
@@ -87,6 +115,7 @@ public class SingleInstaActivity extends AppCompatActivity {
 
             }
         });
+        mCommentEditTextView = (EditText) findViewById(R.id.et_comment);
     }
 
     public void searchlocaltion(View view) {
@@ -101,28 +130,66 @@ public class SingleInstaActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+        FirebaseRecyclerAdapter<Comment,CommentHolder> comentAdapter = new FirebaseRecyclerAdapter<Comment, CommentHolder>(
+                Comment.class,
+                R.layout.row_comment,
+                CommentHolder.class,
+                mDatabase
+        ) {
+            @Override
+            protected void populateViewHolder(CommentHolder viewHolder, Comment model, int position) {
+                viewHolder.setUsername(model.getUser());
+                viewHolder.setComment(model.getComment());
+                viewHolder.setTime(model.getTimeCreated());
+            }
+        };
+        recyclerView.setAdapter(comentAdapter);
 
-
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_single_insta,menu);
-        item = menu.findItem(R.id.action_delete);
-        if(!user_id.equals(mAuth.getUid())){
-            item.setVisible(false);
-        }
-        return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.action_delete){
-            mDatabase.child(post_key).removeValue();
-            Intent mainIntent = new Intent(this,Main2Activity.class);
-            startActivity(mainIntent);
-            Toast.makeText(SingleInstaActivity.this,"Delete Success",Toast.LENGTH_LONG).show();
+    public void CommentPost(View view) {//คอมเม้น Error
+
+        final String uid = mAuth.getCurrentUser().getUid();
+        final String strComment = mCommentEditTextView.getText().toString();
+        final DatabaseReference newPost = mDatacomment.push();
+        mDatacomment.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                  // newPost.child("user").child(uid);
+                   newPost.child("comment").child(strComment);
+                  // newPost.child("timeCreate").child()
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    public static class CommentHolder extends RecyclerView.ViewHolder{
+        TextView usernameTextView;
+        TextView timeTextView;
+        TextView commentTextView;
+
+        public CommentHolder(View itemView) {
+            super(itemView);
+            usernameTextView = (TextView) itemView.findViewById(R.id.tv_username);
+            timeTextView = (TextView) itemView.findViewById(R.id.tv_time);
+            commentTextView = (TextView) itemView.findViewById(R.id.tv_comment);
         }
-        return super.onOptionsItemSelected(item);
-    }*/
+        public void setUsername(String username){
+            usernameTextView.setText(username);
+        }
+        public void setTime(String time){
+            timeTextView.setText(time);
+        }
+        public void setComment(String comment){
+            commentTextView.setText(comment);
+        }
+    }
 }

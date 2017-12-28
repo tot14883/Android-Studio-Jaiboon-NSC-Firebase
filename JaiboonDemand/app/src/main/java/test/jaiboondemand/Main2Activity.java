@@ -41,6 +41,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import test.jaiboondemand.Nearby.NearbyActivity;
+
 public class Main2Activity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
@@ -186,6 +188,11 @@ public class Main2Activity extends AppCompatActivity {
                     FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
                     xfragmentTransaction.replace(R.id.containerView,new
                             UserPost()).commit();
+                }
+                if(menuItem.getItemId() == R.id.Nearby_place){
+                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.containerView,new
+                            NearbyActivity()).commit();
                 }
                 if(menuItem.getItemId() == R.id.add_deposit){
                     Intent intent = new Intent(Main2Activity.this,Shopdetail.class);
