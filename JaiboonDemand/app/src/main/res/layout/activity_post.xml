@@ -36,6 +36,29 @@
         android:layout_centerInParent="true"
         android:onClick="imageButtomClicked"
         android:id="@+id/imageButton1"/>
+    <!--<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editDesc"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerInParent="true"
+        android:onClick="imageButtomClicked"
+        android:id="@+id/imageButton1"
+        android:text="Select Images to Upload"
+       />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_image_post"
+        android:layout_below="@id/imageButton1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp">
+    </android.support.v7.widget.RecyclerView>
+-->
     <Button
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
