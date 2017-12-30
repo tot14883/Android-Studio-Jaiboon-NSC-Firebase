@@ -74,8 +74,8 @@ public class PostActivity extends AppCompatActivity {
        fileDoneList = new ArrayList<>();
        uploadListAdapter = new UploadListAdapter(fileDoneList);
       /* recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-       recyclerView.setHasFixedSize(true);
-       recyclerView.setAdapter(uploadListAdapter);*/
+         recyclerView.setHasFixedSize(true);
+         recyclerView.setAdapter(uploadListAdapter);*/
 
     }
 
@@ -141,7 +141,6 @@ public class PostActivity extends AppCompatActivity {
                     final Uri downloadurl = taskSnapshot.getDownloadUrl();
                     Toast.makeText(PostActivity.this, "Upload Complete", Toast.LENGTH_LONG).show();
                     final DatabaseReference newPost = databaseReference.push();
-
                     mDatabase.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -153,9 +152,12 @@ public class PostActivity extends AppCompatActivity {
                                 newPost.child("Name").setValue(dataSnapshot.child("Name_User").getValue());
                                 newPost.child("username").setValue(dataSnapshot.child("Name").getValue());
                                 newPost.child("image").setValue(downloadurl.toString());
-                                Intent mainActivityIntent = new Intent(PostActivity.this,ChooseDonate.class);
-                                startActivity(mainActivityIntent);
+                                String key = newPost.getKey();
+                                Intent ChooseDonate = new Intent(PostActivity.this,ChooseDonate.class);
+                                ChooseDonate.putExtra("Keypost",key);
+                                startActivity(ChooseDonate);
                                 finish();
+
                             }
                             else if(!dataSnapshot.child("Selected").exists()){
                                 Intent errorpost = new Intent(PostActivity.this,Main2Activity.class);

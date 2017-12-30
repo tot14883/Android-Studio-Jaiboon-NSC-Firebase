@@ -52,10 +52,12 @@ public class ChooseDonate extends AppCompatActivity {
     private DatabaseReference mDatauser;
     private RecyclerView recyclerView;
     private Button btn_add;
+    private String Key = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_donate);
+        Key = getIntent().getExtras().getString("Keypost");
         recyclerView = (RecyclerView) findViewById(R.id.choose_product);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(ChooseDonate.this));
@@ -65,6 +67,7 @@ public class ChooseDonate extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ChooseDonate.this,Main3Activity.class);
+                intent.putExtra("Keypost",Key);
                 startActivity(intent);
             }
         });
@@ -89,7 +92,7 @@ public class ChooseDonate extends AppCompatActivity {
                 NeedDonate.class,
                 R.layout.card_donate,
                 DonateHolder.class,
-                mDatadonate.orderByChild("uid").equalTo(mAuth.getUid())
+                mDatadonate.orderByChild("DonateProduct")
 
         ) {
             @Override

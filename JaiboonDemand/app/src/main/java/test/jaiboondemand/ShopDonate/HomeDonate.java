@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.vision.text.Text;
@@ -30,6 +31,7 @@ public class HomeDonate extends Fragment {
     View x;
     private RecyclerView mRecycler;
     private DatabaseReference mDatabase;
+    private String Key = null;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class HomeDonate extends Fragment {
         mRecycler.setLayoutManager(new GridLayoutManager(getActivity(),2));
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("ShopJaiboon");
+        Key = getActivity().getIntent().getExtras().getString("Keypost");
 
 
      return x;
@@ -65,6 +68,7 @@ public class HomeDonate extends Fragment {
                     public void onClick(View view) {
                         Intent shop_activity = new Intent(getActivity(),DonateDetail.class);
                         shop_activity.putExtra("PostID", post_key);
+                        shop_activity.putExtra("Keypost",Key);
                         startActivity(shop_activity);
                     }
                 });

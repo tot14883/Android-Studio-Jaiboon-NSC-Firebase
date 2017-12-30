@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 
 import com.facebook.FacebookSdk;
 
+import java.security.Key;
+
 import test.jaiboondemand.R;
 
 
@@ -20,6 +22,7 @@ public class Main3Activity extends AppCompatActivity {
     NavigationView mNavigationView;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
+    private String Key = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +30,7 @@ public class Main3Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);//Command find id Toolbar to our set
         setSupportActionBar(toolbar);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
-
+        Key = getIntent().getExtras().getString("Keypost");
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout1);

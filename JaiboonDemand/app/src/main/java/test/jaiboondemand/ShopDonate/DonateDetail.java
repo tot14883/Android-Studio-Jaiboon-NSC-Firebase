@@ -35,11 +35,13 @@ public class DonateDetail extends AppCompatActivity {
     private DatabaseReference mDatedonate;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String pro_name,pro_desc,pro_price,pro_image;
+    private String Key = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donate_detail);
         String post_key = getIntent().getExtras().getString("PostID");
+        Key = getIntent().getExtras().getString("Keypost");
 
         ProductImage =(ImageView) findViewById(R.id.show_product1);
         productName = (TextView) findViewById(R.id.text_name_product1);
@@ -52,6 +54,7 @@ public class DonateDetail extends AppCompatActivity {
         mDatabase.keepSynced(true);
 
         mDatedonate = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
+        mData = FirebaseDatabase.getInstance().getReference().child("DonateProduct");
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -98,14 +101,16 @@ public class DonateDetail extends AppCompatActivity {
         mAuth.addAuthStateListener(mAuthListener);
     }
     public void donateClicked(View view) {
-        final String user_id = mAuth.getCurrentUser().getUid();
-        final DatabaseReference newPost = mDatedonate.push();
+        final DatabaseReference newPost = mData.push();
+        final String post = newPost.push().getKey();
         mDatedonate.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                newPost.child("namedonate").setValue(pro_name);
-                newPost.child("pricedonate").setValue(pro_price);
-                newPost.child("imagedonate").setValue(pro_image);
+               mDatedonate.child(Key).child("DonateProduct").child(post).child("namedonate").setValue(pro_name);
+               mDatedonate.child(Key).child("DonateProduct").child(post).child("pricedonate").setValue(pro_price);
+               mDatedonate.child(Key).child("DonateProduct").child(post).child("imagedonate").setValue(pro_image);
+               mDatedonate.child(Key).child("DonateProduct").child(post).child("Key_Post").setValue(Key);
+
 
                 Toast.makeText(DonateDetail.this,"Add into Cart",Toast.LENGTH_LONG).show();
             }
@@ -115,6 +120,7 @@ public class DonateDetail extends AppCompatActivity {
             }
         });
         Intent intent = new Intent(DonateDetail.this, ChooseDonate.class);
+        intent.putExtra("Keypost",Key);
         startActivity(intent);
         finish();
     }
