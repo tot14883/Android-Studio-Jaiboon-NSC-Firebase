@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 
 public class Shopdetail extends AppCompatActivity {
     private String post_key = null;
-    private DatabaseReference mDatedonate;
+    private DatabaseReference mDataUsers;
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabaseUsers;
     private DatabaseReference mDatapush;
@@ -40,7 +40,7 @@ public class Shopdetail extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("ShopJaiboon");
         mDatabase.keepSynced(true);
 
-        mDatedonate = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
+        mDataUsers = FirebaseDatabase.getInstance().getReference().child("Users");
 
         ProductImage =(ImageView) findViewById(R.id.show_product);
         productName = (TextView) findViewById(R.id.text_name_product);

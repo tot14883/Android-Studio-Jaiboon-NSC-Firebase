@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="test.jaiboondemand">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -64,8 +66,10 @@
         <activity android:name=".ShopDonate.DonateDetail" />
         <activity android:name=".must_product.NeedProduct" />
         <activity android:name=".placenearby.Main4Activity" />
-        <activity android:name=".Pay.PayActivity" />
-
+        <activity android:name=".Pay.PayMoney" />
+        <activity android:name=".Pay.PayChoose" />
+        <activity android:name=".Pay.PayCashDelivery" />
+        <activity android:name=".Pay.PlaceSend"></activity>
     </application>
 
 </manifest>

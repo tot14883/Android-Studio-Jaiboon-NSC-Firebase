@@ -33,16 +33,18 @@ public class NeedProduct extends AppCompatActivity {
     private DatabaseReference mDatabaseshow;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private String post_key;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_need_product);
+        post_key = getIntent().getExtras().getString("PostID");
         mRcart = (RecyclerView) findViewById(R.id.recycle_need_donate);
         mRcart.setHasFixedSize(true);
         mRcart.setLayoutManager(new LinearLayoutManager(this));
 
         pricedonate = (TextView) findViewById(R.id.total_price_donate) ;
 
-        mDatabase  = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
+        mDatabase  = FirebaseDatabase.getInstance().getReference().child("Jaiboon").child(post_key);
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -56,18 +58,22 @@ public class NeedProduct extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+        pricedonate.setText("0");
+        final int[] price = {0};
         FirebaseRecyclerAdapter<NeedDonate,recycleDonate> FBRA = new FirebaseRecyclerAdapter<NeedDonate, recycleDonate>(
                 NeedDonate.class,
                 R.layout.card_donate,
                 recycleDonate.class,
-                mDatabase//ตรงนี้
+                mDatabase.child("DonateProduct")//ตรงนี้
         ) {
             @Override
             protected void populateViewHolder(recycleDonate viewHolder, NeedDonate model, int position) {
 
                 viewHolder.setTitle(model.getNamedonate());
                 viewHolder.setPrice(model.getPricedonate());
+                price[0] = price[0] + Integer.valueOf(model.getPricedonate());
                 viewHolder.setImage(getApplicationContext(), model.getImagedonate());
+                pricedonate.setText(String.valueOf(price[0]));
             }
         };
         mRcart.setAdapter(FBRA);

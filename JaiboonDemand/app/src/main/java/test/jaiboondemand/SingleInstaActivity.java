@@ -126,6 +126,7 @@ public class SingleInstaActivity extends AppCompatActivity {
 
     public void ShowdonateClicked(View view) {
         Intent needDonate = new Intent(SingleInstaActivity.this, NeedProduct.class);
+        needDonate.putExtra("PostID",post_key);
         startActivity(needDonate);
 
     }

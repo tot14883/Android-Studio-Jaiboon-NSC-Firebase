@@ -28,6 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import test.jaiboondemand.Pay.PayMoney;
+
 public class badgeLayout extends AppCompatActivity {
     private RecyclerView mRcart;
     private DatabaseReference mDatabase;
@@ -53,17 +55,22 @@ public class badgeLayout extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child("priceproduct").exists()){
                 Integer[] total_price = {0};
-                for(DataSnapshot d : dataSnapshot.getChildren()){
-                    if(d.child("uid").getValue().equals(mAuth.getCurrentUser().getUid())){
+                for(DataSnapshot d : dataSnapshot.getChildren()) {
+                    if (d.child("uid").getValue().equals(mAuth.getCurrentUser().getUid())) {
                         String Total_price = (String) String.valueOf(d.child("priceproduct").getValue());
                         String amount = (String) String.valueOf(d.child("amount").getValue());
-                        total_price[0] = (total_price[0] + Integer.parseInt(Total_price)*Integer.parseInt(amount));
+                        total_price[0] = (total_price[0] + Integer.parseInt(Total_price) * Integer.parseInt(amount));
 
                     }
-
                 }
-                  total_cart.setText(String.valueOf(total_price[0]));
+                    total_cart.setText(String.valueOf(total_price[0]));
+                }
+                else if(!dataSnapshot.child("priceproduct").exists()){
+                    total_cart.setText("0");
+                }
+
             }
 
             @Override
@@ -159,6 +166,8 @@ public class badgeLayout extends AppCompatActivity {
     }
 
     public void PayMoney(View view) {
+       Intent intent = new Intent(badgeLayout.this, PayMoney.class);
+       startActivity(intent);
     }
 
     public static class RecycleCart extends RecyclerView.ViewHolder{
