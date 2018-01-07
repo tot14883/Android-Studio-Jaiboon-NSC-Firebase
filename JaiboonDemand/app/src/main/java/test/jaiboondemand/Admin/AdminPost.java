@@ -1,4 +1,4 @@
-package test.jaiboondemand;
+package test.jaiboondemand.Admin;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -18,6 +18,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import test.jaiboondemand.Main2Activity;
+import test.jaiboondemand.R;
 
 public class AdminPost extends AppCompatActivity {
     private EditText title,count,price;

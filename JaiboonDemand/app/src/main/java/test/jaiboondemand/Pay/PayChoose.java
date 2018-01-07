@@ -22,8 +22,13 @@ public class PayChoose extends AppCompatActivity {
     }
 
     public void btnPaypal(View view) {
+        Intent intent = new Intent(PayChoose.this,PayPalCart.class);
+        startActivity(intent);
+
     }
 
     public void btnBank(View view) {
+        Intent intent = new Intent(PayChoose.this,PayBank.class);
+        startActivity(intent);
     }
 }

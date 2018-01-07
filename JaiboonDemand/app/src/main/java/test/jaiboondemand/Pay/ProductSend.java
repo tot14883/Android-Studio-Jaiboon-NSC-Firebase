@@ -5,13 +5,13 @@ package test.jaiboondemand.Pay;
  */
 
 public class ProductSend {
-   private String imageproduct,nameproduct,numproduct,priceproduct;
+   private String imageproduct,nameproduct,priceproduct,amount;
     public ProductSend(){
     }
-    public ProductSend(String imageproduct,String nameproduct,String numproduct,String priceproduct){
+    public ProductSend(String imageproduct,String nameproduct,String amount,String priceproduct){
         this.imageproduct = imageproduct;
         this.nameproduct = nameproduct;
-        this.numproduct = numproduct;
+        this.amount = amount;
         this.priceproduct = priceproduct;
     }
 
@@ -27,8 +27,8 @@ public class ProductSend {
         return imageproduct;
     }
 
-    public String getNumproduct() {
-        return numproduct;
+    public String getAmount() {
+        return amount;
     }
 
     public void setPriceproduct(String priceproduct) {
@@ -43,7 +43,7 @@ public class ProductSend {
         this.imageproduct = imageproduct;
     }
 
-    public void setNumproduct(String numproduct) {
-        this.numproduct = numproduct;
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 }

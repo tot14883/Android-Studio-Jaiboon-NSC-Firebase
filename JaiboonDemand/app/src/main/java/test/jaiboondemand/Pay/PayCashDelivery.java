@@ -134,13 +134,17 @@ public class PayCashDelivery extends AppCompatActivity {
             protected void populateViewHolder(PayCashViewHolder viewHolder, ProductSend model, int position) {
                      viewHolder.setName(model.getNameproduct());
                      viewHolder.setImage(getApplicationContext(),model.getImageproduct());
-                     viewHolder.setprice(model.getPriceproduct());
-                     viewHolder.setAmout(model.getNumproduct());
+                     viewHolder.setprice("ราคาชิ้นละ "+model.getPriceproduct());
+                     viewHolder.setAmout("จำนวน "+model.getAmount()+" ชิ้น");
             }
         };
         recyclerView.setAdapter(adapter);
         mAuth.addAuthStateListener(mAuthListener);
     }
+
+    public void btnCashsend(View view) {
+    }
+
     public static class PayCashViewHolder extends RecyclerView.ViewHolder{
         View mView;
         public PayCashViewHolder(View itemView) {
@@ -177,8 +181,8 @@ public class PayCashDelivery extends AppCompatActivity {
                           String country = (String)dataSnapshot.child("Country_Cus").getValue();
                           String Phone = (String)dataSnapshot.child("Phone_Cus").getValue();
                           text_Name.setText(post_name);
-                          text_Phone.setText(Phone);
-                          text_Address.setText(address+"\n"+post+"\n"+country);
+                          text_Phone.setText("เบอร์โทร"+Phone);
+                          text_Address.setText("ที่อยู่"+address+"\n"+"รหัสไปรษณีย์"+post+"\n"+"จังหวัด"+country);
                       }
                       if(dataSnapshot.child("Selected").getValue().equals("Temple")){
                           String post_name = (String)dataSnapshot.child("Name_User").getValue();

@@ -77,6 +77,8 @@ public class SingleInstaActivity extends AppCompatActivity {
         text_Desc = (TextView) findViewById(R.id.text_desc);
 
         recyclerView = (RecyclerView) findViewById(R.id.comment_recycleview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(SingleInstaActivity.this));
+        recyclerView.hasFixedSize();
 
 
         mCollapsing = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
@@ -157,12 +159,13 @@ public class SingleInstaActivity extends AppCompatActivity {
         final String uid = mAuth.getCurrentUser().getUid();
         final String strComment = mCommentEditTextView.getText().toString();
         final DatabaseReference newPost = mDatacomment.push();
-        mDatacomment.addValueEventListener(new ValueEventListener() {
+        final String comment_key = newPost.push().getKey();
+        mDatabase .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                  // newPost.child("user").child(uid);
-                   newPost.child("comment").child(strComment);
-                  // newPost.child("timeCreate").child()
+                mDatabase.child(post_key).child("Comment").child(comment_key).child("comment").setValue(strComment);
+                mDatabase.child(post_key).child("Comment").child(comment_key).child("User").setValue(uid);
+                mDatabase.child(post_key).child("Comment").child(comment_key).child("timeCreated").setValue(System.currentTimeMillis());
             }
 
             @Override

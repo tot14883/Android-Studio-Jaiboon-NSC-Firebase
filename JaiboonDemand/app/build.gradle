@@ -53,5 +53,6 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.google.code.gson:gson:2.7'
     compile 'io.nlopez.smartlocation:library:3.3.1'
+    compile 'com.paypal.sdk:paypal-android-sdk:2.15.3'
 }
 apply plugin: 'com.google.gms.google-services'

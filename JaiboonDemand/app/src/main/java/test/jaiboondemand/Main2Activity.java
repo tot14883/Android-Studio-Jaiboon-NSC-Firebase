@@ -1,10 +1,8 @@
 package test.jaiboondemand;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -15,24 +13,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.android.gms.auth.api.Auth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,7 +34,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import test.jaiboondemand.Admin.AdminManager;
+import test.jaiboondemand.Admin.AdminNews;
+import test.jaiboondemand.Admin.AdminPost;
+import test.jaiboondemand.Deposit.DepositMain;
 import test.jaiboondemand.Nearby.NearbyActivity;
+import test.jaiboondemand.News.NewsMain;
 
 public class Main2Activity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
@@ -194,9 +192,15 @@ public class Main2Activity extends AppCompatActivity {
                     xfragmentTransaction.replace(R.id.containerView,new
                             NearbyActivity()).commit();
                 }
+                if(menuItem.getItemId() == R.id.news){
+                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.containerView,new
+                            NewsMain()).commit();
+                }
                 if(menuItem.getItemId() == R.id.add_deposit){
-                    Intent intent = new Intent(Main2Activity.this,Shopdetail.class);
-                    startActivity(intent);
+                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.containerView,new
+                            DepositMain()).commit();
 
                 }
                 if(menuItem.getItemId()== R.id.my_account) {
@@ -294,7 +298,11 @@ public class Main2Activity extends AppCompatActivity {
                      startActivity(intent);
                 }
                 if (menuItem.getItemId() == R.id.my_manager_admin){}
-                if(menuItem.getItemId() == R.id.my_post_Admin){}
+                if(menuItem.getItemId() == R.id.my_post_Admin){
+                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.containerView,new
+                            AdminManager()).commit();
+                }
                 return false;
             }
 

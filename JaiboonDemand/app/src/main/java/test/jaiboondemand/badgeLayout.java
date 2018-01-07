@@ -126,6 +126,7 @@ public class badgeLayout extends AppCompatActivity {
                         if(num1[0] !=1) {
                             String item = parent.getItemAtPosition(position).toString();
                             getRef(position1).child("amount").setValue(item);
+
                         }
 
                         else {

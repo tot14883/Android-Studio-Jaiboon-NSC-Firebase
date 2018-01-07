@@ -7,6 +7,10 @@
     <item android:id="@+id/Shopping_list"
         android:title="Shop"
         android:icon="@drawable/shopping"/>
+    <item android:id="@+id/news"
+        android:title="News"
+        android:icon="@drawable/ic_import_contacts_black_24dp"
+        />
     <item android:title="Deposit"
         android:id="@+id/add_deposit"
         android:icon="@drawable/ic_add_box_black_24dp"

@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-feature android:name="android.hardware.camera" android:required="true"/>
 
     <application
         android:name=".offline.SimpleBlog"
@@ -49,8 +50,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".Forget_Account" />
-        <activity android:name=".AdminManager" />
-        <activity android:name=".AdminPost" />
+        <activity android:name=".Admin.AdminPost" />
         <activity android:name=".Shopdetail" />
         <activity
             android:name=".CateGoryUser"
@@ -69,7 +69,13 @@
         <activity android:name=".Pay.PayMoney" />
         <activity android:name=".Pay.PayChoose" />
         <activity android:name=".Pay.PayCashDelivery" />
-        <activity android:name=".Pay.PlaceSend"></activity>
+        <activity android:name=".Pay.PlaceSend" />
+        <activity android:name=".Pay.PayBank" />
+        <activity android:name=".Pay.PayBankEvidence" />
+        <activity android:name=".Deposit.DepositPost" />
+        <activity android:name=".Admin.AdminNews" />
+        <activity android:name=".News.NewsDetail" />
+        <activity android:name=".Pay.PayPalCart"/>
     </application>
 
 </manifest>
