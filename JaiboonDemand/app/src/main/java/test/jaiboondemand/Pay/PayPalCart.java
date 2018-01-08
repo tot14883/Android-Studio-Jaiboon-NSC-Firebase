@@ -39,7 +39,7 @@ public class PayPalCart extends AppCompatActivity {
     PayPalConfiguration m_configuration;
     String m_paypalClientId = "AcK1v_UJFjSusJgC0PqqwmDAHltZgZx34HsWp7O_3sch19tTr27yy5C-lC075s7B47PVFLI6vfxRgpOf";
     Intent m_service;
-    int m_paypalRequestCode = 1000000;
+    int m_paypalRequestCode = 999;
     private Integer[] total_price = {0};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
