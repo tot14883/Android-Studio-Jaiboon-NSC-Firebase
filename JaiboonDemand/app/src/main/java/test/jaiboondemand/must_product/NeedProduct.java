@@ -1,6 +1,7 @@
 package test.jaiboondemand.must_product;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -45,7 +46,6 @@ public class NeedProduct extends AppCompatActivity {
         pricedonate = (TextView) findViewById(R.id.total_price_donate) ;
 
         mDatabase  = FirebaseDatabase.getInstance().getReference().child("Jaiboon").child(post_key);
-
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -62,7 +62,7 @@ public class NeedProduct extends AppCompatActivity {
         final int[] price = {0};
         FirebaseRecyclerAdapter<NeedDonate,recycleDonate> FBRA = new FirebaseRecyclerAdapter<NeedDonate, recycleDonate>(
                 NeedDonate.class,
-                R.layout.card_donate,
+                R.layout.card_need_donate,
                 recycleDonate.class,
                 mDatabase.child("DonateProduct")//ตรงนี้
         ) {
@@ -71,9 +71,10 @@ public class NeedProduct extends AppCompatActivity {
 
                 viewHolder.setTitle(model.getNamedonate());
                 viewHolder.setPrice(model.getPricedonate());
-                price[0] = price[0] + Integer.valueOf(model.getPricedonate());
+                price[0] = (price[0] + Integer.valueOf(model.getPricedonate())*Integer.valueOf(model.getAmountdonate()));
                 viewHolder.setImage(getApplicationContext(), model.getImagedonate());
                 pricedonate.setText(String.valueOf(price[0]));
+                viewHolder.setAmount(model.getAmountdonate());
             }
         };
         mRcart.setAdapter(FBRA);
@@ -86,18 +87,25 @@ public class NeedProduct extends AppCompatActivity {
             mView = itemView;
         }
         public void setTitle(String title){
-            TextView Title = (TextView) mView.findViewById(R.id.Name_donate);
+            TextView Title = (TextView) mView.findViewById(R.id.Name_donate_need);
             Title.setText(title);
         }
         public void setPrice(String price){
-            TextView Price = (TextView) mView.findViewById(R.id.Price_Donate);
-            Price.setText(price);
+            TextView Price = (TextView) mView.findViewById(R.id.Price_Donate_need);
+            Price.setText("ราคา "+price+" บาท");
         }
         public void setImage(Context ctx, String image){
-            ImageView img_product = (ImageView) mView.findViewById(R.id.Product_donate);
+            ImageView img_product = (ImageView) mView.findViewById(R.id.Product_donate_need);
             Picasso.with(ctx).load(image).into(img_product);
+        }
+        public void setAmount(String amount){
+            TextView amount_need = (TextView) mView.findViewById(R.id.text_need_amount);
+            amount_need.setText(amount);
         }
     }
     public void Donate_Click(View view) {
+        Intent intent = new Intent(NeedProduct.this,NeedDonateSend.class);
+        intent.putExtra("post_key", post_key);
+        startActivity(intent);
     }
 }

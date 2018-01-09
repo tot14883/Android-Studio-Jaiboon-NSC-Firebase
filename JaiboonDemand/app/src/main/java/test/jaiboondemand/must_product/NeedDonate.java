@@ -5,14 +5,19 @@ package test.jaiboondemand.must_product;
  */
 
 public class NeedDonate {
-    private String namedonate,pricedonate,imagedonate;
+    private String namedonate,pricedonate,imagedonate,amountdonate;
     public NeedDonate(){
 
     }
-    public NeedDonate(String namedonate,String pricedonate,String imagedonate){
+    public NeedDonate(String namedonate,String pricedonate,String imagedonate,String amountdonate){
         this.namedonate = namedonate;
         this.pricedonate = pricedonate;
         this.imagedonate = imagedonate;
+        this.amountdonate = amountdonate;
+    }
+
+    public void setAmountdonate(String amountdonate) {
+        this.amountdonate = amountdonate;
     }
 
     public void setImagedonate(String imagedonate) {
@@ -25,6 +30,10 @@ public class NeedDonate {
 
     public void setPricedonate(String pricedonate) {
         this.pricedonate = pricedonate;
+    }
+
+    public String getAmountdonate() {
+        return amountdonate;
     }
 
     public String getImagedonate() {

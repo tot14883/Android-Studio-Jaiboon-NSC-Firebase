@@ -37,7 +37,7 @@ public class PayPalCart extends AppCompatActivity {
     private TextView text_total;
     private RecyclerView recyclerView;
     PayPalConfiguration m_configuration;
-    String m_paypalClientId = "AcK1v_UJFjSusJgC0PqqwmDAHltZgZx34HsWp7O_3sch19tTr27yy5C-lC075s7B47PVFLI6vfxRgpOf";
+    String m_paypalClientId = "Ab0dogu8OZ54G7JfM5Q2QB9l3DTbYQdt9VPr1YNXlfsWx2oxN3AkR7gQMUuG6_ZJz_4e-x37V96G7ER7";
     Intent m_service;
     int m_paypalRequestCode = 999;
     private Integer[] total_price = {0};
@@ -142,7 +142,7 @@ public class PayPalCart extends AppCompatActivity {
     }
 
     public void Paypal(View view) {
-        PayPalPayment cart = new PayPalPayment(new BigDecimal(String.valueOf(total_price[0])),"Bath","Cary"
+        PayPalPayment cart = new PayPalPayment(new BigDecimal(total_price[0]),"THB","Cary"
         ,PayPalPayment.PAYMENT_INTENT_SALE);
         Intent intent = new Intent(this,PaymentActivity.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,m_configuration);

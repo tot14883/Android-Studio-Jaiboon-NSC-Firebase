@@ -12,7 +12,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:name=".offline.SimpleBlog"
@@ -75,7 +78,9 @@
         <activity android:name=".Deposit.DepositPost" />
         <activity android:name=".Admin.AdminNews" />
         <activity android:name=".News.NewsDetail" />
-        <activity android:name=".Pay.PayPalCart"/>
+        <activity android:name=".Pay.PayPalCart" />
+        <activity android:name=".must_product.NeedDonateSend" />
+        <activity android:name=".must_product.NeedChoosePay"></activity>
     </application>
 
 </manifest>

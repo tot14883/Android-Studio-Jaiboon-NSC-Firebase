@@ -151,6 +151,9 @@ public class PostActivity extends AppCompatActivity {
                                 newPost.child("Type").setValue(dataSnapshot.child("Selected").getValue());
                                 newPost.child("Name").setValue(dataSnapshot.child("Name_User").getValue());
                                 newPost.child("username").setValue(dataSnapshot.child("Name").getValue());
+                                newPost.child("address").setValue(dataSnapshot.child("Address").getValue());
+                                newPost.child("post").setValue(dataSnapshot.child("Post").getValue());
+                                newPost.child("country").setValue(dataSnapshot.child("Country").getValue());
                                 newPost.child("image").setValue(downloadurl.toString());
                                 String key = newPost.getKey();
                                 Intent ChooseDonate = new Intent(PostActivity.this,ChooseDonate.class);
