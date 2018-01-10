@@ -69,6 +69,7 @@ public class badgeLayout extends AppCompatActivity {
                 }
                 else if(!dataSnapshot.child("priceproduct").exists()){
                     total_cart.setText("0");
+                    Toast.makeText(badgeLayout.this,"not",Toast.LENGTH_LONG).show();
                 }
 
             }

@@ -143,6 +143,7 @@ public class PayCashDelivery extends AppCompatActivity {
     }
 
     public void btnCashsend(View view) {
+
     }
 
     public static class PayCashViewHolder extends RecyclerView.ViewHolder{
@@ -169,7 +170,6 @@ public class PayCashDelivery extends AppCompatActivity {
         }
     }
     public void ShowInfomation(){
-
         mDatabase.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

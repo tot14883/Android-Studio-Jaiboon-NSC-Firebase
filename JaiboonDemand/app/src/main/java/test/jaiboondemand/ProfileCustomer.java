@@ -165,16 +165,16 @@ public class ProfileCustomer extends AppCompatActivity {
         final String Post_Cus = post_cus.getText().toString().trim();
         final String Country_Cus = country_cus.getText().toString().trim();
         final String Phone_Cus = phone_cus.getText().toString().trim();
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    databaseReference.child(user_id).child("Name_Cus").setValue(Name_Cus);
-                    databaseReference.child(user_id).child("Birthday").setValue(Birthday);
-                    databaseReference.child(user_id).child("Address_Cus").setValue(Address_Cus);
-                    databaseReference.child(user_id).child("Post_Cus").setValue(Post_Cus);
-                    databaseReference.child(user_id).child("Country_Cus").setValue(Country_Cus);
-                     databaseReference.child(user_id).child("Phone_Cus").setValue(Phone_Cus);
-                    databaseReference.child(user_id).child("Selected").setValue("Customer");
+                   dataSnapshot.getRef().child(user_id).child("Name_Cus").setValue(Name_Cus);
+                    dataSnapshot.getRef().child(user_id).child("Birthday").setValue(Birthday);
+                    dataSnapshot.getRef().child(user_id).child("Address_Cus").setValue(Address_Cus);
+                    dataSnapshot.getRef().child(user_id).child("Post_Cus").setValue(Post_Cus);
+                    dataSnapshot.getRef().child(user_id).child("Country_Cus").setValue(Country_Cus);
+                    dataSnapshot.getRef().child(user_id).child("Phone_Cus").setValue(Phone_Cus);
+                    dataSnapshot.getRef().child(user_id).child("Selected").setValue("Customer");
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
