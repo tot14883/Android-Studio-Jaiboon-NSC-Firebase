@@ -1,6 +1,7 @@
 package test.jaiboondemand.Pay;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,10 @@ public class PayBank extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private TextView textView;
+    private DatabaseReference mDatasend;
+    private String txt_price="";
+    private String text="รายการสั่งซื้อสินค้าทั้งหมด\n"+txt_price;
+    private String user_Name,user_Address,user_Phone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +50,16 @@ public class PayBank extends AppCompatActivity {
                 for(DataSnapshot d: dataSnapshot.getChildren()) {
                     if (d.child("uid").getValue().equals(mAuth.getCurrentUser().getUid())) {
                         String Total_price = (String) String.valueOf(d.child("priceproduct").getValue());
+                        String name_price = (String) String.valueOf(d.child("nameproduct").getValue());
                         String amount = (String) String.valueOf(d.child("amount").getValue());
-                        total_price[0] = (total_price[0] + Integer.parseInt(Total_price) * Integer.parseInt(amount));
+                        int price =Integer.parseInt(Total_price)*Integer.parseInt(amount);
+                        total_price[0] = (total_price[0] + price);
+                        txt_price+="- "+name_price+" ราคา "+Total_price +" บาท จำนวน "+amount+" ชิ้น รวม "+String.valueOf(price)+" บาท\n";
+
                     }
                 }
                 textView.setText(String.valueOf(total_price[0]));
+                txt_price+="ราคารวม\t"+String.valueOf(total_price[0])+" บาท";
             }
 
             @Override
@@ -57,12 +67,14 @@ public class PayBank extends AppCompatActivity {
 
             }
         });
-
+        mDatasend = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
+                 if (firebaseAuth.getCurrentUser() != null){
+                     ShowInfomation();
+                 }
             }
         };
     }
@@ -88,6 +100,16 @@ public class PayBank extends AppCompatActivity {
         };
         recyclerView.setAdapter(adapter);
     }
+
+    public void Evidence(View view) {
+        Intent intent = new Intent(PayBank.this,PayBankEvidence.class);
+        intent.putExtra("Name",user_Name);
+        intent.putExtra("Address",user_Address);
+        intent.putExtra("Phone",user_Phone);
+        intent.putExtra("Text",text);
+        startActivity(intent);
+    }
+
     public static class PayBankViewHolder extends RecyclerView.ViewHolder{
         View mView;
         public PayBankViewHolder(View itemView) {
@@ -111,4 +133,50 @@ public class PayBank extends AppCompatActivity {
             Picasso.with(ctx).load(image).into(post_image);
         }
     }
+    public void ShowInfomation(){
+
+        mDatasend.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child("Selected").exists()){
+                    if(dataSnapshot.child("Selected").getValue().equals("Customer")){
+                        String post_name = (String)dataSnapshot.child("Name_Cus").getValue();
+                        String address = (String)dataSnapshot.child("Address_Cus").getValue();
+                        String post = (String)dataSnapshot.child("Post_Cus").getValue();
+                        String country = (String)dataSnapshot.child("Country_Cus").getValue();
+                        String Phone = (String)dataSnapshot.child("Phone_Cus").getValue();
+                        user_Name = post_name;
+                        user_Phone = Phone;
+                        user_Address = address+"\n"+post+"\n"+country;
+                    }
+                    if(dataSnapshot.child("Selected").getValue().equals("Temple")){
+                        String post_name = (String)dataSnapshot.child("Name_User").getValue();
+                        String address = (String)dataSnapshot.child("Address").getValue();
+                        String post = (String)dataSnapshot.child("Post").getValue();
+                        String country = (String)dataSnapshot.child("Country").getValue();
+                        String Phone = (String)dataSnapshot.child("Phone").getValue();
+                        user_Name = post_name;
+                        user_Phone = Phone;
+                        user_Address = address+"\n"+post+"\n"+country;
+                    }
+                    if(dataSnapshot.child("Selected").getValue().equals("Foundation")){
+                        String post_name = (String)dataSnapshot.child("Name_User").getValue();
+                        String address = (String)dataSnapshot.child("Address").getValue();
+                        String post = (String)dataSnapshot.child("Post").getValue();
+                        String country = (String)dataSnapshot.child("Country").getValue();
+                        String Phone = (String)dataSnapshot.child("Phone").getValue();
+                        user_Name = post_name;
+                        user_Phone = Phone;
+                        user_Address = address+"\n"+post+"\n"+country;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

@@ -55,23 +55,19 @@ public class badgeLayout extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child("priceproduct").exists()){
                 Integer[] total_price = {0};
                 for(DataSnapshot d : dataSnapshot.getChildren()) {
+                    if(d.child("priceproduct").exists()){
                     if (d.child("uid").getValue().equals(mAuth.getCurrentUser().getUid())) {
                         String Total_price = (String) String.valueOf(d.child("priceproduct").getValue());
                         String amount = (String) String.valueOf(d.child("amount").getValue());
                         total_price[0] = (total_price[0] + Integer.parseInt(Total_price) * Integer.parseInt(amount));
-
+                    }
+                    else if(!d.child("priceproduct").exists()){
+                    }
                     }
                 }
                     total_cart.setText(String.valueOf(total_price[0]));
-                }
-                else if(!dataSnapshot.child("priceproduct").exists()){
-                    total_cart.setText("0");
-                    Toast.makeText(badgeLayout.this,"not",Toast.LENGTH_LONG).show();
-                }
-
             }
 
             @Override

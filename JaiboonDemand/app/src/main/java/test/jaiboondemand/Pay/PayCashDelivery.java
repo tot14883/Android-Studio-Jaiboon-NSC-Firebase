@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +38,7 @@ public class PayCashDelivery extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private RecyclerView recyclerView;
     private DatabaseReference mDataSend;
+    private String txt_price="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +61,16 @@ public class PayCashDelivery extends AppCompatActivity {
                for(DataSnapshot d: dataSnapshot.getChildren()){
                    if (d.child("uid").getValue().equals(mAuth.getCurrentUser().getUid())){
                        String Total_price = (String) String.valueOf(d.child("priceproduct").getValue());
+                       String name_price = (String) String.valueOf(d.child("nameproduct").getValue());
                        String amount = (String) String.valueOf(d.child("amount").getValue());
-                       total_price[0] = (total_price[0]+Integer.parseInt(Total_price)*Integer.parseInt(amount));
+                       int price =Integer.parseInt(Total_price)*Integer.parseInt(amount);
+                       total_price[0] = (total_price[0]+price);
+                       txt_price+="- "+name_price+" ราคา "+Total_price +" บาท จำนวน "+amount+" ชิ้น รวม "+String.valueOf(price)+" บาท\n";
                    }
                }
                text_total.setText(String.valueOf(total_price[0]));
+                txt_price+="ราคารวม\t"+String.valueOf(total_price[0])+" บาท";
+
             }
 
             @Override
@@ -143,6 +150,33 @@ public class PayCashDelivery extends AppCompatActivity {
     }
 
     public void btnCashsend(View view) {
+        EmailSetting getemail = new EmailSetting();
+        String email = mAuth.getCurrentUser().getEmail();
+        final String Subject,text;
+        Subject="แจ้งรายการสั่งซื้อสินค้า";
+        text="รายการสั่งซื้อสินค้าทั้งหมด\n"+txt_price;
+        BackgroundMail send = BackgroundMail.newBuilder(getApplicationContext())
+                .withUsername(getemail.Username)
+                .withPassword(getemail.Password)
+                .withSenderName("JaiboonDemand")
+                .withMailTo(email)
+                .withType(BackgroundMail.TYPE_PLAIN)
+                .withSubject(Subject)
+                .withBody(text)
+                .withProcessVisibility(false)
+                .withOnSuccessCallback(new BackgroundMail.OnSuccessCallback() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getApplicationContext(),"เรียบร้อย กรุณาตรวจสอบอีเมลของท่าน",Toast.LENGTH_LONG);
+                    }
+                })
+                .withOnFailCallback(new BackgroundMail.OnFailCallback() {
+                    @Override
+                    public void onFail() {
+
+                    }
+                })
+                .send();
 
     }
 
