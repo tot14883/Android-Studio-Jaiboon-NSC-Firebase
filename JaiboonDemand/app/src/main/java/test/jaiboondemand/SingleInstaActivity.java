@@ -45,14 +45,13 @@ public class SingleInstaActivity extends AppCompatActivity {
     private DatabaseReference mDataUser;
     private DatabaseReference mDatacomment;
     private ImageView singlePostImage;
-    private TextView singlePostTitle,Local_text,text_Desc;
+    private TextView singlePostTitle,Local_text,text_Desc,local_address;
     private CollapsingToolbarLayout mCollapsing = null;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
     private MenuItem item;
     private  Toolbar toolbar;
     private Button btn_Donate;
-    private ImageButton btn_local;
     private String user_id,Name;
     private RecyclerView recyclerView;
     private EditText mCommentEditTextView;
@@ -62,7 +61,8 @@ public class SingleInstaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_insta);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         post_key = getIntent().getExtras().getString("PostID");
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
@@ -71,10 +71,10 @@ public class SingleInstaActivity extends AppCompatActivity {
 
         singlePostTitle = (TextView) findViewById(R.id.Title);
         Local_text = (TextView) findViewById(R.id.localtion_text);
-        btn_local = (ImageButton) findViewById(R.id.search_local);
         singlePostImage = (ImageView) findViewById(R.id.Image_single);
         btn_Donate = (Button) findViewById(R.id.btn_donate);
         text_Desc = (TextView) findViewById(R.id.text_desc);
+        local_address = (TextView) findViewById(R.id.location_address);
 
         recyclerView = (RecyclerView) findViewById(R.id.comment_recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(SingleInstaActivity.this));
@@ -101,12 +101,16 @@ public class SingleInstaActivity extends AppCompatActivity {
                 String post_title = (String) dataSnapshot.child("title").getValue();
                 String post_desc = (String) dataSnapshot.child("desc").getValue();
                 String post_image = (String) dataSnapshot.child("image").getValue();
+                String address = (String) dataSnapshot.child("address").getValue();
+                String post = (String) dataSnapshot.child("post").getValue();
+                String country = (String) dataSnapshot.child("country").getValue();
                 user_id = (String) dataSnapshot.child("uid").getValue();
                 Name = (String) dataSnapshot.child("Name").getValue();
 
                 singlePostTitle.setText("หัวข้อ "+post_title);
                 Local_text.setText(Name);
-                text_Desc.setText(post_desc);
+                text_Desc.setText("รายละเอียด"+"\n"+post_desc);
+                local_address.setText("ที่อยู่ "+address+" ไปรษณีย์ "+post+"\n"+"จังหวัด "+country);
 
                 mCollapsing.setTitle(" ");
                 Picasso.with(SingleInstaActivity.this).load(post_image).into(singlePostImage);
@@ -131,6 +135,14 @@ public class SingleInstaActivity extends AppCompatActivity {
         needDonate.putExtra("PostID",post_key);
         startActivity(needDonate);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

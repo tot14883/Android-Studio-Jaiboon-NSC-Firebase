@@ -56,7 +56,7 @@ public class Main2Activity extends AppCompatActivity {
     private TextView textView,textView1;
     private RecyclerView mIBstaList;
     private ImageButton imageButton;
-    private MenuItem item,item1,item2,item3,item4,item5,item6,item7,item8;
+    private MenuItem item,item1,item2,item3,item4,item5,item6,item7,item8,item9;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +99,8 @@ public class Main2Activity extends AppCompatActivity {
                 item6 = menu.findItem(R.id.my_post_Admin);
                 item7 = menu.findItem(R.id.nav_update_shop);
                 item8 = menu.findItem(R.id.my_manager_admin);
+                item9 = menu.findItem(R.id.To_Do_List);
+
                 if(firebaseAuth.getCurrentUser() == null ){
                     Toast.makeText(Main2Activity.this,"You not login",Toast.LENGTH_LONG).show();
                     item1.setVisible(false);
@@ -108,6 +110,7 @@ public class Main2Activity extends AppCompatActivity {
                     item6.setVisible(false);
                     item7.setVisible(false);
                     item8.setVisible(false);
+                    item9.setVisible(false);
 
                     textView.setText("Login ?");
                     textView1.setText("");

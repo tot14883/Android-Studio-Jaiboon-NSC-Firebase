@@ -125,6 +125,37 @@ public class ProfileFoundation extends AppCompatActivity {
 
 
     public void ButtonClickeUpdated(View view) {
+        final String user_id = mAuth.getCurrentUser().getUid();
+        final String Name_foun = name_foun.getText().toString().trim();
+        final String Name_Owner = name_owner.getText().toString().trim();
+        final String Type_foun = input_type.getText().toString().trim();
+        final String Address_foun = address_foun.getText().toString().trim();
+        final String Post_foun = post_foun.getText().toString().trim();
+        final String Country_foun = country_foun.getText().toString().trim();
+        final String Phone_foun = phone_foun.getText().toString().trim();
+        if(!TextUtils.isEmpty(Name_foun) && !TextUtils.isEmpty(Name_Owner) && !TextUtils.isEmpty(Address_foun) &&
+                !TextUtils.isEmpty(Post_foun) && !TextUtils.isEmpty(Country_foun) && !TextUtils.isEmpty(Phone_foun)) {
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    dataSnapshot.getRef().child(user_id).child("Name").setValue(Name_foun);
+                    dataSnapshot.getRef().child(user_id).child("Name_User").setValue(Name_foun);
+                    dataSnapshot.getRef().child(user_id).child("Name_Owner").setValue(Name_Owner);
+                    dataSnapshot.getRef().child(user_id).child("Type").setValue(Type_foun);
+                    dataSnapshot.getRef().child(user_id).child("Address").setValue(Address_foun);
+                    dataSnapshot.getRef().child(user_id).child("Post").setValue(Post_foun);
+                    dataSnapshot.getRef().child(user_id).child("Country").setValue(Country_foun);
+                    dataSnapshot.getRef().child(user_id).child("Phone").setValue(Phone_foun);
+                    dataSnapshot.getRef().child(user_id).child("Selected").setValue("Foundation");
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        onRestart();
     }
 
     @Override

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="test.jaiboondemand.Pay.PayPalCart">
+    tools:context="test.jaiboondemand.must_product.NeedPaypal">
     <LinearLayout
         android:id="@+id/liner_1"
         android:padding="10dp"
@@ -18,23 +18,21 @@
             android:textStyle="bold"
             android:layout_marginTop="5dp"/>
         <TextView
-            android:id="@+id/name_send_id"
+            android:id="@+id/name_send_need"
+            android:text="ชื่อ-นามสกุล"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ชื่อ-นามสกุล"
             android:layout_marginTop="5dp"/>
         <TextView
-            android:id="@+id/address_sent"
+            android:id="@+id/address_send_need"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ที่อยู่ปัจจุบัน"
             android:layout_marginTop="5dp"/>
         <TextView
-            android:id="@+id/phone_send_id"
+            android:id="@+id/phone"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="เบอร์โทรศัพท์"
-            android:layout_marginTop="5dp"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
     <View
         android:id="@+id/view_1"
@@ -58,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_pay_sent"
+            android:id="@+id/recycler_pay_sent_need"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp">
@@ -76,15 +74,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/total_text_sent"
+                android:id="@+id/total_text_sent_need"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:text="ราคารวม :"
                 android:textSize="20dp"/>
             <TextView
-                android:id="@+id/total_price_sent"
-                android:layout_toLeftOf="@+id/bath_value_sent"
+                android:id="@+id/total_price_sent_need"
+                android:layout_toLeftOf="@+id/bath_value_sent_need"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -93,7 +91,7 @@
                 />
 
             <TextView
-                android:id="@+id/bath_value_sent"
+                android:id="@+id/bath_value_sent_need"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="บาท"
@@ -105,6 +103,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ยืนยันการชำระเงิน"
-            android:onClick="Paypal"/>
+            android:onClick="Paypalneed"/>
     </LinearLayout>
 </RelativeLayout>

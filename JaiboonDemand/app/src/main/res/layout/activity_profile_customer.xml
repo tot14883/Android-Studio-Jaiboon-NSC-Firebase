@@ -110,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/transparan_mode"
-                android:text="Submit"
+                android:text="แก้ไข"
                 android:onClick="ButtonClickeUpdated"/>
         </LinearLayout>
     </ScrollView>

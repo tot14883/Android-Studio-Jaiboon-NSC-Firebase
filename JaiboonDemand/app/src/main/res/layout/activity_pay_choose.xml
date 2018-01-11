@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="test.jaiboondemand.Pay.PayChoose">
     <TextView
+        android:id="@+id/text_topic"
         android:layout_marginTop="16dp"
         android:textStyle="bold"
         android:textSize="20sp"
@@ -13,33 +14,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="เลือกช่องทางการชำระเงิน"/>
-     <LinearLayout
-         android:layout_marginLeft="16dp"
-         android:layout_marginRight="16dp"
-         android:layout_marginTop="60dp"
-         android:orientation="horizontal"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content">
-         <Button
+         <ImageButton
+             android:layout_marginTop="10dp"
+             android:layout_marginRight="10dp"
+             android:layout_below="@+id/text_topic"
              android:id="@+id/pay_kerry"
-             android:layout_weight="1"
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
+             android:layout_width="60dp"
+             android:layout_height="60dp"
              android:onClick="btnKerry"
-             android:text="เก็บเงินปลายทาง"/>
-         <Button
+             android:text="เก็บเงินปลายทาง"
+             android:layout_toLeftOf="@+id/pay_paypal"
+             android:background="@drawable/delivery"/>
+         <ImageButton
+             android:layout_centerHorizontal="true"
+             android:layout_marginTop="10dp"
+             android:layout_marginRight="10dp"
              android:id="@+id/pay_paypal"
-             android:layout_weight="1"
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
+             android:layout_below="@id/text_topic"
+             android:layout_width="60dp"
+             android:layout_height="60dp"
              android:onClick="btnPaypal"
-             android:text="Paypal"/>
-         <Button
+             android:text="Paypal"
+             android:background="@drawable/paypal"/>
+         <ImageButton
+             android:layout_marginTop="10dp"
              android:id="@+id/pay_bank"
-             android:layout_weight="1"
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
+             android:layout_toRightOf="@+id/pay_paypal"
+             android:layout_below="@id/text_topic"
+             android:layout_width="60dp"
+             android:layout_height="60dp"
              android:onClick="btnBank"
-             android:text="ผ่านธนาคาร"/>
-     </LinearLayout>
+             android:text="ผ่านธนาคาร"
+             android:background="@drawable/bank"/>
 </RelativeLayout>

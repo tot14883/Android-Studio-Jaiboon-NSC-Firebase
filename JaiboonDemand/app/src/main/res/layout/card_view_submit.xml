@@ -2,7 +2,7 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_margin="10dp">
     <LinearLayout
         android:background="@color/White"
@@ -11,7 +11,7 @@
         android:orientation="horizontal"
         >
         <ImageView
-            android:id="@+id/Product_donate_need"
+            android:id="@+id/Product_donate_need_submit"
             android:layout_width="0dp"
             android:layout_height="90dp"
             android:layout_margin="5dp"
@@ -26,7 +26,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/Name_donate_need"
+                android:id="@+id/Name_donate_need_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -35,7 +35,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
-                android:id="@+id/Price_Donate_need"
+                android:id="@+id/Price_Donate_need_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -51,6 +51,14 @@
             android:layout_weight=".6"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/text_input_need"
+                android:text="จำนวนที่ระบุบ"
+                android:textSize="8dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="5dp"
                 android:textSize="8sp"
                 android:textStyle="bold"
                 android:text="จำนวนที่ต้องการ"
@@ -61,8 +69,7 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/text_need_amount"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

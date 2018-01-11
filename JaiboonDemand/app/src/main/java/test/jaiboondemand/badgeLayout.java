@@ -164,8 +164,24 @@ public class badgeLayout extends AppCompatActivity {
     }
 
     public void PayMoney(View view) {
-       Intent intent = new Intent(badgeLayout.this, PayMoney.class);
-       startActivity(intent);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(badgeLayout.this);
+        dialog.setTitle("ดำเนินการชำระเงิน");
+        dialog.setCancelable(true);
+        dialog.setMessage("คุณต้องการลบการทำรายการหรือไม่?");
+        dialog.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(badgeLayout.this, PayMoney.class);
+                startActivity(intent);
+            }
+        });
+        dialog.setNegativeButton("กลับหน้าหลัก", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(badgeLayout.this,Main2Activity.class);
+                startActivity(intent);
+            }
+        });
+        dialog.show();
+
     }
 
     public static class RecycleCart extends RecyclerView.ViewHolder{

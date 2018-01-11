@@ -135,5 +135,29 @@ public class ProfileTemple extends AppCompatActivity {
     }
 
     public void ButtonClickeUpdated(View view) {
+        final String user_id = mAuth.getCurrentUser().getUid();
+        final String Name_Temple = name_temple.getText().toString().trim();
+        final String Name_Leader = name_Leader.getText().toString().trim();
+        final String Address_Temple = address_temple.getText().toString().trim();
+        final String Post_Temple = post_temple.getText().toString().trim();
+        final String Country_Temple = country_temple.getText().toString().trim();
+        final String Phone_Temple = phone_temple.getText().toString().trim();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().child(user_id).child("Name_User").setValue(Name_Temple);
+                dataSnapshot.getRef().child(user_id).child("Name_Owner").setValue(Name_Leader);
+                dataSnapshot.getRef().child(user_id).child("Address").setValue(Address_Temple);
+                dataSnapshot.getRef().child(user_id).child("Post").setValue(Post_Temple);
+                dataSnapshot.getRef().child(user_id).child("Country").setValue(Country_Temple);
+                dataSnapshot.getRef().child(user_id).child("Phone").setValue(Phone_Temple);
+                dataSnapshot.getRef().child(user_id).child("Selected").setValue("Temple");
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        onRestart();
     }
 }

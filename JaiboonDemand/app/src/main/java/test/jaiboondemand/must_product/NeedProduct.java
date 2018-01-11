@@ -39,6 +39,7 @@ public class NeedProduct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_need_product);
         post_key = getIntent().getExtras().getString("PostID");
+
         mRcart = (RecyclerView) findViewById(R.id.recycle_need_donate);
         mRcart.setHasFixedSize(true);
         mRcart.setLayoutManager(new LinearLayoutManager(this));

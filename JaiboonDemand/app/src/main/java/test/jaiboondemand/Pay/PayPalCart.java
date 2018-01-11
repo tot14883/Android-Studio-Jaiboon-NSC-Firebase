@@ -41,10 +41,19 @@ public class PayPalCart extends AppCompatActivity {
     Intent m_service;
     int m_paypalRequestCode = 999;
     private Integer[] total_price = {0};
+    private TextView text_Name,text_Phone,text_Address;
+    private DatabaseReference mDatabase;
+    private String post_key = null;
+    private DatabaseReference mDataDonate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_pal_cart);
+        post_key = getIntent().getExtras().getString("post_key");
+
+        text_Name = (TextView) findViewById(R.id.name_send_id);
+        text_Phone = (TextView) findViewById(R.id.phone_send_id);
+        text_Address = (TextView) findViewById(R.id.address_sent);
         text_total = (TextView) findViewById(R.id.total_price_sent);
 
         m_configuration = new PayPalConfiguration()
@@ -58,6 +67,7 @@ public class PayPalCart extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_pay_sent);
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         mData = FirebaseDatabase.getInstance().getReference().child("Cart");
         mData.addValueEventListener(new ValueEventListener() {
@@ -79,14 +89,44 @@ public class PayPalCart extends AppCompatActivity {
             }
         });
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("SendDonate");
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
+                if (firebaseAuth.getCurrentUser() != null) {
+                    ShowInfomation();
+                }
             }
         };
     }
+    public void ShowInfomation(){
+        final String[] key = new String[1];
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (snapshot.child("uid").getValue().equals(mAuth.getUid()) && snapshot.child("select").getValue().equals(true)) {
+                            key[0] = snapshot.getKey();
+                            String post_name = (String) snapshot.child("NameSend").getValue();
+                            String address = (String) snapshot.child("AddSend").getValue();
+                            String post = (String) snapshot.child("PostSend").getValue();
+                            String country = (String) snapshot.child("ProSend").getValue();
+                            String Phone = "";//(String)dataSnapshot.child("Phone").getValue();
+                            text_Name.setText(post_name);
+                            text_Phone.setText("เบอร์โทร " + Phone);
+                            text_Address.setText("ที่อยู่ " + address + "\n" + "รหัสไปรษณีย์ " + post + "\n" + "จังหวัด " + country);
+                            break;
+                        }
+                    }
 
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -100,8 +140,8 @@ public class PayPalCart extends AppCompatActivity {
             protected void populateViewHolder(PaypalCartViewHolder viewHolder, ProductSend model, int position) {
                 viewHolder.setName(model.getNameproduct());
                 viewHolder.setImage(getApplicationContext(),model.getImageproduct());
-                viewHolder.setprice(model.getPriceproduct());
-                viewHolder.setAmout(model.getAmount());
+                viewHolder.setprice("ราคาชิ้นละ "+model.getPriceproduct());
+                viewHolder.setAmout("จำนวน "+model.getAmount()+" ชิ้น");
             }
         };
         recyclerView.setAdapter(adapter);

@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,18 +81,38 @@ public class PayMoney extends AppCompatActivity {
                 mDatabase.orderByChild("uid").equalTo(mAuth.getCurrentUser().getUid())
         ) {
             @Override
-            protected void populateViewHolder(PlaceViewHolder viewHolder, SendPlace model, int position) {
-              viewHolder.setNamePlace(model.getNameSend());
-              viewHolder.setAddPlace(model.getAddSend(),model.getPostSend(),model.getProSend());
+            protected void populateViewHolder(final PlaceViewHolder viewHolder, SendPlace model, final int position) {
+                final DatabaseReference select =this.getRef(position);
+                select.child("select").setValue(false);
+                final int[] clicked = {0};
+                clicked[0] = 0;
+                viewHolder.setNamePlace(model.getNameSend());
+                viewHolder.setAddPlace(model.getAddSend(),model.getPostSend(),model.getProSend());
+
+                viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        if(isChecked) {
+                            select.child("select").setValue(true);
+                        }
+                        else if(!isChecked) {
+                            select.child("select").setValue(false);
+                        }
+
+                    }
+
+                });
             }
         };
         recyclerView.setAdapter(adapter);
     }
     public static class PlaceViewHolder extends RecyclerView.ViewHolder{
         View mView;
+        RadioButton checkBox;
         public PlaceViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
+            checkBox = (RadioButton) mView.findViewById(R.id.check_send_place);
         }
         public void setNamePlace(String NamePlace){
             TextView textname = (TextView) mView.findViewById(R.id.name_place);
@@ -103,5 +126,10 @@ public class PayMoney extends AppCompatActivity {
     public void ButtonNext(View view) {
        Intent intent = new Intent(PayMoney.this,PayChoose.class);
        startActivity(intent);
+    }
+
+    public void Restart(){
+        Intent intent = getIntent();
+        startActivity(intent);
     }
 }

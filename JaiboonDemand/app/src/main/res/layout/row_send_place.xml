@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-        <CheckBox
+        <RadioButton
             android:id="@+id/check_send_place"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

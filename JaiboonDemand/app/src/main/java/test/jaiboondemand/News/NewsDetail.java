@@ -4,6 +4,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +29,8 @@ public class NewsDetail extends AppCompatActivity {
         setContentView(R.layout.activity_news_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_news);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         post_key = getIntent().getExtras().getString("PostNews");
 
@@ -56,5 +59,12 @@ public class NewsDetail extends AppCompatActivity {
 
         CollapsingToolbarLayout mCollapsing = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout_news);
         mCollapsing.setTitle(" ");
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -30,7 +30,6 @@ public class ProductSend {
     public String getAmount() {
         return amount;
     }
-
     public void setPriceproduct(String priceproduct) {
         this.priceproduct = priceproduct;
     }

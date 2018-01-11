@@ -94,8 +94,8 @@ public class PayBank extends AppCompatActivity {
             protected void populateViewHolder(PayBankViewHolder viewHolder, ProductSend model, int position) {
                 viewHolder.setName(model.getNameproduct());
                 viewHolder.setImage(getApplicationContext(),model.getImageproduct());
-                viewHolder.setprice(model.getPriceproduct());
-                viewHolder.setAmout(model.getAmount());
+                viewHolder.setprice("ราคาชิ้นละ "+model.getPriceproduct());
+                viewHolder.setAmout("จำนวน "+model.getAmount()+" ชิ้น");
             }
         };
         recyclerView.setAdapter(adapter);

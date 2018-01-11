@@ -1,7 +1,9 @@
 package test.jaiboondemand.Pay;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import test.jaiboondemand.R;
@@ -25,6 +28,7 @@ public class PayBankEvidence extends AppCompatActivity {
     private int SELECT_PICTURE=1;
     private String finalFile;
     private EmailSetting getemail=new EmailSetting();
+    static final int REQUEST_IMAGE_CAPTURE = 100;
     File file;
     Uri fileUri;
     private FirebaseAuth mAuth;
@@ -71,8 +75,6 @@ public class PayBankEvidence extends AppCompatActivity {
                 .withPassword(getemail.Password)
                 .withSenderName("JaiboonDemand")
                 .withMailTo("wannaphong@kkumail.com")
-                /*.withMailCc("cc-email@gmail.com")
-                .withMailBcc("bcc-email@gmail.com")*/
                 .withType(BackgroundMail.TYPE_PLAIN)
                 .withSubject("แจ้งการชำระเงินผ่านธนาคาร")
                 .withBody(text)
@@ -97,6 +99,21 @@ public class PayBankEvidence extends AppCompatActivity {
             finalFile = String.valueOf(file);
         }
     }
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
+    public String getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return getRealPathFromURI(Uri.parse(path));
+    }
+
     public String getRealPathFromURI(Uri contentUri) {
         try {
             String[] proj = {MediaStore.Images.Media.DATA};

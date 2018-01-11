@@ -154,7 +154,7 @@ public class PayCashDelivery extends AppCompatActivity {
         String email = mAuth.getCurrentUser().getEmail();
         final String Subject,text;
         Subject="แจ้งรายการสั่งซื้อสินค้า";
-        text="รายการสั่งซื้อสินค้าทั้งหมด\n"+txt_price;
+        text="คุณ "+text_Name.getText().toString()+"\nที่อยู่ "+text_Address.getText().toString()+"\nเบอร์ "+text_Phone.getText().toString()+"\nรายการสั่งซื้อสินค้าทั้งหมด\n"+txt_price;
         BackgroundMail send = BackgroundMail.newBuilder(getApplicationContext())
                 .withUsername(getemail.Username)
                 .withPassword(getemail.Password)
@@ -219,7 +219,7 @@ public class PayCashDelivery extends AppCompatActivity {
                           text_Address.setText("ที่อยู่"+address+"\n"+"รหัสไปรษณีย์"+post+"\n"+"จังหวัด"+country);
                       }
                       if(dataSnapshot.child("Selected").getValue().equals("Temple")){
-                          String post_name = (String)dataSnapshot.child("Name_User").getValue();
+                          String post_name = (String)dataSnapshot.child("Name_Owner").getValue();
                           String address = (String)dataSnapshot.child("Address").getValue();
                           String post = (String)dataSnapshot.child("Post").getValue();
                           String country = (String)dataSnapshot.child("Country").getValue();
@@ -229,7 +229,7 @@ public class PayCashDelivery extends AppCompatActivity {
                           text_Address.setText(address+"\n"+post+"\n"+country);
                       }
                       if(dataSnapshot.child("Selected").getValue().equals("Foundation")){
-                          String post_name = (String)dataSnapshot.child("Name_User").getValue();
+                          String post_name = (String)dataSnapshot.child("Name_Owner").getValue();
                           String address = (String)dataSnapshot.child("Address").getValue();
                           String post = (String)dataSnapshot.child("Post").getValue();
                           String country = (String)dataSnapshot.child("Country").getValue();

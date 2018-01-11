@@ -149,7 +149,7 @@ public class PostActivity extends AppCompatActivity {
                                 newPost.child("desc").setValue(titleDesc);
                                 newPost.child("uid").setValue(mAuth.getCurrentUser().getUid());
                                 newPost.child("Type").setValue(dataSnapshot.child("Selected").getValue());
-                                newPost.child("Name").setValue(dataSnapshot.child("Name_User").getValue());
+                                newPost.child("Name").setValue(dataSnapshot.child("Name_Owner").getValue());
                                 newPost.child("username").setValue(dataSnapshot.child("Name").getValue());
                                 newPost.child("address").setValue(dataSnapshot.child("Address").getValue());
                                 newPost.child("post").setValue(dataSnapshot.child("Post").getValue());

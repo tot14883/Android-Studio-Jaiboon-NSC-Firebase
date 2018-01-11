@@ -1,6 +1,7 @@
 package test.jaiboondemand.must_product;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,7 +46,7 @@ public class NeedDonateSend extends AppCompatActivity {
         text_name = (TextView) findViewById(R.id.text_name_need);
         text_address = (TextView) findViewById(R.id.text_address_need);
 
-        mData = FirebaseDatabase.getInstance().getReference().child("Jaiboon").child(post_key);
+        mData = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
 
         mData.addValueEventListener(new ValueEventListener() {
             @Override
@@ -124,5 +125,8 @@ public class NeedDonateSend extends AppCompatActivity {
     }
 
     public void btnneed(View view) {
+        Intent intent = new Intent(NeedDonateSend.this,NeedChoosePay.class);
+        intent.putExtra("post_key",post_key);
+        startActivity(intent);
     }
 }

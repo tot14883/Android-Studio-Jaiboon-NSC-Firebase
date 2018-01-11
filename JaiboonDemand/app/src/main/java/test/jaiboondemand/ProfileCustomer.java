@@ -39,6 +39,7 @@ public class ProfileCustomer extends AppCompatActivity {
     private DatabaseReference mDatabaseUsers;
     private FirebaseUser mCurrentUser;
     private Button button_submit,button_update;
+    private String  post_name,birthday,address,post,country,Phone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,12 +71,12 @@ public class ProfileCustomer extends AppCompatActivity {
                     databaseReference.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            String post_name = (String)dataSnapshot.child("Name_Cus").getValue();
-                            String birthday = (String)dataSnapshot.child("Birthday").getValue();
-                            String address = (String)dataSnapshot.child("Address_Cus").getValue();
-                            String post = (String)dataSnapshot.child("Post_Cus").getValue();
-                            String country = (String)dataSnapshot.child("Country_Cus").getValue();
-                            String Phone = (String)dataSnapshot.child("Phone_Cus").getValue();
+                            post_name = (String)dataSnapshot.child("Name_Cus").getValue();
+                            birthday = (String)dataSnapshot.child("Birthday").getValue();
+                            address = (String)dataSnapshot.child("Address_Cus").getValue();
+                            post = (String)dataSnapshot.child("Post_Cus").getValue();
+                            country = (String)dataSnapshot.child("Country_Cus").getValue();
+                            Phone = (String)dataSnapshot.child("Phone_Cus").getValue();
                             name_cus.setText(post_name);
                             cus_birthday.setText(birthday);
                             address_cus.setText(address);
