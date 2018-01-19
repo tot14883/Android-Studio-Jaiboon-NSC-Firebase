@@ -164,4 +164,32 @@
         <item>49</item>
         <item>50</item>
     </string-array>
+    <string-array name="languages">
+        <item>Thai</item>
+        <item>English</item>
+    </string-array>
+    <string-array name="languages_select">
+        <item>Thai</item>
+        <item>English</item>
+    </string-array>
+    <string name="Home">Home</string>
+    <string name="Shop">Shop</string>
+    <string name="News">News</string>
+    <string name="Deposit">Deposit</string>
+    <string name="Nearby">Nearby</string>
+    <string name="History">History</string>
+    <string name="Needs_Help">Needs Help ?</string>
+    <string name="Settings">Settings</string>
+    <string name="MyAccount">MyAccount</string>
+    <string name="Mypost">Mypost</string>
+    <string name="AdminPost">AdminPost</string>
+    <string name="UploadProduct">UploadProduct</string>
+    <string name="AdminDeposit">AdminDeposit</string>
+    <string name="SingOut">SingOut</string>
+    <string name="Login">Login</string>
+    <string name="Delete">Delete</string>
+    <string name="Temple">Temple</string>
+    <string name="Foundation">Foundation</string>
+
+    <string name="setting_languages">languages</string>
 </resources>

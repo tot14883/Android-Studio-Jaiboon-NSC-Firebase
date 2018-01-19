@@ -10,9 +10,13 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -38,11 +42,7 @@
         <activity
             android:name=".Main2Activity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            
         </activity>
         <activity android:name=".PostActivity" />
         <activity
@@ -60,7 +60,7 @@
 
         <activity android:name=".Forget_Account" />
         <activity android:name=".Admin.AdminPost" />
-        <activity android:name=".Shopdetail" />
+        <activity android:name=".shop_type.Shopdetail" />
         <activity
             android:name=".CateGoryUser"
             android:theme="@style/Theme.AppCompat.Dialog" />
@@ -87,7 +87,16 @@
         <activity android:name=".Pay.PayPalCart" />
         <activity android:name=".must_product.NeedDonateSend" />
         <activity android:name=".must_product.NeedChoosePay" />
-        <activity android:name=".must_product.NeedPaypal"></activity>
+        <activity android:name=".must_product.NeedPaypal" />
+        <activity android:name=".Setting" />
+        <activity android:name=".post_activity.CommentActivity" />
+        <activity android:name=".ChooseDonate.ChooseDonate">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

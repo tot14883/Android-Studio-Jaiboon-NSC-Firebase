@@ -1,8 +1,12 @@
 package test.jaiboondemand;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -35,11 +39,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import test.jaiboondemand.Admin.AdminManager;
-import test.jaiboondemand.Admin.AdminNews;
 import test.jaiboondemand.Admin.AdminPost;
 import test.jaiboondemand.Deposit.DepositMain;
 import test.jaiboondemand.Nearby.NearbyActivity;
 import test.jaiboondemand.News.NewsMain;
+import test.jaiboondemand.shop_type.ShopActivity;
 
 public class Main2Activity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
@@ -56,14 +60,33 @@ public class Main2Activity extends AppCompatActivity {
     private TextView textView,textView1;
     private RecyclerView mIBstaList;
     private ImageButton imageButton;
+    public static Toolbar toolbar;
     private MenuItem item,item1,item2,item3,item4,item5,item6,item7,item8,item9;
+    private SharedPreferences mSharedPreferences;
+    private Context mContext;
+    private String Languages;
+    public static Resources resources;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);//Command find id Toolbar to our set
+        toolbar = (Toolbar) findViewById(R.id.toolbar_main);//Command find id Toolbar to our set
         setSupportActionBar(toolbar);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
+
+        mContext = getApplicationContext();
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        Languages = mSharedPreferences.getString(getString(R.string.setting_languages),"Select");
+        if(Languages.equals("English")){
+            mContext = LocaleHelper.setLocale(Main2Activity.this, "en");
+            resources = mContext.getResources();
+
+        }
+        else if(Languages.equals("Thai") ){
+            mContext = LocaleHelper.setLocale(Main2Activity.this, "th");
+            resources = mContext.getResources();
+
+        }
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
@@ -71,7 +94,8 @@ public class Main2Activity extends AppCompatActivity {
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mNavigationView = (NavigationView) findViewById(R.id.shitstuff) ;
+        mNavigationView = (NavigationView) findViewById(R.id.shitstuff);
+        setTitleNevigator();
 
 
         View headerview = mNavigationView.getHeaderView(0);
@@ -179,7 +203,8 @@ public class Main2Activity extends AppCompatActivity {
 
 
 
-                 if (menuItem.getItemId() == R.id.Shopping_list) {
+                 if (menuItem.getItemId() == R.id.Shopping_list)
+                 {
                     FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.containerView,new
                             ShopActivity()).commit();
@@ -300,6 +325,10 @@ public class Main2Activity extends AppCompatActivity {
                      Intent intent = new Intent(Main2Activity.this,AdminPost.class);
                      startActivity(intent);
                 }
+                if (menuItem.getItemId() == R.id.setting) {
+                    Intent intent = new Intent(Main2Activity.this,Setting.class);
+                    startActivity(intent);
+                }
                 if (menuItem.getItemId() == R.id.my_manager_admin){}
                 if(menuItem.getItemId() == R.id.my_post_Admin){
                     FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
@@ -342,6 +371,9 @@ public class Main2Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
         if (id == R.id.action_cart) {
             Intent cart = new Intent(Main2Activity.this,badgeLayout.class);
             startActivity(cart);
@@ -370,28 +402,47 @@ public class Main2Activity extends AppCompatActivity {
                     item7.setVisible(true);
                     item8.setVisible(true);
     }
-   /* public void onBackPressed() {//When Click Button BackPressed show command Dialog
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("ออกจากการใช้งาน");
-        dialog.setIcon(R.mipmap.logo);
-        dialog.setCancelable(true);
-        dialog.setMessage("คุณต้องการออกจากการทำรายการหรือไม่?");
-        dialog.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Intent startMain = new Intent(Intent.ACTION_MAIN);
-                startMain.addCategory(Intent.CATEGORY_HOME);
-                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(startMain);
-                System.exit(0);
+    public void setTitleNevigator(){
+        MenuItem nav_shop,nav_home,nav_news,nav_nearby,nav_history,nav_need_help,nav_setting,nav_my_account,nav_mypost,nav_mypostadmin,nav_uploadproduct,nav_deposit,nav_sign_out,nav_depositadmin;
+        Menu menu = mNavigationView.getMenu();
+        nav_shop = menu.findItem(R.id.Shopping_list);
+        nav_home = menu.findItem(R.id.nav_home);
+        nav_news = menu.findItem(R.id.news);
+        nav_nearby = menu.findItem(R.id.Nearby_place);
+        nav_deposit = menu.findItem(R.id.add_deposit);
+        nav_history = menu.findItem(R.id.To_Do_List);
+        nav_need_help = menu.findItem(R.id.needs_help);
+        nav_setting = menu.findItem(R.id.setting);
+        nav_my_account = menu.findItem(R.id.my_account);
+        nav_mypost = menu.findItem(R.id.my_post);
+        nav_mypostadmin = menu.findItem(R.id.my_post_Admin);
+        nav_uploadproduct = menu.findItem(R.id.nav_update_shop);
+        nav_depositadmin = menu.findItem(R.id.my_manager_admin);
+        nav_sign_out = menu.findItem(R.id.Log_Out);
 
-            }
-        });
-        dialog.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        nav_shop.setTitle(R.string.Shop);
+        nav_home.setTitle(R.string.Home);
+        nav_news.setTitle(R.string.News);
+        nav_nearby.setTitle(R.string.Nearby);
+        nav_deposit.setTitle(R.string.Deposit);
+        nav_history.setTitle(R.string.History);
+        nav_need_help.setTitle(R.string.Needs_Help);
+        nav_setting.setTitle(R.string.Settings);
+        nav_my_account.setTitle(R.string.MyAccount);
+        nav_mypost.setTitle(R.string.Mypost);
+        nav_mypostadmin.setTitle(R.string.AdminPost);
+        nav_uploadproduct.setTitle(R.string.UploadProduct);
+        nav_depositadmin.setTitle(R.string.AdminDeposit);
+        nav_sign_out.setTitle(R.string.SingOut);
+    }
 
-        dialog.show();
-    }*/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase));
+    }
 }

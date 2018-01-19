@@ -5,10 +5,10 @@ package test.jaiboondemand;
  */
 
 public class Insta {
-    private String title,desc,image,nameproduct,priceproduct,imageproduct,uid,Name,amount;
+    private String title,desc,image,descproduct,nameproduct,priceproduct,imageproduct,uid,Name,amount,keyproduct;
     public Insta(){
     }
-    public Insta(String amount,String title,String desc,String image,String nameproduct,String priceproduct,String imageproduct,String uid,String Name){
+    public Insta(String descproduct,String amount,String title,String desc,String image,String nameproduct,String priceproduct,String imageproduct,String uid,String Name,String keyproduct){
         this.title = title;
         this.desc = desc;
         this.image = image;
@@ -18,6 +18,24 @@ public class Insta {
         this.priceproduct = priceproduct;
         this.imageproduct = imageproduct;
         this.amount = amount;
+        this.keyproduct = keyproduct;
+        this.descproduct = descproduct;
+    }
+
+    public void setDescproduct(String descproduct) {
+        this.descproduct = descproduct;
+    }
+
+    public String getDescproduct() {
+        return descproduct;
+    }
+
+    public String getKeyproduct() {
+        return keyproduct;
+    }
+
+    public void setKeyproduct(String keyproduct) {
+        this.keyproduct = keyproduct;
     }
 
     public String getAmount() {

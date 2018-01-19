@@ -6,13 +6,21 @@ package test.jaiboondemand.Pay;
 
 public class SendPlace {
     private String NameSend,AddSend,PostSend,ProSend;
+    private boolean select;
     public SendPlace(){}
-    public SendPlace(String NameSend,String AddSend,String PostSend,String ProSend){
+    public SendPlace(String NameSend,String AddSend,String PostSend,String ProSend,Boolean select){
         this.NameSend = NameSend;
         this.AddSend = AddSend;
         this.PostSend = PostSend;
         this.ProSend = ProSend;
+        this.select = select;
     }
+
+    public void setSelect(boolean select) {
+        this.select = select;
+    }
+    public boolean getSelect(){return select;}
+
 
     public String getAddSend() {
         return AddSend;

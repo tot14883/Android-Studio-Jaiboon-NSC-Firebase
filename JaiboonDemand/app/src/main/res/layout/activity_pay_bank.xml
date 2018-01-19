@@ -24,8 +24,48 @@
            android:layout_height="wrap_content" />
    </LinearLayout>
     <View
-        android:id="@+id/view_1"
+        android:id="@+id/view_2"
         android:layout_below="@id/liner_1"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_weight="0.5"
+        android:background="@android:color/black"/>
+    <LinearLayout
+        android:id="@+id/liner_2"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_below="@id/view_2"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="ที่อยู่จัดส่ง"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
+        <TextView
+            android:id="@+id/name_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ชื่อ-นามสกุล"
+            android:layout_marginTop="5dp"/>
+        <TextView
+            android:id="@+id/phone_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="เบอร์โทร"
+            android:layout_marginTop="5dp"/>
+        <TextView
+            android:id="@+id/text_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ที่อยู่ปัจจุบัน"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/view_1"
+        android:layout_below="@id/liner_2"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="0.5dp"

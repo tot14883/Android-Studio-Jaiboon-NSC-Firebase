@@ -6,6 +6,33 @@
     android:layout_height="match_parent"
     android:id="@+id/activity_post"
     tools:context="test.jaiboondemand.PostActivity">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/toolbar_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/toolbar_main_post"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/oragen"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_below="@+id/toolbar_post"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +54,8 @@
         android:padding="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="10dp"
+        />
     <ImageButton
         android:layout_below="@id/editDesc"
         android:background="@drawable/add_image"
@@ -36,33 +64,44 @@
         android:layout_centerInParent="true"
         android:onClick="imageButtomClicked"
         android:id="@+id/imageButton1"/>
-    <!--<Button
-        android:layout_width="wrap_content"
+    <EditText
+        android:hint="Date"
+        android:id="@+id/Edit_date_alarm"
+        android:layout_below="@+id/imageButton1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editDesc"
-        android:layout_centerHorizontal="true"
-        android:scaleType="fitCenter"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:layout_centerInParent="true"
-        android:onClick="imageButtomClicked"
-        android:id="@+id/imageButton1"
-        android:text="Select Images to Upload"
-       />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/editshaep"
+        android:padding="10dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="date"/>
+       <EditText
+         android:hint="Facebook copy your url page facebook"
+         android:id="@+id/Edit_Facebook_link"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/Edit_date_alarm"
+         android:layout_marginTop="10dp"
+         android:layout_marginLeft="10dp"
+         android:layout_marginRight="10dp"
+           android:background="@drawable/editshaep"
+           android:padding="10dp"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycle_image_post"
-        android:layout_below="@id/imageButton1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="16dp">
-    </android.support.v7.widget.RecyclerView>
--->
-    <Button
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="submitButtonClicked"
-        android:text="NEXT" />
+        <EditText
+            android:hint="Add History"
+            android:id="@+id/Edit_History"
+            android:layout_below="@+id/Edit_Facebook_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/editshaep"
+            android:padding="10dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

@@ -21,7 +21,6 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import test.jaiboondemand.R;
-import test.jaiboondemand.Shopdetail;
 import test.jaiboondemand.post_activity.ChooseDonate;
 
 public class DonateDetail extends AppCompatActivity {

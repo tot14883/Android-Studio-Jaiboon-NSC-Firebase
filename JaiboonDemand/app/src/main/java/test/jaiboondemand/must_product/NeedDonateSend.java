@@ -38,6 +38,7 @@ public class NeedDonateSend extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_need_donate_send);
         post_key = getIntent().getExtras().getString("post_key");
+
         recyclerView = (RecyclerView) findViewById(R.id.recycle_need_product);
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

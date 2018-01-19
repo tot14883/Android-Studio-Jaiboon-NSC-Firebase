@@ -37,6 +37,8 @@ public class PayMoney extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
+    private String Key_ok = null;
+    private int Num = 0,NumAll = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,13 @@ public class PayMoney extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycle_place_send);
         recyclerView.setLayoutManager(new LinearLayoutManager(PayMoney.this));
         recyclerView.hasFixedSize();
+        try{
+            Key_ok = getIntent().getExtras().getString("key");
+            Num = getIntent().getExtras().getInt("Num");
+        }catch (Exception e){
+            Key_ok = null;
+            Num = 0;
+        }
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("SendDonate");
         mAuth = FirebaseAuth.getInstance();
@@ -82,10 +91,18 @@ public class PayMoney extends AppCompatActivity {
         ) {
             @Override
             protected void populateViewHolder(final PlaceViewHolder viewHolder, SendPlace model, final int position) {
-                final DatabaseReference select =this.getRef(position);
-                select.child("select").setValue(false);
-                final int[] clicked = {0};
-                clicked[0] = 0;
+                final String key = this.getRef(position).getKey();
+                final DatabaseReference select = this.getRef(position);
+                if (Num == 1) {
+                    if (!Key_ok.equals(key)) {
+                        select.child("select").setValue(false);
+                        viewHolder.checkBox.setChecked(false);
+                    }
+                    else{
+                        viewHolder.checkBox.setChecked(true);
+                    }
+
+                }
                 viewHolder.setNamePlace(model.getNameSend());
                 viewHolder.setAddPlace(model.getAddSend(),model.getPostSend(),model.getProSend());
 
@@ -93,7 +110,13 @@ public class PayMoney extends AppCompatActivity {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                         if(isChecked) {
-                            select.child("select").setValue(true);
+                           Key_ok = key;
+                           select.child("select").setValue(true);
+                           Intent intent = new Intent(PayMoney.this,PayMoney.class);
+                           intent.putExtra("key",key);
+                           intent.putExtra("Num",1);
+                           finish();
+                           startActivity(intent);
                         }
                         else if(!isChecked) {
                             select.child("select").setValue(false);
@@ -102,6 +125,7 @@ public class PayMoney extends AppCompatActivity {
                     }
 
                 });
+                NumAll++;
             }
         };
         recyclerView.setAdapter(adapter);
@@ -128,8 +152,4 @@ public class PayMoney extends AppCompatActivity {
        startActivity(intent);
     }
 
-    public void Restart(){
-        Intent intent = getIntent();
-        startActivity(intent);
-    }
 }

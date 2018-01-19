@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.DatabaseUtils;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -35,17 +36,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 import test.jaiboondemand.map.map_content;
 import test.jaiboondemand.must_product.NeedProduct;
 import test.jaiboondemand.post_activity.Comment;
+import test.jaiboondemand.post_activity.CommentActivity;
 
 public class SingleInstaActivity extends AppCompatActivity {
     private  String post_key;
     private DatabaseReference mDatabase;
-    private DatabaseReference mDataUser;
-    private DatabaseReference mDatacomment;
+    private DatabaseReference mUser;
     private ImageView singlePostImage;
-    private TextView singlePostTitle,Local_text,text_Desc,local_address;
+    private TextView singlePostTitle,Local_text,local_address,phone_text,type_text,owner_text,text_Desc;
     private CollapsingToolbarLayout mCollapsing = null;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
@@ -55,6 +61,7 @@ public class SingleInstaActivity extends AppCompatActivity {
     private String user_id,Name;
     private RecyclerView recyclerView;
     private EditText mCommentEditTextView;
+    private String facebook_link;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +72,9 @@ public class SingleInstaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         post_key = getIntent().getExtras().getString("PostID");
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
-        mDataUser = FirebaseDatabase.getInstance().getReference().child("Users");
-        mDatacomment = FirebaseDatabase.getInstance().getReference().child("Comment");
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Jaiboon").child(post_key);
+        mUser = FirebaseDatabase.getInstance().getReference().child("Users");
 
         singlePostTitle = (TextView) findViewById(R.id.Title);
         Local_text = (TextView) findViewById(R.id.localtion_text);
@@ -75,10 +82,9 @@ public class SingleInstaActivity extends AppCompatActivity {
         btn_Donate = (Button) findViewById(R.id.btn_donate);
         text_Desc = (TextView) findViewById(R.id.text_desc);
         local_address = (TextView) findViewById(R.id.location_address);
-
-        recyclerView = (RecyclerView) findViewById(R.id.comment_recycleview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(SingleInstaActivity.this));
-        recyclerView.hasFixedSize();
+        phone_text = (TextView) findViewById(R.id.text_insta_phone);
+        type_text = (TextView) findViewById(R.id.text_type_foundation);
+        owner_text = (TextView) findViewById(R.id.text_owner_foundation);
 
 
         mCollapsing = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
@@ -87,26 +93,37 @@ public class SingleInstaActivity extends AppCompatActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() == null ){
-                    mCommentEditTextView.setVisibility(View.INVISIBLE);
-                    findViewById(R.id.iv_send).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.card_comment).setVisibility(View.INVISIBLE);
-                }
+
             }
         };
 
-        mDatabase.child(post_key).addValueEventListener(new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String post_title = (String) dataSnapshot.child("title").getValue();
-                String post_desc = (String) dataSnapshot.child("desc").getValue();
-                String post_image = (String) dataSnapshot.child("image").getValue();
-                String address = (String) dataSnapshot.child("address").getValue();
-                String post = (String) dataSnapshot.child("post").getValue();
-                String country = (String) dataSnapshot.child("country").getValue();
+                String post_title,post_desc,post_image,address,post,country,phone,type,owner;
+                    post_title = (String) dataSnapshot.child("title").getValue();
+                    post_desc = (String) dataSnapshot.child("desc").getValue();
+                    post_image = (String) dataSnapshot.child("image").getValue();
+                    address = (String) dataSnapshot.child("address").getValue();
+                    post = (String) dataSnapshot.child("post").getValue();
+                    country = (String) dataSnapshot.child("country").getValue();
+                    phone = (String) dataSnapshot.child("phone").getValue();
+                    type = (String) dataSnapshot.child("Type").getValue();
+                    owner = (String) dataSnapshot.child("username").getValue();
+                    facebook_link = (String) dataSnapshot.child("facebooklink").getValue();
+                if(dataSnapshot.child("Type").getValue().equals("Foundation")){
+                       type_text.setText(type);
+                       owner_text.setText(owner);
+                    type_text.setVisibility(View.VISIBLE);
+                    owner_text.setVisibility(View.VISIBLE);
+                }
+                else if(!dataSnapshot.child("Type").getValue().equals("Foundation")) {
+                     type_text.setVisibility(View.INVISIBLE);
+                     owner_text.setVisibility(View.INVISIBLE);
+                }
                 user_id = (String) dataSnapshot.child("uid").getValue();
                 Name = (String) dataSnapshot.child("Name").getValue();
-
+                phone_text.setText("เบอร์โทร "+phone);
                 singlePostTitle.setText("หัวข้อ "+post_title);
                 Local_text.setText(Name);
                 text_Desc.setText("รายละเอียด"+"\n"+post_desc);
@@ -149,63 +166,18 @@ public class SingleInstaActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
-        FirebaseRecyclerAdapter<Comment,CommentHolder> comentAdapter = new FirebaseRecyclerAdapter<Comment, CommentHolder>(
-                Comment.class,
-                R.layout.row_comment,
-                CommentHolder.class,
-                mDatabase
-        ) {
-            @Override
-            protected void populateViewHolder(CommentHolder viewHolder, Comment model, int position) {
-                viewHolder.setUsername(model.getUser());
-                viewHolder.setComment(model.getComment());
-                viewHolder.setTime(model.getTimeCreated());
-            }
-        };
-        recyclerView.setAdapter(comentAdapter);
-
     }
 
-    public void CommentPost(View view) {//คอมเม้น Error
 
-        final String uid = mAuth.getCurrentUser().getUid();
-        final String strComment = mCommentEditTextView.getText().toString();
-        final DatabaseReference newPost = mDatacomment.push();
-        final String comment_key = newPost.push().getKey();
-        mDatabase .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mDatabase.child(post_key).child("Comment").child(comment_key).child("comment").setValue(strComment);
-                mDatabase.child(post_key).child("Comment").child(comment_key).child("User").setValue(uid);
-                mDatabase.child(post_key).child("Comment").child(comment_key).child("timeCreated").setValue(System.currentTimeMillis());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+    public void btn_comment(View view) {
+        Intent intent = new Intent(SingleInstaActivity.this, CommentActivity.class);
+        intent.putExtra("PostID",post_key);
+        startActivity(intent);
     }
-    public static class CommentHolder extends RecyclerView.ViewHolder{
-        TextView usernameTextView;
-        TextView timeTextView;
-        TextView commentTextView;
 
-        public CommentHolder(View itemView) {
-            super(itemView);
-            usernameTextView = (TextView) itemView.findViewById(R.id.tv_username);
-            timeTextView = (TextView) itemView.findViewById(R.id.tv_time);
-            commentTextView = (TextView) itemView.findViewById(R.id.tv_comment);
-        }
-        public void setUsername(String username){
-            usernameTextView.setText(username);
-        }
-        public void setTime(String time){
-            timeTextView.setText(time);
-        }
-        public void setComment(String comment){
-            commentTextView.setText(comment);
-        }
+    public void FaceBookLink(View view) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW,Uri.parse(facebook_link));
+        startActivity(browserIntent);
+
     }
 }

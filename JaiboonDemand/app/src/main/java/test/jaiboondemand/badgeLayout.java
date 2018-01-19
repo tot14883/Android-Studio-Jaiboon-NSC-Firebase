@@ -9,15 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import test.jaiboondemand.Pay.PayMoney;
+import test.jaiboondemand.shop_type.Shopdetail;
 
 public class badgeLayout extends AppCompatActivity {
     private RecyclerView mRcart;
@@ -97,8 +94,7 @@ public class badgeLayout extends AppCompatActivity {
                 mDatabase.orderByChild("uid").equalTo(mAuth.getUid())
         ) {
             @Override
-            protected void populateViewHolder(RecycleCart viewHolder, Insta model, int position) {
-                final String post_key = getRef(position).getKey().toString();
+            protected void populateViewHolder(RecycleCart viewHolder, final Insta model, int position) {
                 final int position1 = position;
                 final boolean[] c = {false};
                 final int[] num1 = {1};
@@ -112,7 +108,7 @@ public class badgeLayout extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Intent shop_activity = new Intent(badgeLayout.this,Shopdetail.class);
-                        shop_activity.putExtra("PostID", post_key);
+                        shop_activity.putExtra("PostID", model.getKeyproduct());
                         startActivity(shop_activity);
                     }
                 });
@@ -167,7 +163,7 @@ public class badgeLayout extends AppCompatActivity {
         AlertDialog.Builder dialog = new AlertDialog.Builder(badgeLayout.this);
         dialog.setTitle("ดำเนินการชำระเงิน");
         dialog.setCancelable(true);
-        dialog.setMessage("คุณต้องการลบการทำรายการหรือไม่?");
+        dialog.setMessage("คุณต้องการทำรายการต่อหรือไม่?");
         dialog.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(badgeLayout.this, PayMoney.class);

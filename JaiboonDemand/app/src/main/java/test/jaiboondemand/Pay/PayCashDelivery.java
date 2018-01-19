@@ -153,13 +153,14 @@ public class PayCashDelivery extends AppCompatActivity {
         EmailSetting getemail = new EmailSetting();
         String email = mAuth.getCurrentUser().getEmail();
         final String Subject,text;
-        Subject="แจ้งรายการสั่งซื้อสินค้า";
+        Subject="แจ้งรายการสั่งซื้อสินค้า"+email;
         text="คุณ "+text_Name.getText().toString()+"\nที่อยู่ "+text_Address.getText().toString()+"\nเบอร์ "+text_Phone.getText().toString()+"\nรายการสั่งซื้อสินค้าทั้งหมด\n"+txt_price;
         BackgroundMail send = BackgroundMail.newBuilder(getApplicationContext())
                 .withUsername(getemail.Username)
                 .withPassword(getemail.Password)
                 .withSenderName("JaiboonDemand")
                 .withMailTo(email)
+                .withMailBcc(getemail.Username)
                 .withType(BackgroundMail.TYPE_PLAIN)
                 .withSubject(Subject)
                 .withBody(text)

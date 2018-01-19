@@ -78,6 +78,7 @@ public class AdminPost extends AppCompatActivity {
                     Toast.makeText(AdminPost.this, "Upload Complete", Toast.LENGTH_LONG).show();
                     DatabaseReference newPost = databaseReference.push();
 
+                    newPost.child("typeproduct").setValue(typeValue);
                     newPost.child("nameproduct").setValue(titleValue);
                     newPost.child("desproduct").setValue(countValue);
                     newPost.child("priceproduct").setValue(priceValue);

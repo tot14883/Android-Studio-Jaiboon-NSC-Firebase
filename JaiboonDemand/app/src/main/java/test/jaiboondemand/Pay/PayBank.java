@@ -30,8 +30,11 @@ public class PayBank extends AppCompatActivity {
     private TextView textView;
     private DatabaseReference mDatasend;
     private String txt_price="";
-    private String text="รายการสั่งซื้อสินค้าทั้งหมด\n"+txt_price;
+    private String text="รายการสั่งซื้อสินค้าทั้งหมด\n";
     private String user_Name,user_Address,user_Phone;
+    private TextView text_name,text_local,text_phone;
+    private String user_name,user_address,user_phone;
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,11 @@ public class PayBank extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(PayBank.this));
 
         textView = (TextView) findViewById(R.id.total_price_send_bank);
+        text_name = (TextView) findViewById(R.id.name_id);
+        text_local = (TextView) findViewById(R.id.text_address);
+        text_phone = (TextView) findViewById(R.id.phone_id);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("SendDonate");
 
         mData = FirebaseDatabase.getInstance().getReference().child("Cart");
         mData.addValueEventListener(new ValueEventListener() {
@@ -106,7 +114,10 @@ public class PayBank extends AppCompatActivity {
         intent.putExtra("Name",user_Name);
         intent.putExtra("Address",user_Address);
         intent.putExtra("Phone",user_Phone);
-        intent.putExtra("Text",text);
+        intent.putExtra("Text",text+txt_price);
+        intent.putExtra("Name2",user_name);
+        intent.putExtra("Address2",user_address);
+        intent.putExtra("Phone2",user_phone);
         startActivity(intent);
     }
 
@@ -170,6 +181,33 @@ public class PayBank extends AppCompatActivity {
                         user_Address = address+"\n"+post+"\n"+country;
                     }
                 }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                   if(snapshot.child("uid").getValue().equals(mAuth.getUid())&&snapshot.child("select").getValue().equals(true)){
+                       String post_name2 = (String)snapshot.child("NameSend").getValue();
+                       String address2 = (String)snapshot.child("AddSend").getValue();
+                       String post2 = (String)snapshot.child("PostSend").getValue();
+                       String country2 = (String)snapshot.child("ProSend").getValue();
+                       String Phone2 =(String)dataSnapshot.child("Phone").getValue();
+                       text_name.setText(post_name2);
+                       text_phone.setText("เบอร์โทร "+Phone2);
+                       text_local.setText("ที่อยู่ "+address2+"\n"+"รหัสไปรษณีย์ "+post2+"\n"+"จังหวัด "+country2);
+                       user_name = post_name2;
+                       user_phone = Phone2;
+                       user_address = "ที่อยู่ "+address2+"\n"+"รหัสไปรษณีย์ "+post2+"\n"+"จังหวัด "+country2;
+                       break;
+                   }
+               }
             }
 
             @Override
