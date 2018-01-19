@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+   <ListPreference
+       android:title="Languages"
+       android:entries="@array/languages"
+       android:entryValues="@array/languages_select"
+       android:defaultValue="Thai"
+       android:summary="%s"
+       android:key="@string/setting_languages"
+       />
+</PreferenceScreen>

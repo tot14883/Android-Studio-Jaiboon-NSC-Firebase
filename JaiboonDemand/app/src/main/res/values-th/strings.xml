@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ใจบุณออนดีมานด์</string>
+    <string name="title_activity_tab_host_feed">TabHostFeed</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="Title">Login/Register</string>
+    <string name="email">E-Mail</string>
+    <string name="password">Password</string>
+    <string name="login">Sign In</string>
+    <string name="reg">Forgetten Account? Click</string>
+    <string name="facebook_app_id">186983495194428</string>
+    <string name="fb_login_protocol_scheme">fb186983495194428</string>
+    <string name="title_activity_single_insta">SingleInstaActivity</string>
+    <string name="title_activity_shop">ShopActivity</string>
+    <string-array name="Type_Customer">
+        <item>General Customer</item>
+        <item>Temple</item>
+        <item>Foundation</item>
+    </string-array>
+    <string-array name="Type_Shop">
+        <item>Suit</item>
+        <item>Medication</item>
+        <item>Food</item>
+    </string-array>
+    <string-array name="Cost">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="Province">
+        <item>เลือกจังหวัด</item>
+        <item>กรุงเทพมหานคร</item>
+        <item>กระบี่</item>
+        <item>กาญจนบุรี</item>
+        <item>กาฬสินธุ์</item>
+        <item>กำแพงเพชร</item>
+        <item>ขอนแก่น</item>
+        <item>จันทรบุรี</item>
+        <item>ฉะเชิงเทรา</item>
+        <item>ชลบุรี</item>
+        <item>ชัยนาท</item>
+        <item>ชัยภูมิ</item>
+        <item>ชุมพร</item>
+        <item>เชียงราย</item>
+        <item>เชียงใหม่</item>
+        <item>ตรัง</item>
+        <item>ตราด</item>
+        <item>ตาก</item>
+        <item>นครนายก</item>
+        <item>นครปฐม</item>
+        <item>นครพนม</item>
+        <item>นครราชสีมา</item>
+        <item>นครศรีธรรมราช</item>
+        <item>นครสวรรค์</item>
+        <item>นนทบุรี</item>
+        <item>นราธิวาส</item>
+        <item>น่าน</item>
+        <item>บึงกาฬ</item>
+        <item>บุรีรัมย์</item>
+        <item>ปทุมธานี</item>
+        <item>ประจวบคีรีขันธ์</item>
+        <item>ปราจีนบุรี</item>
+        <item>ปัตตานี</item>
+        <item>พระนครสีอยุธยา</item>
+        <item>พังงา</item>
+        <item>พัทลุง</item>
+        <item>พิจิตร</item>
+        <item>พิษณุโลก</item>
+        <item>เพชรบุรี</item>
+        <item>เพชนบูรณ์</item>
+        <item>แพร่</item>
+        <item>พะเยา</item>
+        <item>ภูเก็ต</item>
+        <item>มหาสารคาม</item>
+        <item>มุกดาหาร</item>
+        <item>แม่ฮ่องสอน</item>
+        <item>ยะลา</item>
+        <item>ยโสธร</item>
+        <item>ร้อยเอ็ด</item>
+        <item>ระนอง</item>
+        <item>ระยอง</item>
+        <item>ราชบุรี</item>
+        <item>ลพบุรี</item>
+        <item>ลำปาง</item>
+        <item>ลำพูน</item>
+        <item>เลย</item>
+        <item>ศรีสะเกษ</item>
+        <item>สกลนคร</item>
+        <item>สงขลา</item>
+        <item>สตูล</item>
+        <item>สมุทรปราการ</item>
+        <item>สมุทรสงคราม</item>
+        <item>สมุทรสาคร</item>
+        <item>สระแก้ว</item>
+        <item>สระบุรี</item>
+        <item>สิงห์บุรี</item>
+        <item>สุโขทัย</item>
+        <item>สุพรรณบุรี</item>
+        <item>สุราษฎร์ธานี</item>
+        <item>สุรินทร์</item>
+        <item>หนองคาย</item>
+        <item>หนองบัวลำภู</item>
+        <item>อ่างทอง</item>
+        <item>อุดรธานี</item>
+        <item>อุทัยธานี</item>
+        <item>อุตรดิตถ์</item>
+        <item>อุบลราชธานี</item>
+        <item>อำนาจเจริญ</item>
+    </string-array>
+    <string-array name="amountNeed">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+        <item>50</item>
+    </string-array>
+    <string-array name="languages">
+        <item>Thai</item>
+        <item>English</item>
+    </string-array>
+    <string-array name="languages_select">
+        <item>Thai</item>
+        <item>English</item>
+    </string-array>
+    <string name="Home">หน้าหลัก</string>
+    <string name="Shop">ร้านค้า</string>
+    <string name="News">ข่าว</string>
+    <string name="Deposit">ฝาก</string>
+    <string name="Nearby">ใก้ลเคียง</string>
+    <string name="History">ประวัติ</string>
+    <string name="Needs_Help">ช่วยเหลือ ?</string>
+    <string name="Settings">ตั้งค่า</string>
+    <string name="MyAccount">บัญชี</string>
+    <string name="Mypost">สร้างโพส</string>
+    <string name="AdminPost">แอดมินโพส</string>
+    <string name="UploadProduct">ลงสินค้า</string>
+    <string  name="AdminDeposit">ตรวจสอบการรับฝาก</string>
+    <string name="SingOut">ออกจากระบบ</string>
+    <string name="Login">เข้าสู่ระบบ</string>
+    <string name="Delete">ลบ</string>
+    <string name="Temple">วัด</string>
+    <string name="Foundation">มูลนิธิ</string>
+</resources>

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "test.jaiboondemand"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -55,5 +55,6 @@ dependencies {
     compile 'io.nlopez.smartlocation:library:3.3.1'
     compile 'com.paypal.sdk:paypal-android-sdk:2.15.3'
     compile 'com.github.luongvo:GmailBackground:2.0.2'
+    compile 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
 }
 apply plugin: 'com.google.gms.google-services'
