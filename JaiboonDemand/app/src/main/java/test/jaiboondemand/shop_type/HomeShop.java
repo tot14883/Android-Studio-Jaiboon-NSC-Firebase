@@ -23,9 +23,8 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
-import test.jaiboondemand.Insta;
+import test.jaiboondemand.DonateMain.Insta;
 import test.jaiboondemand.R;
-import test.jaiboondemand.shop_type.Shopdetail;
 
 public class HomeShop extends Fragment {
     private RecyclerView mSList;

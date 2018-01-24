@@ -56,5 +56,10 @@ dependencies {
     compile 'com.paypal.sdk:paypal-android-sdk:2.15.3'
     compile 'com.github.luongvo:GmailBackground:2.0.2'
     compile 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
+    implementation 'com.sangcomz:FishBun:0.8.4'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.therealshabi:AutoImageFlipper:v1.4.1'
+    compile 'com.gtomato.android.library:carouselview:2.0.1'
+    implementation 'com.github.firdausmaulan:GlideSlider:1.2.0'
 }
 apply plugin: 'com.google.gms.google-services'

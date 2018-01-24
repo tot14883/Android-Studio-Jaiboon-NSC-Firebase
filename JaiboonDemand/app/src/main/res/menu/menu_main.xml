@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="DonateThings"
+        android:id="@+id/donate_things"
+        />
+    <item
+        android:title="DonateFactor"
+        android:id="@+id/donate_factor"
+       />
+    <item
+        android:title="News"
+        android:id="@+id/donate_news"
+        />
+    <item
+        android:title="DonateDeposit"
+        android:id="@+id/donate_deposit"
+        />
+    <group android:id="@+id/group_settings_id">
+        <item
+            android:title="@string/MyAccount"
+            android:id="@+id/my_account_main"
+            android:icon="@drawable/ic_account_box_black_24dp"
+            />
+        <item
+            android:title="Setting"
+            android:id="@+id/setting_main"
+            android:icon="@drawable/settings"
+            />
+    </group>
+    <item android:title="LogOut"
+        android:id="@+id/sing_out_main"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"/>
+
+</menu>

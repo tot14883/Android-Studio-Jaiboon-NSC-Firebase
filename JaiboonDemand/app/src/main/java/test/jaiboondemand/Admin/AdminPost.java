@@ -19,7 +19,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import test.jaiboondemand.Main2Activity;
+import test.jaiboondemand.DonateMain.Main2Activity;
 import test.jaiboondemand.R;
 
 public class AdminPost extends AppCompatActivity {

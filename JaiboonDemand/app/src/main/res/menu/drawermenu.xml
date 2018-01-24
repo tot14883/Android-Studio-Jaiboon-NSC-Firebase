@@ -7,14 +7,6 @@
     <item android:id="@+id/Shopping_list"
         android:icon="@drawable/shopping"
         android:title="" />
-    <item android:id="@+id/news"
-        android:title=""
-        android:icon="@drawable/ic_import_contacts_black_24dp"
-        />
-    <item android:title=""
-        android:id="@+id/add_deposit"
-        android:icon="@drawable/ic_add_box_black_24dp"
-        />
     <item
          android:title=""
         android:id="@+id/Nearby_place"

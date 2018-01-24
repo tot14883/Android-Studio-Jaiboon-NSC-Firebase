@@ -8,4 +8,12 @@
        android:summary="%s"
        android:key="@string/setting_languages"
        />
+   <ListPreference
+       android:title="เลือกเเสดงข้อมูลในเขตพื้นที่"
+       android:entries="@array/Province"
+       android:entryValues="@array/select_Province"
+       android:defaultValue="เลือกจังหวัด"
+       android:summary="%s"
+       android:key="@string/setting_Province"
+       />
 </PreferenceScreen>

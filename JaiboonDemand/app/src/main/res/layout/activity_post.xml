@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/activity_post"
-    tools:context="test.jaiboondemand.PostActivity">
+    tools:context="test.jaiboondemand.DonateMain.PostActivity">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/toolbar_post"
         android:layout_width="match_parent"
@@ -56,18 +56,24 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         />
-    <ImageButton
-        android:layout_below="@id/editDesc"
-        android:background="@drawable/add_image"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_centerInParent="true"
-        android:onClick="imageButtomClicked"
-        android:id="@+id/imageButton1"/>
-    <EditText
+     <Button
+         android:layout_below="@+id/editDesc"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Select Images"
+         android:id="@+id/SelectImage"
+         android:layout_marginTop="5dp"
+         android:background="@drawable/transparan_mode"/>
+            <com.gtomato.android.ui.widget.CarouselView
+                android:layout_below="@+id/SelectImage"
+                android:id="@+id/carouse1"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+      <EditText
         android:hint="Date"
         android:id="@+id/Edit_date_alarm"
-        android:layout_below="@+id/imageButton1"
+        android:layout_below="@+id/carouse1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

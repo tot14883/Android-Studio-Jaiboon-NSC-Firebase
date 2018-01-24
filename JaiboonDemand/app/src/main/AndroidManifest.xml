@@ -36,17 +36,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".DonateMain.MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".SetupUsers" />
+        <activity android:name=".DonateMain.SetupUsers" />
         <activity
-            android:name=".Main2Activity"
-            android:screenOrientation="portrait">
-            
-        </activity>
-        <activity android:name=".PostActivity" />
+            android:name=".DonateMain.Main2Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".DonateMain.PostActivity" />
         <activity
-            android:name=".SingleInstaActivity"
+            android:name=".DonateMain.SingleInstaActivity"
             android:label="@string/title_activity_single_insta"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
@@ -58,18 +56,18 @@
             android:name="com.google.android.gms.vision"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".Forget_Account" />
+        <activity android:name=".DonateMain.Forget_Account" />
         <activity android:name=".Admin.AdminPost" />
         <activity android:name=".shop_type.Shopdetail" />
         <activity
-            android:name=".CateGoryUser"
+            android:name=".DonateMain.CateGoryUser"
             android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity android:name=".ProfileTemple" />
-        <activity android:name=".ProfileFoundation" />
-        <activity android:name=".ProfileCustomer" />
-        <activity android:name=".badgeLayout" />
+        <activity android:name=".DonateMain.ProfileTemple" />
+        <activity android:name=".DonateMain.ProfileFoundation" />
+        <activity android:name=".DonateMain.ProfileCustomer" />
+        <activity android:name=".DonateMain.badgeLayout" />
         <activity android:name=".map.map_content" />
-        <activity android:name=".thingDonate" />
+        <activity android:name=".DonateMain.thingDonate" />
         <activity android:name=".post_activity.ChooseDonate" />
         <activity android:name=".ShopDonate.Main3Activity" />
         <activity android:name=".ShopDonate.DonateDetail" />
@@ -81,14 +79,14 @@
         <activity android:name=".Pay.PlaceSend" />
         <activity android:name=".Pay.PayBank" />
         <activity android:name=".Pay.PayBankEvidence" />
-        <activity android:name=".Deposit.DepositPost" />
+        <activity android:name=".Deposit.DepositPostThings" />
         <activity android:name=".Admin.AdminNews" />
-        <activity android:name=".News.NewsDetail" />
+        <activity android:name=".NewsFuction.NewsDetail" />
         <activity android:name=".Pay.PayPalCart" />
         <activity android:name=".must_product.NeedDonateSend" />
         <activity android:name=".must_product.NeedChoosePay" />
         <activity android:name=".must_product.NeedPaypal" />
-        <activity android:name=".Setting" />
+        <activity android:name=".DonateMain.Setting" />
         <activity android:name=".post_activity.CommentActivity" />
         <activity android:name=".ChooseDonate.ChooseDonate">
             <intent-filter>
@@ -97,6 +95,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NewsFuction.NewsStart" />
+        <activity android:name=".Factor.FactorMain" />
+        <activity android:name=".Deposit.DepositMain" />
+        <activity android:name=".NewsFuction.NewsCategory" />
+        <activity android:name=".Deposit.DepositPostMoney" />
+        <activity android:name=".Deposit.AddressAdmin" />
+        <activity android:name=".Deposit.AddressPlaceDeposit" />
+        <activity android:name=".Deposit.DepositSubmitMoney"></activity>
     </application>
 
 </manifest>

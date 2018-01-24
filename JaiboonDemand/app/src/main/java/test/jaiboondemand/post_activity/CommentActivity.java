@@ -43,7 +43,6 @@ public class CommentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle("Comment");
 
-
         recyclerView = (RecyclerView) findViewById(R.id.comment_recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.hasFixedSize();

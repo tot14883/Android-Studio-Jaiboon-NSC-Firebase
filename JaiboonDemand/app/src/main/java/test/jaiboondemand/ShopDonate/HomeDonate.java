@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-import test.jaiboondemand.Insta;
+import test.jaiboondemand.DonateMain.Insta;
 import test.jaiboondemand.R;
 
 public class HomeDonate extends Fragment {

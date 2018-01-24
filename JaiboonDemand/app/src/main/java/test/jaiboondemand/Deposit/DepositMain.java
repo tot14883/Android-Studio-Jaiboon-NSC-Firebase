@@ -1,48 +1,91 @@
 package test.jaiboondemand.Deposit;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-
-import test.jaiboondemand.PostActivity;
 import test.jaiboondemand.R;
 
-public class DepositMain extends Fragment {
-    View x;
-    private RecyclerView recyclerView;
-    private FloatingActionButton fab_deposit;
-    @Nullable
+public class DepositMain extends AppCompatActivity {
+    DrawerLayout mDrawerLayout;
+    NavigationView mNavigationView;
+    FragmentManager mFragmentManager;
+    FragmentTransaction mFragmentTransaction;
+    private FloatingActionButton floatingActionButton;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        x = inflater.inflate(R.layout.activity_deposit_main, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_deposit_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main_Deposit);//Command find id Toolbar to our set
+        setSupportActionBar(toolbar);
 
-        recyclerView = (RecyclerView) x.findViewById(R.id.my_deposit);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.hasFixedSize();
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout_Deposit);
+        mNavigationView = (NavigationView) findViewById(R.id.shitstuff_Deposit) ;
 
-        fab_deposit = (FloatingActionButton) x.findViewById(R.id.fab_deposit);
-        fab_deposit.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_deposit);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),PostActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder b = new AlertDialog.Builder(DepositMain.this);
+                b.setTitle("เลือกชนิดการบริจาค");
+                String[] types = {"Things", "Money"};
+                b.setItems(types, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        switch(which){
+                            case 0:
+                                Intent intent = new Intent(DepositMain.this,DepositPostThings.class);
+                                startActivity(intent);
+                                break;
+                            case 1:
+                                Intent intent1 = new Intent(DepositMain.this,DepositPostMoney.class);
+                                startActivity(intent1);
+                                break;
+                        }
+                    }
+
+                });
+
+                b.show();
+
             }
         });
 
-        return  x;
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.containerView_Deposit,new DepositSend()).commit();
+
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                mDrawerLayout.closeDrawers();
+                return false;
+            }
+        });
+
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, toolbar,R.string.app_name,
+                R.string.app_name);
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        mDrawerToggle.syncState();
+
+
     }
 }

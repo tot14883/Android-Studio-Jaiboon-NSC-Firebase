@@ -26,9 +26,8 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
-import test.jaiboondemand.News.News;
-import test.jaiboondemand.News.NewsDetail;
-import test.jaiboondemand.PostActivity;
+import test.jaiboondemand.NewsFuction.News;
+import test.jaiboondemand.NewsFuction.NewsDetail;
 import test.jaiboondemand.R;
 
 public class AdminManager extends Fragment {

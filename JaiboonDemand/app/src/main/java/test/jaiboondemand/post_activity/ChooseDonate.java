@@ -20,7 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-import test.jaiboondemand.Main2Activity;
+import test.jaiboondemand.DonateMain.Main2Activity;
 import test.jaiboondemand.R;
 import test.jaiboondemand.ShopDonate.Main3Activity;
 import test.jaiboondemand.must_product.NeedDonate;

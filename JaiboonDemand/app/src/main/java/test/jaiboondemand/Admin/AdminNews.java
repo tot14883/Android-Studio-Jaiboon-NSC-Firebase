@@ -2,7 +2,6 @@ package test.jaiboondemand.Admin;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,7 +21,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import test.jaiboondemand.Main2Activity;
+import test.jaiboondemand.DonateMain.Main2Activity;
 import test.jaiboondemand.R;
 
 public class AdminNews extends AppCompatActivity {

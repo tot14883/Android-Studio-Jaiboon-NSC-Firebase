@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="test.jaiboondemand.CateGoryUser">
+    tools:context="test.jaiboondemand.DonateMain.CateGoryUser">
      <Spinner
          android:id="@+id/spinner_type"
          android:entries="@array/Type_Customer"
