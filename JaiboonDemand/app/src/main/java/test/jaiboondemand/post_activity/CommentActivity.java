@@ -1,14 +1,13 @@
 package test.jaiboondemand.post_activity;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -78,29 +77,37 @@ public class CommentActivity extends AppCompatActivity {
         ) {
             @Override
             protected void populateViewHolder(final CommentHolder viewHolder, Comment model, int position) {
-                String name = model.getUser();
-                final String[] name2 = {""};
-                mUser.child(name).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        name2[0] = dataSnapshot.child("Name_User").getValue().toString();
-                        viewHolder.setUsername(name2[0]);
-                    }
+                try {
+                    String name = model.getUser();
+                    final String[] name2 = {""};
+                    mUser.child(name).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            name2[0] = dataSnapshot.child("Name_User").getValue().toString();
+                            viewHolder.setUsername(name2[0]);
+                        }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
-                SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
-                Date date = new Date(Long.valueOf(model.getTimeCreated()));
-                String currentTime = dateFormat.format(date);
+                        }
+                    });
+                    SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                    dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+                    Date date = new Date(Long.valueOf(model.getTimeCreated()));
+                    String currentTime = dateFormat.format(date);
 
-                viewHolder.setComment(model.getComment());
-                viewHolder.setTime(currentTime);
+                    viewHolder.setComment(model.getComment());
+                    viewHolder.setTime(currentTime);
+                }catch (Exception e){
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition(0, 0);
+                }
             }
+
         };
         recyclerView.setAdapter(comentAdapter);
         mAuth.addAuthStateListener(mAuthListener);

@@ -1,11 +1,13 @@
 package test.jaiboondemand.DonateMain;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import test.jaiboondemand.Deposit.Send;
 import test.jaiboondemand.R;
 import test.jaiboondemand.map.map_content;
 import test.jaiboondemand.must_product.NeedProduct;
@@ -52,6 +55,7 @@ public class SingleInstaActivity extends AppCompatActivity implements BaseSlider
     private PostSetting postSetting = new PostSetting();
     private SliderLayout mDemoSlider;
     private ArrayList<String> listUrl = new ArrayList<>();
+    private  String post_title,post_desc,post_image,address,post,country,phone,type,owner;;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +95,6 @@ public class SingleInstaActivity extends AppCompatActivity implements BaseSlider
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<String> listUrl = new ArrayList<>();
-                String post_title,post_desc,post_image,address,post,country,phone,type,owner;
                     post_title = (String) dataSnapshot.child("title").getValue();
                     post_desc = (String) dataSnapshot.child("desc").getValue();
                   int num_image = 1;
@@ -125,7 +128,8 @@ public class SingleInstaActivity extends AppCompatActivity implements BaseSlider
                 }
                 else if(!dataSnapshot.child("Type").getValue().equals("Foundation")) {
                      type_text.setVisibility(View.INVISIBLE);
-                     owner_text.setVisibility(View.INVISIBLE);
+                     owner_text.setText(owner);
+                    owner_text.setVisibility(View.VISIBLE);
                 }
                 user_id = (String) dataSnapshot.child("uid").getValue();
                 Name = (String) dataSnapshot.child("Name").getValue();
@@ -147,9 +151,38 @@ public class SingleInstaActivity extends AppCompatActivity implements BaseSlider
     }
 
     public void searchlocaltion(View view) {
-        Intent map_show = new Intent(SingleInstaActivity.this, map_content.class);
-        map_show.putExtra("Local",Name);
-        startActivity(map_show);
+        AlertDialog.Builder b = new AlertDialog.Builder(SingleInstaActivity.this);
+        String[] types = {"ดูสถานที่", "ส่งของบริจาค"};
+        b.setItems(types, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+                switch(which){
+                    case 0:
+                        Intent map_show = new Intent(SingleInstaActivity.this, map_content.class);
+                        map_show.putExtra("Local",Name);
+                        startActivity(map_show);
+                        break;
+                    case 1:
+                        Intent send = new Intent(SingleInstaActivity.this, Send.class);
+                        send.putExtra("TypeSend","Quick");
+                        send.putExtra("Name",owner);
+                        send.putExtra("Phone",phone);
+                        send.putExtra("Localname",Name);
+                        send.putExtra("LocalAddress",address);
+                        send.putExtra("LocalPost",post);
+                        send.putExtra("LocalCountry",country);
+                        startActivity(send);
+                        break;
+
+                }
+            }
+
+        });
+
+        b.show();
     }
 
     public void ShowdonateClicked(View view) {

@@ -5,11 +5,7 @@
             android:id="@+id/Home_News"
             android:icon="@drawable/home"
             />
-        <item
-            android:title="Category"
-            android:id="@+id/category_news"
-            android:icon="@drawable/ic_apps_black_24dp" />
-        <item
+         <item
                 android:title="@string/MyAccount"
                 android:id="@+id/my_account"
                 android:icon="@drawable/ic_account_box_black_24dp"

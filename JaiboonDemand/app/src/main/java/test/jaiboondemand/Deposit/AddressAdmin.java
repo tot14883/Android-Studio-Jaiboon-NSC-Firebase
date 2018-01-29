@@ -24,7 +24,7 @@ public class AddressAdmin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_admin);
-        TextView textView = (TextView) findViewById(R.id.address_admin);
+        TextView textView = (TextView) findViewById(R.id.address_deposit);
         textView.setText("295 หมู่ 7 บ.หนองเดิ่น ต.หนองกอมเกาะ อ.เมือง จ.หนองคาย"+"\n"+"หนองคาย/Nong Khai - เมืองหนองคาย/Mueang Nong Khai - 43000"+"\n"+"Tel.0828662279");
 
         address_send = (TextView) findViewById(R.id.address_send_deposit);

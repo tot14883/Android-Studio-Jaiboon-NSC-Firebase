@@ -79,7 +79,6 @@
         <activity android:name=".Pay.PlaceSend" />
         <activity android:name=".Pay.PayBank" />
         <activity android:name=".Pay.PayBankEvidence" />
-        <activity android:name=".Deposit.DepositPostThings" />
         <activity android:name=".Admin.AdminNews" />
         <activity android:name=".NewsFuction.NewsDetail" />
         <activity android:name=".Pay.PayPalCart" />
@@ -99,10 +98,14 @@
         <activity android:name=".Factor.FactorMain" />
         <activity android:name=".Deposit.DepositMain" />
         <activity android:name=".NewsFuction.NewsCategory" />
-        <activity android:name=".Deposit.DepositPostMoney" />
         <activity android:name=".Deposit.AddressAdmin" />
         <activity android:name=".Deposit.AddressPlaceDeposit" />
-        <activity android:name=".Deposit.DepositSubmitMoney"></activity>
+        <activity android:name=".Deposit.Send" />
+        <activity android:name=".Factor.FacCategory" />
+        <activity android:name=".DonateMain.ResetPassword" />
+        <activity android:name=".Factor.FactorDetail"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Factor.postFactor"></activity>
     </application>
 
 </manifest>

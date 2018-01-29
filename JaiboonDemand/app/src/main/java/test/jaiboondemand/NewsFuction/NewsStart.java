@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import test.jaiboondemand.Admin.AdminManager;
 import test.jaiboondemand.DonateMain.MainActivity;
 import test.jaiboondemand.R;
 
@@ -107,9 +108,13 @@ public class NewsStart extends AppCompatActivity{
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.child("Level").exists()){
                                 CheckAdmin();
+                                String post_name = (String) dataSnapshot.child("Name_User").getValue();
+                                textName.setText(post_name);
+                                mImageLogin.setEnabled(false);
+                                textType.setText("");
                             }
                             else if(!dataSnapshot.child("Level").exists()){
-                                item1.setVisible(false);
+                                item1.setVisible(true);
                                 item2.setVisible(false);
                                 item3.setVisible(false);
                                 item.setVisible(true);
@@ -149,9 +154,6 @@ public class NewsStart extends AppCompatActivity{
                     xfragmentTransaction.replace(R.id.containerView_News,new
                             NewsMain()).commit();
                 }
-                if(item.getItemId() == R.id.category_news){
-
-                }
                if(item.getItemId() == R.id.singout){
                    AlertDialog.Builder dialog = new AlertDialog.Builder(NewsStart.this);
                    dialog.setTitle("ล๊อคอิน");
@@ -172,6 +174,11 @@ public class NewsStart extends AppCompatActivity{
                    });
 
                    dialog.show();
+               }
+               if(item.getItemId() == R.id.my_post_Admin){
+                   FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
+                   xfragmentTransaction.replace(R.id.containerView_News,new
+                           AdminManager()).commit();
                }
 
                 return false;

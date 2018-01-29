@@ -192,6 +192,7 @@ public class ChooseDonate extends AppCompatActivity {
                 }
                 if(item.getItemId() == R.id.donate_factor){
                     Intent intent = new Intent(ChooseDonate.this,FactorMain.class);
+                    intent.putExtra("Type","Home");
                     startActivity(intent);
                 }
                 if(item.getItemId() == R.id.donate_news){
@@ -258,6 +259,7 @@ public class ChooseDonate extends AppCompatActivity {
 
     public void FactorMain(View view) {
         Intent factor= new Intent(ChooseDonate.this, FactorMain.class);
+        factor.putExtra("Type","Home");
         startActivity(factor);
     }
 }

@@ -3,9 +3,9 @@ package test.jaiboondemand.DonateMain;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,7 +16,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -38,7 +37,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import test.jaiboondemand.Admin.AdminManager;
 import test.jaiboondemand.Admin.AdminPost;
 import test.jaiboondemand.Nearby.NearbyActivity;
 import test.jaiboondemand.R;
@@ -60,7 +58,7 @@ public class Main2Activity extends AppCompatActivity {
     private RecyclerView mIBstaList;
     private ImageButton imageButton;
     public static Toolbar toolbar;
-    private MenuItem item,item1,item2,item3,item4,item5,item6,item7,item8,item9;
+    private MenuItem item,item2,item3,item4,item5,item6,item7,item8,item9;
     private SharedPreferences mSharedPreferences;
     private Context mContext;
     private String Languages;
@@ -119,7 +117,6 @@ public class Main2Activity extends AppCompatActivity {
                 item = menu.findItem(R.id.Log_Out);
                 item2 = menu.findItem(R.id.my_post);
                 item3 = menu.findItem(R.id.my_account);
-                item6 = menu.findItem(R.id.my_post_Admin);
                 item7 = menu.findItem(R.id.nav_update_shop);
                 item8 = menu.findItem(R.id.my_manager_admin);
                 item9 = menu.findItem(R.id.To_Do_List);
@@ -129,7 +126,6 @@ public class Main2Activity extends AppCompatActivity {
                     item2.setVisible(false);
                     item3.setVisible(false);
                     item.setVisible(false);
-                    item6.setVisible(false);
                     item7.setVisible(false);
                     item8.setVisible(false);
                     item9.setVisible(false);
@@ -149,7 +145,6 @@ public class Main2Activity extends AppCompatActivity {
                                  item3.setVisible(true);
                                  item.setVisible(true);
                                  item2.setVisible(false);
-                                 item6.setVisible(false);
                                  item7.setVisible(false);
                                  item8.setVisible(false);
                                if(dataSnapshot.child("Selected").exists()){
@@ -316,11 +311,6 @@ public class Main2Activity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 if (menuItem.getItemId() == R.id.my_manager_admin){}
-                if(menuItem.getItemId() == R.id.my_post_Admin){
-                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.containerView,new
-                            AdminManager()).commit();
-                }
                 return false;
             }
 
@@ -375,20 +365,17 @@ public class Main2Activity extends AppCompatActivity {
                     item3 = menu.findItem(R.id.my_account);
                     item4 = menu.findItem(R.id.To_Do_List);
                     item5 = menu.findItem(R.id.needs_help);
-                    item6 = menu.findItem(R.id.my_post_Admin);
                     item7 = menu.findItem(R.id.nav_update_shop);
                     item8 = menu.findItem(R.id.my_manager_admin);
-                    item1.setVisible(false);
                     item2.setVisible(false);
                     item3.setVisible(false);
                     item4.setVisible(false);
                     item5.setVisible(false);
-                    item6.setVisible(true);
                     item7.setVisible(true);
                     item8.setVisible(true);
     }
     public void setTitleNevigator(){
-        MenuItem nav_shop,nav_home,nav_nearby,nav_history,nav_need_help,nav_setting,nav_my_account,nav_mypost,nav_mypostadmin,nav_uploadproduct,nav_sign_out,nav_depositadmin;
+        MenuItem nav_shop,nav_home,nav_nearby,nav_history,nav_need_help,nav_setting,nav_my_account,nav_mypost,nav_uploadproduct,nav_sign_out,nav_depositadmin;
         Menu menu = mNavigationView.getMenu();
         nav_shop = menu.findItem(R.id.Shopping_list);
         nav_home = menu.findItem(R.id.nav_home);
@@ -398,7 +385,6 @@ public class Main2Activity extends AppCompatActivity {
         nav_setting = menu.findItem(R.id.setting);
         nav_my_account = menu.findItem(R.id.my_account);
         nav_mypost = menu.findItem(R.id.my_post);
-        nav_mypostadmin = menu.findItem(R.id.my_post_Admin);
         nav_uploadproduct = menu.findItem(R.id.nav_update_shop);
         nav_depositadmin = menu.findItem(R.id.my_manager_admin);
         nav_sign_out = menu.findItem(R.id.Log_Out);
@@ -411,7 +397,6 @@ public class Main2Activity extends AppCompatActivity {
         nav_setting.setTitle(R.string.Settings);
         nav_my_account.setTitle(R.string.MyAccount);
         nav_mypost.setTitle(R.string.Mypost);
-        nav_mypostadmin.setTitle(R.string.AdminPost);
         nav_uploadproduct.setTitle(R.string.UploadProduct);
         nav_depositadmin.setTitle(R.string.AdminDeposit);
         nav_sign_out.setTitle(R.string.SingOut);

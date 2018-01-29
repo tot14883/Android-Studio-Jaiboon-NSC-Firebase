@@ -61,5 +61,6 @@ dependencies {
     compile 'com.github.therealshabi:AutoImageFlipper:v1.4.1'
     compile 'com.gtomato.android.library:carouselview:2.0.1'
     implementation 'com.github.firdausmaulan:GlideSlider:1.2.0'
+    compile 'com.thefinestartist:finestwebview:1.2.7' // เพิ่มใหม่
 }
 apply plugin: 'com.google.gms.google-services'

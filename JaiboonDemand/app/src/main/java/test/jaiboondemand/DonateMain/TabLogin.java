@@ -133,7 +133,7 @@ public class TabLogin extends Fragment {
         };
 
         LoginUser();
-        forgetAc = (TextView) x.findViewById(R.id.tv_reg);
+        forgetAc = (TextView) x.findViewById(R.id.text_reset);
         forgetAc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -228,7 +228,13 @@ public class TabLogin extends Fragment {
                 }
             }
         });
+        TextView reset = (TextView) x.findViewById(R.id.text_reset);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
         return x;
     }
     private void signIn() {

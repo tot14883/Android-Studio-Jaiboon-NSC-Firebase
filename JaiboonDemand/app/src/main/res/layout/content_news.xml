@@ -51,58 +51,6 @@
             android:layout_height="0.5dp"
             android:layout_weight="0.5"
             android:background="@android:color/black"/>
-        <LinearLayout
-            android:id="@+id/place_click_news"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/ic_location_on_black_24dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-          <LinearLayout
-              android:orientation="vertical"
-              android:layout_width="0dp"
-              android:layout_weight="1"
-              android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/places_news"
-            android:text="สถานที่"
-            android:textSize="15sp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-              <TextView
-                  android:id="@+id/text_location_news"
-                  android:text="Location"
-                  android:layout_width="wrap_content"
-                  android:layout_height="match_parent" />
-              </LinearLayout>
-            <ImageButton
-                android:id="@+id/btn_link_news_facebook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_box_black_24dp"/>
-            <ImageButton
-                android:id="@+id/btn_link_news_twitter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_box_black_24dp"/>
-            <ImageButton
-                android:id="@+id/btn_link_news_instagram"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_box_black_24dp"/>
-          </LinearLayout>
-        <View
-            android:layout_marginTop="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="0.5dp"
-            android:layout_weight="0.5"
-            android:background="@android:color/black"/>
         <TextView
             android:id="@+id/news_desc"
             android:text="รายละเอียด"

@@ -10,6 +10,11 @@
             android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+             <LinearLayout
+                 android:id="@+id/liner_1"
+                 android:orientation="vertical"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
         <TextView
             android:id="@+id/topic_send"
             android:layout_marginLeft="16dp"
@@ -21,42 +26,75 @@
             android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/name_admin"
+                android:id="@+id/you_send_deposit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/topic_send"
-                android:layout_below="@+id/topic_send"
-                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="5dp"
                 android:text="นาย นพัทธ์  ศรีจันทพงศ์" />
             <TextView
-                android:id="@+id/address_admin"
+                android:id="@+id/you_address_deposit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/name_admin"
-                android:layout_alignStart="@+id/topic_send"
-                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="5dp"
                  />
+                 <TextView
+                     android:id="@+id/you_phone_deposit"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginLeft="16dp"
+                     android:layout_marginTop="5dp"
+                     />
+             </LinearLayout>
             <View
                 android:id="@+id/view_1"
-                android:layout_below="@+id/address_admin"
+                android:layout_below="@+id/liner_1"
                 android:layout_width="wrap_content"
                 android:layout_height="0.2dp"
                 android:layout_weight="0.5"
+                android:layout_marginTop="5dp"
                 android:background="@android:color/black"/>
+            <LinearLayout
+                android:id="@+id/line_2"
+                android:layout_below="@id/view_1"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
            <TextView
                android:id="@+id/address_deposit"
                android:text="ที่อยู่ปลายทาง"
-               android:layout_below="@id/view_1"
-               android:layout_alignStart="@+id/topic_send"
+               android:layout_marginLeft="16dp"
                android:layout_marginTop="16dp"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content" />
             <TextView
-                android:id="@+id/address_send_deposit"
-                android:layout_below="@id/address_deposit"
-                android:layout_alignStart="@+id/topic_send"
-                android:layout_marginTop="16dp"
+                android:id="@+id/name_send_deposit"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/address_send_deposit"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/phone_send_deposit"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:id="@+id/view_2"
+                android:layout_below="@+id/line_2"
+                android:layout_width="wrap_content"
+                android:layout_height="0.2dp"
+                android:layout_weight="0.5"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/black"/>
+
         </RelativeLayout>
 </android.support.v7.widget.CardView>

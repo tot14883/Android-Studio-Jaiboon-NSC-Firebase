@@ -32,9 +32,6 @@
         android:icon="@drawable/ic_my_post"/>
    <group android:id="@+id/group_admin">
     <item android:title=""
-        android:id="@+id/my_post_Admin"
-        android:icon="@drawable/ic_my_post" />
-    <item android:title=""
         android:id="@+id/nav_update_shop"
         android:icon="@drawable/shopping"/>
     <item android:title=""

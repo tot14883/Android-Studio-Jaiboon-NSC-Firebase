@@ -191,4 +191,17 @@
     <string name="Delete">ลบ</string>
     <string name="Temple">วัด</string>
     <string name="Foundation">มูลนิธิ</string>
+    <string-array name="type_factor">
+        <item>เลือกประเภท</item>
+        <item>การศึกษา</item>
+        <item>ช่วเหลือผู้ยากไร้</item>
+        <item>บำรุงรักษาวัด</item>
+        <item>ช่วเหลือผู้ประสบภัย</item>
+        <item>ช่วยเหลือเด็ก</item>
+        <item>ช่วเหลือสัตว์</item>
+        <item>ช่วยผู้ด้อยโอกาส</item>
+        <item>ช่วเหลือสังคม</item>
+        <item>ช่วยเหลือคนชรา</item>
+        <item>ช่วเหลือคนพิการ</item>
+    </string-array>
 </resources>

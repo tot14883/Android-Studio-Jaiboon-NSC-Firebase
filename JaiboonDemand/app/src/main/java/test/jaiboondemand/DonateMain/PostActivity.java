@@ -238,8 +238,7 @@ public class PostActivity extends AppCompatActivity implements DatePickerDialog.
                                                 }
                                             }
                                             String key = newPost.getKey();
-                                            Intent ChooseDonate = new Intent(PostActivity.this, ChooseDonate.class);
-                                            ChooseDonate.putExtra("Keypost", key);
+                                            Intent ChooseDonate = new Intent(PostActivity.this, Main2Activity.class);
                                             startActivity(ChooseDonate);
                                             finish();
 
