@@ -240,6 +240,7 @@ public class Send extends AppCompatActivity {
                                              }
                                      }
                                      String user = (String) dataSnapshot.child("Name_User").getValue();
+                                     String post_key = newPost.getKey();
                                       newPost.child("uid").setValue(mAuth.getCurrentUser().getUid());
                                       newPost.child("Name_User").setValue(user);
                                       newPost.child("Name_Cus").setValue(post_name);
@@ -282,7 +283,8 @@ public class Send extends AppCompatActivity {
                                      }
                                      else if(typeSend.equals("defualt")){
                                           Intent intent = new Intent(Send.this,AddressPlaceDeposit.class);
-                                         intent.putExtra("TypeSend","defualt");
+                                          intent.putExtra("TypeSend","defualt");
+                                          intent.putExtra("post_key",post_key);
                                           startActivity(intent);
                                       }
                                   }

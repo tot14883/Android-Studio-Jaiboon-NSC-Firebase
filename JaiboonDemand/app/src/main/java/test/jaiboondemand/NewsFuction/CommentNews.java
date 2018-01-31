@@ -57,9 +57,11 @@ public class CommentNews extends AppCompatActivity {
         mAuthListner = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-              mCommentEditTextView.setVisibility(View.INVISIBLE);
-              findViewById(R.id.iv_send_news).setVisibility(View.INVISIBLE);
-              findViewById(R.id.card_comment_news).setVisibility(View.INVISIBLE);
+                if(firebaseAuth.getCurrentUser() == null ) {
+                    mCommentEditTextView.setVisibility(View.INVISIBLE);
+                    findViewById(R.id.iv_send_news).setVisibility(View.INVISIBLE);
+                    findViewById(R.id.card_comment_news).setVisibility(View.INVISIBLE);
+                }
             }
         };
 
@@ -134,7 +136,7 @@ public class CommentNews extends AppCompatActivity {
         }
     }
     public void CommentPost(View view) {
-       final String uid = mAuth.getCurrentUser().getUid().toString();
+       final String uid = mAuth.getCurrentUser().getUid();
        final String strComment = mCommentEditTextView.getText().toString();
        if(!strComment.equals("")){
            final String time = String.valueOf(System.currentTimeMillis());

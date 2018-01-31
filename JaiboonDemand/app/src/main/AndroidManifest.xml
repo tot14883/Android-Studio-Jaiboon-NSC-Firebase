@@ -17,15 +17,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
+
 
     <application
         android:name=".offline.SimpleBlog"
@@ -109,7 +101,9 @@
         <activity android:name=".Factor.CommentFactor" />
         <activity android:name=".NewsFuction.CommentNews" />
         <activity android:name=".Deposit.ChoosePayment" />
-        <activity android:name=".Deposit.DepositDetail"></activity>
+        <activity android:name=".Deposit.DepositDetail" />
+        <activity android:name=".Deposit.BankSubmit" />
+        <activity android:name=".Deposit.SendPostSubmit"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package test.jaiboondemand.Deposit;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -63,24 +64,25 @@ public class DepositDetail extends AppCompatActivity implements BaseSliderView.O
         mData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<String> listUrl = new ArrayList<>();
-                int num_image = 1;
-                for(int i = 1;i < imagedeposit.num_image;i++){
-                    if(dataSnapshot.hasChild("image"+String.valueOf(i))) num_image++;
-                    else break;
-                }
-                for(int i = 0;i < num_image;i++){
-                    if(i == 0){
-                        addimg(dataSnapshot.child("image").getValue().toString());
+                try {
+                    ArrayList<String> listUrl = new ArrayList<>();
+                    int num_image = 1;
+                    for (int i = 1; i < imagedeposit.num_image; i++) {
+                        if (dataSnapshot.hasChild("image" + String.valueOf(i))) num_image++;
+                        else break;
                     }
-                    else if(!dataSnapshot.child("image"+String.valueOf(i)).getValue().toString().equals("-")){
-                        addimg(dataSnapshot.child("image"+String.valueOf(i)).getValue().toString());
+                    for (int i = 0; i < num_image; i++) {
+                        if (i == 0) {
+                            addimg(dataSnapshot.child("image").getValue().toString());
+                        } else if (!dataSnapshot.child("image" + String.valueOf(i)).getValue().toString().equals("-")) {
+                            addimg(dataSnapshot.child("image" + String.valueOf(i)).getValue().toString());
+                        } else {
+                            break;
+                        }
                     }
-                    else{
-                        break;
-                    }
-                }
+                }catch (Exception e){
 
+                }
                 String title = (String) dataSnapshot.child("Topic_Deposit").getValue();
                 String desc = (String) dataSnapshot.child("Desc_Deposit").getValue();
                 String status = (String ) dataSnapshot.child("Status").getValue();
@@ -90,7 +92,6 @@ public class DepositDetail extends AppCompatActivity implements BaseSliderView.O
                 country = (String)dataSnapshot.child("Country_Cus").getValue();
                 phone_customer = (String)dataSnapshot.child("Phone_Cus").getValue();
                 owner = (String) dataSnapshot.child("Name_Deposit").getValue();
-                localname = (String) dataSnapshot.child("NameLocal_Deposit").getValue();
                 localaddress = (String) dataSnapshot.child("AddreeLocal_Deposit").getValue();
                 localpost = (String) dataSnapshot.child("PostLocal_Deposit").getValue();
                 localcountry = (String) dataSnapshot.child("CountryLocal_Deposit").getValue();
@@ -103,8 +104,9 @@ public class DepositDetail extends AppCompatActivity implements BaseSliderView.O
                youraddress.setText("ที่อยู่ "+address+" รหัสไปรษณีย์ "+post+"\n"+"จังหวัด "+country);
                yourphone.setText("เบอร์โทร "+phone_customer);
                 sendname.setText(owner);
-                sendaddress.setText(localname + "\n" + "ที่อยู่ " + localaddress + " รหัสไปรษญีย์ " + localpost + "\n" + "จังหวัด" + localcountry);
+                sendaddress.setText("\n" + "ที่อยู่ " + localaddress + " รหัสไปรษญีย์ " + localpost + "\n" + "จังหวัด" + localcountry);
                 sendphone.setText(phone);
+                addok();
             }
 
             @Override
@@ -153,10 +155,35 @@ public class DepositDetail extends AppCompatActivity implements BaseSliderView.O
     }
 
     public void Bank_Payment(View view){
+        Intent intent = new Intent(DepositDetail.this,BankSubmit.class);
+        intent.putExtra("Name",owner);
+        intent.putExtra("Phone",phone);
+        intent.putExtra("LocalAddress",localaddress);
+        intent.putExtra("LocalPost",localpost);
+        intent.putExtra("LocalCountry",localcountry);
+        intent.putExtra("yourName",post_name);
+        intent.putExtra("youraddress",address);
+        intent.putExtra("yourpost",post);
+        intent.putExtra("yourcountry",country);
+        intent.putExtra("yourphone",phone_customer);
+        intent.putExtra("Typesend","Quick");
+        startActivity(intent);
 
     }
     public void Send_Payment(View view){
-
+        Intent intent = new Intent(DepositDetail.this,SendPostSubmit.class);
+        intent.putExtra("Name",owner);
+        intent.putExtra("Phone",phone);
+        intent.putExtra("LocalAddress",localaddress);
+        intent.putExtra("LocalPost",localpost);
+        intent.putExtra("LocalCountry",localcountry);
+        intent.putExtra("yourName",post_name);
+        intent.putExtra("youraddress",address);
+        intent.putExtra("yourpost",post);
+        intent.putExtra("yourcountry",country);
+        intent.putExtra("yourphone",phone_customer);
+        intent.putExtra("Typesend","defualt");
+        startActivity(intent);
     }
 
     @Override

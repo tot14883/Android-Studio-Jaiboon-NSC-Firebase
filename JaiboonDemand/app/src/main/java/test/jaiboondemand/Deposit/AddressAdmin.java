@@ -26,11 +26,14 @@ public class AddressAdmin extends AppCompatActivity {
     private DatabaseReference mDataDeposit;
     private String typeSend,owner,phone,localname,localaddress,localpost,localcountry;
     private String post_name,address,post,country,phone_customer,Name_Leader,Type_foun,selected;
+    private String post_Name,Send_address,Send_post,Send_country,Send_phone;
+    private String post_key = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_admin);
-        mDataDeposit = FirebaseDatabase.getInstance().getReference().child("Deposit");//Dataตัวใหม่่
+        post_key = getIntent().getExtras().getString("post_key");
+        mDataDeposit = FirebaseDatabase.getInstance().getReference().child("Deposit").child(post_key);//Dataตัวใหม่่
         mData = FirebaseDatabase.getInstance().getReference().child("SendDonate");
         mUser = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
@@ -72,14 +75,14 @@ public class AddressAdmin extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         if (snapshot.child("uid").getValue().equals(mAuth.getCurrentUser().getUid()) && snapshot.child("select").getValue().equals(true)) {
                             key[0] = snapshot.getKey();
-                            String post_name = (String) snapshot.child("NameSend").getValue();
-                            String address = (String) snapshot.child("AddSend").getValue();
-                            String post = (String) snapshot.child("PostSend").getValue();
-                            String country = (String) snapshot.child("ProSend").getValue();
-                            String phone = (String) snapshot.child("PhoneSend").getValue();
-                            sendname.setText(post_name);
-                            sendaddress.setText(" ที่อยู่ " + address + " รหัสไปรษญีย์ " + post + "\n" + "จังหวัด" + country);
-                            sendphone.setText(phone);
+                            post_Name = (String) snapshot.child("NameSend").getValue();
+                            Send_address = (String) snapshot.child("AddSend").getValue();
+                            Send_post = (String) snapshot.child("PostSend").getValue();
+                            Send_country = (String) snapshot.child("ProSend").getValue();
+                            Send_phone = (String) snapshot.child("PhoneSend").getValue();
+                            sendname.setText(post_Name);
+                            sendaddress.setText(" ที่อยู่ " + Send_address + " รหัสไปรษญีย์ " + Send_post + "\n" + "จังหวัด" + Send_country);
+                            sendphone.setText(Send_phone);
                             break;
                         }
                     }
@@ -91,6 +94,7 @@ public class AddressAdmin extends AppCompatActivity {
 
                 }
             });
+            setInfo();
         }
 
        // TextView textView = (TextView) findViewById(R.id.address_deposit);
@@ -104,10 +108,38 @@ public class AddressAdmin extends AppCompatActivity {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListner);
     }
-
     public void Next_submit(View view) {
-        Intent intent = new Intent(AddressAdmin.this,ChoosePayment.class);
-        startActivity(intent);
+        if(typeSend.equals("Quick")) {
+            Intent intent = new Intent(AddressAdmin.this, ChoosePayment.class);
+            intent.putExtra("Name",owner);
+            intent.putExtra("Phone",phone);
+            intent.putExtra("Localname",localname);
+            intent.putExtra("LocalAddress",localaddress);
+            intent.putExtra("LocalPost",localpost);
+            intent.putExtra("LocalCountry",localcountry);
+            intent.putExtra("yourName",post_name);
+            intent.putExtra("youraddress",address);
+            intent.putExtra("yourpost",post);
+            intent.putExtra("yourcountry",country);
+            intent.putExtra("yourphone",phone_customer);
+            intent.putExtra("Typesend","Quick");
+            startActivity(intent);
+        }
+        else if(typeSend.equals("defualt")){
+            Intent intent = new Intent(AddressAdmin.this,ChoosePayment.class);
+            intent.putExtra("Name",post_Name);
+            intent.putExtra("Phone",Send_phone);
+            intent.putExtra("LocalAddress",Send_address);
+            intent.putExtra("LocalPost",Send_post);
+            intent.putExtra("LocalCountry",Send_country);
+            intent.putExtra("yourName",post_name);
+            intent.putExtra("youraddress",address);
+            intent.putExtra("yourpost",post);
+            intent.putExtra("yourcountry",country);
+            intent.putExtra("yourphone",phone_customer);
+            intent.putExtra("Typesend","defualt");
+            startActivity(intent);
+        }
     }
     public void MyProfile(){
         mUser.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
@@ -147,6 +179,24 @@ public class AddressAdmin extends AppCompatActivity {
                 } else if (!dataSnapshot.child("Selected").exists()) {
 
                 }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void setInfo(){
+
+        mDataDeposit.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mDataDeposit.child("Name_Deposit").setValue(post_Name);
+                mDataDeposit.child("Phone_Deposit").setValue(Send_phone);
+                mDataDeposit.child("AddreeLocal_Deposit").setValue(Send_address);
+                mDataDeposit.child("PostLocal_Deposit").setValue(Send_post);
+                mDataDeposit.child("CountryLocal_Deposit").setValue(Send_country);
             }
 
             @Override

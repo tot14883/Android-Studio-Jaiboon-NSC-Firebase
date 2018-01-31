@@ -35,7 +35,8 @@ public class AddressPlaceDeposit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_place_deposit);
-        post_key = getIntent().getExtras().getString("Keypost");
+         post_key = getIntent().getExtras().getString("post_key");
+
 
          text_new_place = (TextView) findViewById(R.id.text_new_place_deposit);
          recyclerView = (RecyclerView) findViewById(R.id.recycle_place_send_deposit);
@@ -49,7 +50,7 @@ public class AddressPlaceDeposit extends AppCompatActivity {
              Key_ok = null;
              Num = 0;
          }
-        mDataDeposit = FirebaseDatabase.getInstance().getReference().child("Deposit");//ข้อมูล
+        mDataDeposit = FirebaseDatabase.getInstance().getReference().child("Deposit");
         mDatabase = FirebaseDatabase.getInstance().getReference().child("SendDonate");
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -109,6 +110,7 @@ public class AddressPlaceDeposit extends AppCompatActivity {
                             select.child("select").setValue(true);
                             Intent intent = new Intent(AddressPlaceDeposit.this,AddressPlaceDeposit.class);
                             intent.putExtra("key",key);
+                            intent.putExtra("post_key",post_key);
                             intent.putExtra("Num",1);
                             startActivity(intent);
                             finish();
@@ -146,6 +148,7 @@ public class AddressPlaceDeposit extends AppCompatActivity {
     public void ButtonNext(View view) {
         Intent intent = new Intent(AddressPlaceDeposit.this,AddressAdmin.class);
         intent.putExtra("TypeSend","defualt");
+        intent.putExtra("post_key",post_key);
         startActivity(intent);
     }
 }
