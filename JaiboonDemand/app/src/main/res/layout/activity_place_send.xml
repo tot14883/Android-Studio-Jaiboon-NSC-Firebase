@@ -42,6 +42,15 @@
         android:layout_marginTop="5dp"
         android:hint="รหัสไปรษณีย์"
         android:background="@drawable/transparan_mode"/>
+    <EditText
+        android:id="@+id/phone_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:hint="เบอร์"
+        android:background="@drawable/transparan_mode"/>
     <Spinner
         android:id="@+id/province_send"
         android:layout_width="match_parent"

@@ -282,6 +282,7 @@ public class Send extends AppCompatActivity {
                                      }
                                      else if(typeSend.equals("defualt")){
                                           Intent intent = new Intent(Send.this,AddressPlaceDeposit.class);
+                                         intent.putExtra("TypeSend","defualt");
                                           startActivity(intent);
                                       }
                                   }

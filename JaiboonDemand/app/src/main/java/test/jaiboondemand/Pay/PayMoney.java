@@ -60,6 +60,7 @@ public class PayMoney extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                   Intent intent = new Intent(PayMoney.this, PlaceSend.class);
+                  intent.putExtra("Typesend","Paymoney");
                   startActivity(intent);
             }
         });

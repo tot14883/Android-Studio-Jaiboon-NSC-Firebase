@@ -23,7 +23,6 @@ public class AddressAdmin extends AppCompatActivity {
     private DatabaseReference mUser;
     private TextView yourname,youraddress,yourphone;
     private TextView sendname,sendaddress,sendphone;
-    private DatabaseReference mLocal;
     private DatabaseReference mDataDeposit;
     private String typeSend,owner,phone,localname,localaddress,localpost,localcountry;
     private String post_name,address,post,country,phone_customer,Name_Leader,Type_foun,selected;
@@ -31,14 +30,27 @@ public class AddressAdmin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_admin);
+        mDataDeposit = FirebaseDatabase.getInstance().getReference().child("Deposit");//Dataตัวใหม่่
+        mData = FirebaseDatabase.getInstance().getReference().child("SendDonate");
+        mUser = FirebaseDatabase.getInstance().getReference().child("Users");
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListner = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() != null){
+                    MyProfile();
+                }
+            }
+        };
         typeSend = getIntent().getExtras().getString("TypeSend");
-        owner = getIntent().getExtras().getString("Name");
-        phone = getIntent().getExtras().getString("Phone");
-        localname = getIntent().getExtras().getString("Localname");
-        localaddress = getIntent().getExtras().getString("LocalAddress");
-        localpost = getIntent().getExtras().getString("LocalPost");
-        localcountry = getIntent().getExtras().getString("LocalCountry");
-
+        if(typeSend.equals("Quick")) {
+            owner = getIntent().getExtras().getString("Name");
+            phone = getIntent().getExtras().getString("Phone");
+            localname = getIntent().getExtras().getString("Localname");
+            localaddress = getIntent().getExtras().getString("LocalAddress");
+            localpost = getIntent().getExtras().getString("LocalPost");
+            localcountry = getIntent().getExtras().getString("LocalCountry");
+        }
 
 
         yourname = (TextView)  findViewById(R.id.you_send_deposit);
@@ -53,25 +65,38 @@ public class AddressAdmin extends AppCompatActivity {
             sendphone.setText(phone);
         }
         else if(typeSend.equals("defualt")){
+            final String[] key = new String[1];
+            mData.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (snapshot.child("uid").getValue().equals(mAuth.getCurrentUser().getUid()) && snapshot.child("select").getValue().equals(true)) {
+                            key[0] = snapshot.getKey();
+                            String post_name = (String) snapshot.child("NameSend").getValue();
+                            String address = (String) snapshot.child("AddSend").getValue();
+                            String post = (String) snapshot.child("PostSend").getValue();
+                            String country = (String) snapshot.child("ProSend").getValue();
+                            String phone = (String) snapshot.child("PhoneSend").getValue();
+                            sendname.setText(post_name);
+                            sendaddress.setText(" ที่อยู่ " + address + " รหัสไปรษญีย์ " + post + "\n" + "จังหวัด" + country);
+                            sendphone.setText(phone);
+                            break;
+                        }
+                    }
 
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
 
        // TextView textView = (TextView) findViewById(R.id.address_deposit);
         //textView.setText("295 หมู่ 7 บ.หนองเดิ่น ต.หนองกอมเกาะ อ.เมือง จ.หนองคาย"+"\n"+"หนองคาย/Nong Khai - เมืองหนองคาย/Mueang Nong Khai - 43000"+"\n"+"Tel.0828662279");
 
-        mDataDeposit =FirebaseDatabase.getInstance().getReference().child("Deposit");//Dataตัวใหม่่
-        mData = FirebaseDatabase.getInstance().getReference().child("SendDonate");
-        mUser = FirebaseDatabase.getInstance().getReference().child("Users");
-        mLocal = FirebaseDatabase.getInstance().getReference().child("Cart");
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListner = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() != null){
-                    MyProfile();
-                }
-            }
-        };
+
     }
 
     @Override
@@ -121,21 +146,6 @@ public class AddressAdmin extends AppCompatActivity {
 
                 } else if (!dataSnapshot.child("Selected").exists()) {
 
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-    public void ShowLocal(){
-        mUser.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-              for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                  if(snapshot.child("uid").getValue().equals(mAuth.getCurrentUser().getUid()) && snapshot.child(""))
                 }
             }
 

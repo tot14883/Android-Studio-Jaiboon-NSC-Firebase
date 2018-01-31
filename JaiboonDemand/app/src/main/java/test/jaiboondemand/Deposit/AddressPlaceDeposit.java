@@ -67,6 +67,7 @@ public class AddressPlaceDeposit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AddressPlaceDeposit.this, PlaceSend.class);
+                intent.putExtra("Typesend","Deposit");
                 startActivity(intent);
             }
         });
@@ -144,6 +145,7 @@ public class AddressPlaceDeposit extends AppCompatActivity {
 
     public void ButtonNext(View view) {
         Intent intent = new Intent(AddressPlaceDeposit.this,AddressAdmin.class);
+        intent.putExtra("TypeSend","defualt");
         startActivity(intent);
     }
 }

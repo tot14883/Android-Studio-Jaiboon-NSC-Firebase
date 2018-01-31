@@ -111,7 +111,7 @@ public class PayPalCart extends AppCompatActivity {
                             String address = (String) snapshot.child("AddSend").getValue();
                             String post = (String) snapshot.child("PostSend").getValue();
                             String country = (String) snapshot.child("ProSend").getValue();
-                            String Phone = "";//(String)dataSnapshot.child("Phone").getValue();
+                            String Phone = (String)dataSnapshot.child("PhoneSend").getValue();
                             text_Name.setText(post_name);
                             text_Phone.setText("เบอร์โทร " + Phone);
                             text_Address.setText("ที่อยู่ " + address + "\n" + "รหัสไปรษณีย์ " + post + "\n" + "จังหวัด " + country);

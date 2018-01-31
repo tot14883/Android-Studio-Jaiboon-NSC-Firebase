@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <ImageView
+           android:layout_margin="12dp"
+           android:layout_width="match_parent"
+           android:layout_height="200dp"
+           android:id="@+id/post_image_deposit"/>
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/title_deposit"
+           android:layout_below="@id/post_image_deposit"
+           android:text="Post Title"
+           android:textSize="15sp"
+           android:layout_marginLeft="5dp"/>
+       <ImageView
+           android:id="@+id/overflow_deposit"
+           android:layout_width="40dp"
+           android:layout_height="40dp"
+           android:layout_alignParentRight="true"
+           android:layout_below="@id/post_image_deposit"
+           android:scaleType="centerCrop"
+           android:src="@drawable/ic_more_vert_black_24dp"/>
+   </RelativeLayout>
+</android.support.v7.widget.CardView>

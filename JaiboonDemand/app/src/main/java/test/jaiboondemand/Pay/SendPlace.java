@@ -5,15 +5,24 @@ package test.jaiboondemand.Pay;
  */
 
 public class SendPlace {
-    private String NameSend,AddSend,PostSend,ProSend;
+    private String NameSend,AddSend,PostSend,ProSend,PhoneSend;
     private boolean select;
     public SendPlace(){}
-    public SendPlace(String NameSend,String AddSend,String PostSend,String ProSend,Boolean select){
+    public SendPlace(String PhoneSend,String NameSend,String AddSend,String PostSend,String ProSend,Boolean select){
         this.NameSend = NameSend;
         this.AddSend = AddSend;
         this.PostSend = PostSend;
         this.ProSend = ProSend;
         this.select = select;
+        this.PhoneSend = PhoneSend;
+    }
+
+    public String getPhoneSend() {
+        return PhoneSend;
+    }
+
+    public void setPhoneSend(String phoneSend) {
+        PhoneSend = phoneSend;
     }
 
     public void setSelect(boolean select) {
