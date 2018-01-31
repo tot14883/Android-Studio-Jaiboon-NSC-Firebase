@@ -20,6 +20,7 @@
            android:textSize="10sp"/>
        <ImageView
            android:id="@+id/image_factor"
+           android:layout_below="@id/factor_postby"
            android:layout_width="match_parent"
            android:layout_height="160dp"
            android:background="?attr/selectableItemBackgroundBorderless"/>

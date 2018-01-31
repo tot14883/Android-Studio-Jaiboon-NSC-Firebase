@@ -95,7 +95,7 @@ public class Send extends AppCompatActivity {
            @Override
            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                if(firebaseAuth.getCurrentUser() != null) {
-                   mUsers.addValueEventListener(new ValueEventListener() {
+                   mUsers.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                        @Override
                        public void onDataChange(DataSnapshot dataSnapshot) {
                            if (dataSnapshot.child("Selected").exists()) {
@@ -128,7 +128,7 @@ public class Send extends AppCompatActivity {
                                }
 
                            } else if (!dataSnapshot.child("Selected").exists()) {
-                               onBackPressed();
+
                            }
                        }
 
@@ -180,7 +180,7 @@ public class Send extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        final int id = item.getItemId();
         final ArrayList<Uri> download = new ArrayList<Uri>(depositSend.num_image);
         final int[] num = {0};
         if(item.getItemId() == android.R.id.home){
@@ -223,7 +223,7 @@ public class Send extends AppCompatActivity {
                             num[0]++;
                             if(num[0] == path.size()){
                               final DatabaseReference newPost = mData.push();
-                              mUsers.addValueEventListener(new ValueEventListener() {
+                              mUsers.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                                   @Override
                                   public void onDataChange(DataSnapshot dataSnapshot) {
                                          newPost.child("Topic_Deposit").setValue(topic);
@@ -240,24 +240,28 @@ public class Send extends AppCompatActivity {
                                              }
                                      }
                                      String user = (String) dataSnapshot.child("Name_User").getValue();
+                                      newPost.child("uid").setValue(mAuth.getCurrentUser().getUid());
                                       newPost.child("Name_User").setValue(user);
                                       newPost.child("Name_Cus").setValue(post_name);
                                       newPost.child("Address_Cus").setValue(address);
                                       newPost.child("Post_Cus").setValue(post);
                                       newPost.child("Country_Cus").setValue(country);
                                       newPost.child("Phone_Cus").setValue(phone_customer);
-                                      if(dataSnapshot.child("Selected").getValue().equals("Customer")){
-                                        newPost.child("Selected").setValue(selected);
+                                      newPost.child("Status").setValue("Waiting");
+                                      if(dataSnapshot.child("Selected").exists()) {
+                                          if (dataSnapshot.child("Selected").getValue().equals("Customer")) {
+                                              newPost.child("Selected").setValue(selected);
 
-                                      }
-                                      if(dataSnapshot.child("Selected").getValue().equals("Temple")){
-                                          newPost.child("Name_Owner").setValue(Name_Leader);
-                                          newPost.child("Selected").setValue(selected);
-                                      }
-                                      if(dataSnapshot.child("Selected").getValue().equals("Foundation")){
-                                          newPost.child("Name_Owner").setValue(Name_Leader);
-                                          newPost.child("TypeFoun").setValue(Type_foun);
-                                          newPost.child("Selected").setValue(selected);
+                                          }
+                                          if (dataSnapshot.child("Selected").getValue().equals("Temple")) {
+                                              newPost.child("Name_Owner").setValue(Name_Leader);
+                                              newPost.child("Selected").setValue(selected);
+                                          }
+                                          if (dataSnapshot.child("Selected").getValue().equals("Foundation")) {
+                                              newPost.child("Name_Owner").setValue(Name_Leader);
+                                              newPost.child("TypeFoun").setValue(Type_foun);
+                                              newPost.child("Selected").setValue(selected);
+                                          }
                                       }
                                      if(typeSend.equals("Quick")) {
                                          Intent intent = new Intent(Send.this,AddressAdmin.class);
@@ -273,6 +277,7 @@ public class Send extends AppCompatActivity {
                                          intent.putExtra("LocalAddress",localaddress);
                                          intent.putExtra("LocalPost",localpost);
                                          intent.putExtra("LocalCountry",localcountry);
+                                         intent.putExtra("TypeSend","Quick");
                                          startActivity(intent);
                                      }
                                      else if(typeSend.equals("defualt")){
@@ -289,14 +294,12 @@ public class Send extends AppCompatActivity {
                             }
                         }
                     });
+                    image1[0]++;
                 }
             }
+            return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 
 }

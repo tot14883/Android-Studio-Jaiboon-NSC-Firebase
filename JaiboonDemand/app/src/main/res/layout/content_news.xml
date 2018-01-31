@@ -72,6 +72,7 @@
             android:background="@drawable/transparan_mode"
             android:text="Comment"
             android:layout_marginTop="15dp"
+            android:onClick="CommentNews"
             />
      </LinearLayout>
     </RelativeLayout>

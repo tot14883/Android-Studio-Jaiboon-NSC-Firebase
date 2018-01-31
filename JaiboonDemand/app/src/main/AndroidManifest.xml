@@ -97,15 +97,19 @@
         <activity android:name=".NewsFuction.NewsStart" />
         <activity android:name=".Factor.FactorMain" />
         <activity android:name=".Deposit.DepositMain" />
-        <activity android:name=".NewsFuction.NewsCategory" />
         <activity android:name=".Deposit.AddressAdmin" />
         <activity android:name=".Deposit.AddressPlaceDeposit" />
         <activity android:name=".Deposit.Send" />
         <activity android:name=".Factor.FacCategory" />
         <activity android:name=".DonateMain.ResetPassword" />
-        <activity android:name=".Factor.FactorDetail"
+        <activity
+            android:name=".Factor.FactorDetail"
             android:screenOrientation="portrait" />
-        <activity android:name=".Factor.postFactor"></activity>
+        <activity android:name=".Factor.postFactor" />
+        <activity android:name=".Factor.CommentFactor" />
+        <activity android:name=".NewsFuction.CommentNews" />
+        <activity android:name=".Deposit.ChoosePayment" />
+        <activity android:name=".Deposit.DepositDetail"></activity>
     </application>
 
 </manifest>

@@ -19,7 +19,7 @@
             android:id="@+id/topic_send"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:text="ที่อยู่ที่จัดส่ง"
+            android:text="ที่อยู่ผู้จัดส่ง"
             android:textStyle="bold"
             android:textSize="15sp"
             android:layout_width="wrap_content"
@@ -95,6 +95,13 @@
                 android:layout_weight="0.5"
                 android:layout_marginTop="5dp"
                 android:background="@android:color/black"/>
-
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_submit_deposit"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/transparan_mode"
+                android:text="Next"
+                android:onClick="Next_submit"/>
         </RelativeLayout>
 </android.support.v7.widget.CardView>

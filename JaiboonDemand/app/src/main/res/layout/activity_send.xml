@@ -38,13 +38,6 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:hint="หัวข้อ"/>
-    <TextView
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="15sp"
-        android:text="รายละเอียดสิ่งที่ต้องการบริจาค"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
     <EditText
         android:id="@+id/desc_deposit"
         android:background="@drawable/transparan_mode"
@@ -53,8 +46,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
-        android:inputType="textMultiLine"
-        android:lines="10"
+        android:hint="รายละเอียดสิ่งที่ต้องการบริจาค"
         />
        <Button
            android:id="@+id/add_image"

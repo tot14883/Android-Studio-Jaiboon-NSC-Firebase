@@ -156,7 +156,9 @@ public class FactorDetail extends AppCompatActivity implements BaseSliderView.On
         }
     }
     public void btn_comment_factor(View view){
-
+       Intent intent = new Intent(FactorDetail.this,CommentFactor.class);
+       intent.putExtra("PostID",post_key);
+       startActivity(intent);
     }
     public void addok(){
         for(int i = 0;i< listUrl.size();i++){

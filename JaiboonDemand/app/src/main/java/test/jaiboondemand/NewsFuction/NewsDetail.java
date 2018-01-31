@@ -1,10 +1,12 @@
 package test.jaiboondemand.NewsFuction;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,6 +60,11 @@ public class NewsDetail extends AppCompatActivity {
 
         CollapsingToolbarLayout mCollapsing = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout_news);
         mCollapsing.setTitle(" ");
+    }
+    public void CommentNews(View view){
+        Intent intent = new Intent(NewsDetail.this,CommentNews.class);
+        intent.putExtra("PostID",post_key);
+        startActivity(intent);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
