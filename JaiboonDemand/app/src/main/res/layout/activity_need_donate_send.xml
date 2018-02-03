@@ -22,8 +22,20 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content" />
        <TextView
+           android:id="@+id/text_owner_need"
+           android:layout_marginTop="5dp"
+           android:text="ชื่อผู้ดูแล"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+       <TextView
            android:id="@+id/text_address_need"
            android:text="ที่อยู่"
+           android:layout_marginTop="5dp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+       <TextView
+           android:id="@+id/text_phone_need"
+           android:text="เบอร์โทร"
            android:layout_marginTop="5dp"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content" />

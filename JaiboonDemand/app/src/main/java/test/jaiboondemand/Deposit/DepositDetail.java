@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class DepositDetail extends AppCompatActivity implements BaseSliderView.O
     private SliderLayout mSliderLayout;
     private Depositthingsetting imagedeposit = new Depositthingsetting();
     private ArrayList<String> listUrl = new ArrayList<>();
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,11 @@ public class DepositDetail extends AppCompatActivity implements BaseSliderView.O
 
         mCollapsing = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout_deposit);
         mSliderLayout = (SliderLayout) findViewById(R.id.slider_deposit);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         post_key = getIntent().getExtras().getString("PostID");
 

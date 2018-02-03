@@ -43,6 +43,7 @@ public class BankSubmit extends AppCompatActivity {
     private String finalFile;
     private String type_post = null;
     private String owner,phone,localname,localaddress,localpost,localcountry,post_name,address,post,country,phone_customer;
+    private Uri outputFileUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +68,7 @@ public class BankSubmit extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              sendemail();
+                sendemail();
             }
         });
         btn_take_image.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +115,7 @@ public class BankSubmit extends AppCompatActivity {
                 })
                 .send();
     }
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode ==1&&resultCode == RESULT_OK) {
             if(storage ==1) {
                 finalFile = String.valueOf(file);
@@ -238,7 +239,23 @@ public class BankSubmit extends AppCompatActivity {
             return contentUri.getPath();
         }
     }
-    private void takePhoto() {
+    public void take(){
+        storage =1;
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        file = new File(Environment.getExternalStorageDirectory(),
+                String.valueOf(System.currentTimeMillis()) + ".jpg");
+        fileUri = Uri.fromFile(file);
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, 1);
+        }
+
+
+
+
+    }
+
+    public void takePhoto() {
         AlertDialog.Builder builder = new AlertDialog.Builder(BankSubmit.this);
         builder.setTitle("แนปสลิป");
         builder.setCancelable(true);
@@ -246,13 +263,8 @@ public class BankSubmit extends AppCompatActivity {
         builder.setPositiveButton("กล้อง", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                storage = 1;
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                file = new File(Environment.getExternalStorageDirectory(),
-                        String.valueOf(System.currentTimeMillis()) + ".jpg");
-                fileUri = Uri.fromFile(file);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                BankSubmit.this.startActivityForResult(intent, RC_TAKE_PHOTO);
+                /*/*/
+                take();
             }
         });
         builder.setNegativeButton("รูปภาพ", new DialogInterface.OnClickListener() {

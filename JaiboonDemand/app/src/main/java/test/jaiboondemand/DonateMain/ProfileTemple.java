@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import test.jaiboondemand.R;
 
 public class ProfileTemple extends AppCompatActivity {
-    private EditText name_temple, name_Leader, address_temple, post_temple, country_temple, phone_temple;
+    private EditText name_temple, name_Leader, address_temple, post_temple, country_temple,phone_temple,editFacebook;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
@@ -42,6 +42,8 @@ public class ProfileTemple extends AppCompatActivity {
         phone_temple = (EditText) findViewById(R.id.input_phone);
         btn_submit = (Button)findViewById(R.id.submit_profile);
         btn_update = (Button)findViewById(R.id.submit_update);
+        editFacebook = (EditText) findViewById(R.id.Edit_Facebook_link);
+
 
         Exists = getIntent().getExtras().getString("Current");
 
@@ -64,12 +66,14 @@ public class ProfileTemple extends AppCompatActivity {
                           String post = (String)dataSnapshot.child("Post").getValue();
                           String country = (String)dataSnapshot.child("Country").getValue();
                           String Phone = (String)dataSnapshot.child("Phone").getValue();
+                          String face = (String) dataSnapshot.child("facebooklink").getValue();
                           name_temple.setText(post_name);
                           name_Leader.setText(Name_Leader);
                           address_temple.setText(address);
                           post_temple.setText(post);
                           country_temple.setText(country);
                           phone_temple.setText(Phone);
+                          editFacebook.setText(face);
                       }
 
                       @Override
@@ -94,6 +98,7 @@ public class ProfileTemple extends AppCompatActivity {
         final String Post_Temple = post_temple.getText().toString().trim();
         final String Country_Temple = country_temple.getText().toString().trim();
         final String Phone_Temple = phone_temple.getText().toString().trim();
+        final String facebook_page = editFacebook.getText().toString().trim();
         if (!TextUtils.isEmpty(Name_Temple) && !TextUtils.isEmpty(Name_Leader) && !TextUtils.isEmpty(Address_Temple) &&
                 !TextUtils.isEmpty(Post_Temple) && !TextUtils.isEmpty(Country_Temple) && !TextUtils.isEmpty(Phone_Temple)) {
             databaseReference.addValueEventListener(new ValueEventListener() {
@@ -107,6 +112,12 @@ public class ProfileTemple extends AppCompatActivity {
                     databaseReference.child(user_id).child("Country").setValue(Country_Temple);
                     databaseReference.child(user_id).child("Phone").setValue(Phone_Temple);
                     databaseReference.child(user_id).child("Selected").setValue("Temple");
+                    if(TextUtils.isEmpty(facebook_page)) {
+                        databaseReference.child(user_id).child("facebooklink").setValue("-");
+                    }
+                    else if(!TextUtils.isEmpty(facebook_page)){
+                        databaseReference.child(user_id).child("facebooklink").setValue(facebook_page);
+                    }
                 }
 
                 @Override
@@ -140,6 +151,7 @@ public class ProfileTemple extends AppCompatActivity {
         final String Post_Temple = post_temple.getText().toString().trim();
         final String Country_Temple = country_temple.getText().toString().trim();
         final String Phone_Temple = phone_temple.getText().toString().trim();
+        final String facebook_page = editFacebook.getText().toString().trim();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -150,6 +162,12 @@ public class ProfileTemple extends AppCompatActivity {
                 dataSnapshot.getRef().child(user_id).child("Country").setValue(Country_Temple);
                 dataSnapshot.getRef().child(user_id).child("Phone").setValue(Phone_Temple);
                 dataSnapshot.getRef().child(user_id).child("Selected").setValue("Temple");
+                if(TextUtils.isEmpty(facebook_page)) {
+                    dataSnapshot.getRef().child(user_id).child("facebooklink").setValue("-");
+                }
+                else if(!TextUtils.isEmpty(facebook_page)){
+                    dataSnapshot.getRef().child(user_id).child("facebooklink").setValue(facebook_page);
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

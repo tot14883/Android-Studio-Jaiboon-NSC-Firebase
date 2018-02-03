@@ -70,43 +70,6 @@
                 android:layout_centerInParent="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-      <EditText
-        android:hint="Date"
-        android:id="@+id/Edit_date_alarm"
-        android:layout_below="@+id/carouse1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/editshaep"
-        android:padding="10dp"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:inputType="date"/>
-       <EditText
-         android:hint="Facebook copy your url page facebook"
-         android:id="@+id/Edit_Facebook_link"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_below="@+id/Edit_date_alarm"
-         android:layout_marginTop="10dp"
-         android:layout_marginLeft="10dp"
-         android:layout_marginRight="10dp"
-           android:background="@drawable/editshaep"
-           android:padding="10dp"/>
-
-        <EditText
-            android:hint="Add History"
-            android:id="@+id/Edit_History"
-            android:layout_below="@+id/Edit_Facebook_link"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/editshaep"
-            android:padding="10dp"/>
         </RelativeLayout>
     </LinearLayout>
     </ScrollView>

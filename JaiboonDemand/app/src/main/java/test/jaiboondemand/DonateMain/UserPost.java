@@ -2,11 +2,11 @@ package test.jaiboondemand.DonateMain;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -76,7 +76,7 @@ public class UserPost extends Fragment {
                 mDatabase.orderByChild("uid").equalTo(mAuth.getUid())
         ) {
             @Override
-            protected void populateViewHolder(final InstaVieHolde viewHolder, Insta model, int position) {
+            protected void populateViewHolder(final InstaVieHolde viewHolder, Insta model, final int position) {
                  final String post_key = getRef(position).getKey().toString();
                  final int position1 = position;
 
@@ -104,8 +104,14 @@ public class UserPost extends Fragment {
                                      getRef(position1).removeValue();
                                      Intent intent = new Intent(getActivity(),Main2Activity.class);
                                      startActivity(intent);
+                                     Toast.makeText(getActivity(), "Delete Success !!!", Toast.LENGTH_LONG).show();
                                  }
-                                 Toast.makeText(getActivity(), "Delete Success !!!", Toast.LENGTH_LONG).show();
+                                 if (menuItem.getTitle().equals("Edit")){
+                                     Intent intent = new Intent(getActivity(),EditPost.class);
+                                     intent.putExtra("PostID",post_key);
+                                     startActivity(intent);
+                                 }
+
                                  return true;
                              }
                          });

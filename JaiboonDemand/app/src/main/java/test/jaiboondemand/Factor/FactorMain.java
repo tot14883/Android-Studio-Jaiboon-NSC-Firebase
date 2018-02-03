@@ -200,6 +200,7 @@ public class FactorMain extends AppCompatActivity {
                 }
                 if(item.getItemId() == R.id.setting_factor){
                     Intent intent = new Intent(FactorMain.this, Setting.class);
+                    intent.putExtra("Send","Factor");
                     startActivity(intent);
                 }
                 if(item.getItemId() == R.id.Post_factor){

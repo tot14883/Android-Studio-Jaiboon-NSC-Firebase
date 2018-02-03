@@ -23,7 +23,7 @@ import test.jaiboondemand.R;
 
 public class NeedPaypal extends AppCompatActivity {
     private String post_key = null;
-    private TextView name_need,address_need,text_total;
+    private TextView name_need,address_need,text_total,text_phone,text_owner;
     private DatabaseReference mData;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -38,6 +38,8 @@ public class NeedPaypal extends AppCompatActivity {
         name_need = (TextView) findViewById(R.id.name_send_need);
         address_need = (TextView) findViewById(R.id.address_send_need);
         text_total = (TextView) findViewById(R.id.total_price_sent_need);
+        text_phone = (TextView) findViewById(R.id.phone);
+        text_owner = (TextView) findViewById(R.id.owner_send_need) ;
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_pay_sent_need);
         recyclerView.hasFixedSize();
@@ -52,22 +54,23 @@ public class NeedPaypal extends AppCompatActivity {
                 }
             }
         };
-        mData = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
+        mData = FirebaseDatabase.getInstance().getReference().child("Jaiboon").child(post_key);
     }
     public void ShowInfomation(){
 
         mData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    String post_name = (String) snapshot.child("Name").getValue();
-                    String address = (String) snapshot.child("address").getValue();
-                    String post = (String) snapshot.child("post").getValue();
-                    String country = (String) snapshot.child("country").getValue();
+                    String post_name = (String) dataSnapshot.child("Name").getValue();
+                    String address = (String) dataSnapshot.child("address").getValue();
+                    String post = (String) dataSnapshot.child("post").getValue();
+                    String country = (String) dataSnapshot.child("country").getValue();
+                    String owner = (String) dataSnapshot.child("username").getValue();
+                    String phone =(String) dataSnapshot.child("phone").getValue();
                     name_need.setText(post_name);
+                    text_owner.setText("ชื่อผู้ดูแล "+owner);
+                    text_phone.setText("เบอร์โทร "+phone);
                     address_need.setText("ที่อยู่ " + address + "\n" + "รหัสไปรษณีย์ " + post + "\n" + "จังหวัด " + country);
-                    break;
-                }
             }
 
             @Override

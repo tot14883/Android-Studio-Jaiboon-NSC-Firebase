@@ -2,13 +2,12 @@ package test.jaiboondemand.must_product;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,15 +20,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import test.jaiboondemand.R;
 
 public class NeedDonateSend extends AppCompatActivity {
     private DatabaseReference mData;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private TextView total_need,text_name,text_address;
+    private TextView total_need,text_name,text_address,text_owner,text_phone;
     private RecyclerView recyclerView;
     private String post_key;
     private DatabaseReference mDataAddress;
@@ -46,8 +43,9 @@ public class NeedDonateSend extends AppCompatActivity {
         total_need = (TextView) findViewById(R.id.total_price_need);
         text_name = (TextView) findViewById(R.id.text_name_need);
         text_address = (TextView) findViewById(R.id.text_address_need);
-
-        mData = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
+        text_owner = (TextView) findViewById(R.id.text_owner_need);
+        text_phone = (TextView) findViewById(R.id.text_phone_need);
+        mData = FirebaseDatabase.getInstance().getReference().child("Jaiboon").child(post_key);
 
         mData.addValueEventListener(new ValueEventListener() {
             @Override
@@ -56,9 +54,12 @@ public class NeedDonateSend extends AppCompatActivity {
                    String address = (String) dataSnapshot.child("address").getValue();
                    String post = (String)dataSnapshot.child("post").getValue();
                    String country = (String)dataSnapshot.child("country").getValue();
-
+                   String owner = (String) dataSnapshot.child("username").getValue();
+                   String phone = (String) dataSnapshot.child("phone").getValue();
                    text_name.setText(name);
-                   text_address.setText(address+"\n"+post+"\n"+country);
+                   text_phone.setText(phone);
+                   text_owner.setText("ชื่อผู้ดูแล "+owner);
+                   text_address.setText("ที่อยู่ "+address+"\nไปรษณีย์ "+post+"\nจังหวัด "+country);
             }
 
             @Override

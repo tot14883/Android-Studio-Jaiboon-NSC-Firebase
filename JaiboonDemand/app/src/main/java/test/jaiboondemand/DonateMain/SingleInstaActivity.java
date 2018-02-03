@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.glide.slider.library.Animations.DescriptionAnimation;
@@ -55,7 +56,8 @@ public class SingleInstaActivity extends AppCompatActivity implements BaseSlider
     private PostSetting postSetting = new PostSetting();
     private SliderLayout mDemoSlider;
     private ArrayList<String> listUrl = new ArrayList<>();
-    private  String post_title,post_desc,post_image,address,post,country,phone,type,owner;;
+    private  String post_title,post_desc,post_image,address,post,country,phone,type,owner;
+    private ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,7 @@ public class SingleInstaActivity extends AppCompatActivity implements BaseSlider
         type_text = (TextView) findViewById(R.id.text_type_foundation);
         owner_text = (TextView) findViewById(R.id.text_owner_foundation);
         mDemoSlider = findViewById(R.id.slider);
+        imageView = (ImageView) findViewById(R.id.link_facebook);
 
 
         mCollapsing = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
@@ -90,6 +93,7 @@ public class SingleInstaActivity extends AppCompatActivity implements BaseSlider
 
             }
         };
+
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -131,6 +135,14 @@ public class SingleInstaActivity extends AppCompatActivity implements BaseSlider
                      owner_text.setText(owner);
                     owner_text.setVisibility(View.VISIBLE);
                 }
+                if(dataSnapshot.child("facebooklink").exists()){
+                    if(dataSnapshot.child("facebooklink").getValue().equals("-")){
+                        imageView.setVisibility(View.INVISIBLE);
+                    }
+                    else if(!dataSnapshot.child("facebooklink").getValue().equals("-")){
+                        imageView.setVisibility(View.VISIBLE);
+                    }
+                }
                 user_id = (String) dataSnapshot.child("uid").getValue();
                 Name = (String) dataSnapshot.child("Name").getValue();
                 phone_text.setText("เบอร์โทร "+phone);
@@ -140,6 +152,7 @@ public class SingleInstaActivity extends AppCompatActivity implements BaseSlider
                 local_address.setText("ที่อยู่ "+address+" ไปรษณีย์ "+post+"\n"+"จังหวัด "+country);
                 addok();
                 mCollapsing.setTitle(" ");
+
             }
 
             @Override

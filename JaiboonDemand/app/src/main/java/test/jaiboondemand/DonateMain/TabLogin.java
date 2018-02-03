@@ -232,7 +232,9 @@ public class TabLogin extends Fragment {
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i = new Intent(getContext(),ResetPassword.class);
+                getActivity().finish();
+                startActivity(i);
             }
         });
         return x;

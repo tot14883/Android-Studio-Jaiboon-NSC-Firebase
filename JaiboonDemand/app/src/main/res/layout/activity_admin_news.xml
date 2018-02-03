@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="test.jaiboondemand.Admin.AdminNews">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/toolbar_post_news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/toolbar_main_post_news"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/oragen"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
    <TextView
        android:text="โพสข่าวสาร"
        android:gravity="center"
@@ -31,23 +46,16 @@
         android:background="@drawable/transparan_mode"
         android:layout_marginTop="10dp"
         android:hint="รายละเอียด"/>
-    <ImageButton
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"
-        android:background="@drawable/add_image"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:onClick="imageButtomClicked"
-        android:id="@+id/imageButton_news"/>
-    <RelativeLayout
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/post_news"
-            android:onClick="PostNews"
-            android:layout_alignParentBottom="true"
-            android:text="โพส"/>
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:text="Select Images"
+        android:id="@+id/SelectImage_New"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/transparan_mode"/>
+    <com.gtomato.android.ui.widget.CarouselView
+        android:id="@+id/carouse_News"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

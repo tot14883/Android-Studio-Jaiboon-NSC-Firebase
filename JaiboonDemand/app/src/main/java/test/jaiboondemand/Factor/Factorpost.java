@@ -109,6 +109,7 @@ public class Factorpost extends Fragment {
                                     Intent intent = new Intent(getActivity(),FactorMain.class);
                                     intent.putExtra("Type","Home");
                                     startActivity(intent);
+                                    getActivity().finish();
                                 }
                                 Toast.makeText(getActivity(), "Delete Success !!!", Toast.LENGTH_LONG).show();
                                 return true;

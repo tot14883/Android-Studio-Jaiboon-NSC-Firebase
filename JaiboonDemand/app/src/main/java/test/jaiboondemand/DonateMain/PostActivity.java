@@ -1,13 +1,10 @@
 package test.jaiboondemand.DonateMain;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -17,11 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,17 +38,13 @@ import com.sangcomz.fishbun.FishBun;
 import com.sangcomz.fishbun.adapter.image.impl.PicassoAdapter;
 import com.sangcomz.fishbun.define.Define;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import test.jaiboondemand.R;
-import test.jaiboondemand.post_activity.ChooseDonate;
 import test.jaiboondemand.post_activity.UploadListAdapter;
 
-public class PostActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+public class PostActivity extends AppCompatActivity{
     public static final int GALLERY_REQUEST = 2;
     private EditText editName;
     private EditText editDec,editDate,editFacebook;
@@ -94,17 +85,7 @@ public class PostActivity extends AppCompatActivity implements DatePickerDialog.
 
         editName = (EditText) findViewById(R.id.editName);
         editDec = (EditText) findViewById(R.id.editDesc);
-        editFacebook = (EditText) findViewById(R.id.Edit_Facebook_link);
 
-        editDate = (EditText) findViewById(R.id.Edit_date_alarm);
-        editDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    DatePickerFragment fragment = new DatePickerFragment();
-                    fragment.show(getSupportFragmentManager(),"date");
-
-            }
-        });
 
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = database.getInstance().getReference().child("Jaiboon");
@@ -132,15 +113,9 @@ public class PostActivity extends AppCompatActivity implements DatePickerDialog.
         switch (requestCode) {
             case Define.ALBUM_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
-                    //preview.onParentResult(requestCode, data);
-
-                    //imageButton.setVisibility(View.INVISIBLE);
-
                     path = data.getParcelableArrayListExtra(Define.INTENT_PATH);
                     carouse1.setTransformer(new InverseTimeMachineViewTransformer()); // กำหนดรูปแบบการสไลด์ได้ตามเอกสารใน https://gtomato.github.io/carouselview/
                     carouse1.setAdapter(new ImagePostAdapter(path));
-                    //imageButton.setImageURI(path.get(0));
-                    //Log.v("Len : ",String.valueOf(path.size()));                   //mediaView.setMedias(medias);
                     break;
                 }
         }
@@ -166,7 +141,6 @@ public class PostActivity extends AppCompatActivity implements DatePickerDialog.
         if(id == R.id.action_post){
             final String titleValue = editName.getText().toString().trim();
             final String titleDesc = editDec.getText().toString().trim();
-            final String facebook_page = editFacebook.getText().toString().trim();
 
             if(!TextUtils.isEmpty(titleValue) && !TextUtils.isEmpty(titleDesc)) {
                 final int[] image1 = {0};
@@ -216,7 +190,7 @@ public class PostActivity extends AppCompatActivity implements DatePickerDialog.
                                             }
                                             newPost.child("title").setValue(titleValue);
                                             newPost.child("desc").setValue(titleDesc);
-                                            newPost.child("facebooklink").setValue(facebook_page);
+                                            newPost.child("facebooklink").setValue(dataSnapshot.child("facebooklink").getValue());
                                             newPost.child("uid").setValue(mAuth.getCurrentUser().getUid());
                                             newPost.child("Type").setValue(dataSnapshot.child("Selected").getValue());
                                             newPost.child("Name").setValue(dataSnapshot.child("Name_User").getValue());
@@ -267,27 +241,4 @@ public class PostActivity extends AppCompatActivity implements DatePickerDialog.
         return super.onOptionsItemSelected(item);
     }
 
-    private void setDate(final Calendar calendar){
-        final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
-        editDate.setText(dateFormat.format(calendar.getTime()));
-    }
-    @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-             Calendar cal = new GregorianCalendar(year,month,day);
-             setDate(cal);
-    }
-
-    public static class DatePickerFragment extends DialogFragment {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-            return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
-        }
-
-
-    }
 }

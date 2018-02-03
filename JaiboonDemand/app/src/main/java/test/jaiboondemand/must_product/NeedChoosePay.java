@@ -24,5 +24,6 @@ public class NeedChoosePay extends AppCompatActivity {
     }
 
     public void bankneed(View view) {
+
     }
 }

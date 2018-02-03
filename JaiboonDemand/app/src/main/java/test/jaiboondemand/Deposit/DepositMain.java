@@ -148,6 +148,7 @@ public class DepositMain extends AppCompatActivity {
                 }
                 if(item.getItemId() == R.id.setting_deposit){
                     Intent intent = new Intent(DepositMain.this,Setting.class);
+                    intent.putExtra("Send","Deposit");
                     startActivity(intent);
                 }
                 if(item.getItemId() == R.id.log_out_deposit){

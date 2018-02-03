@@ -34,6 +34,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import test.jaiboondemand.Admin.AdminManager;
 import test.jaiboondemand.DonateMain.MainActivity;
+import test.jaiboondemand.DonateMain.ProfileCustomer;
+import test.jaiboondemand.DonateMain.ProfileFoundation;
+import test.jaiboondemand.DonateMain.ProfileTemple;
+import test.jaiboondemand.DonateMain.Setting;
 import test.jaiboondemand.R;
 
 public class NewsStart extends AppCompatActivity{
@@ -174,6 +178,75 @@ public class NewsStart extends AppCompatActivity{
                    });
 
                    dialog.show();
+               }
+               if (item.getItemId() == R.id.setting_news){
+                   Intent intent = new Intent(NewsStart.this,Setting.class);
+                   intent.putExtra("Send","News");
+                   startActivity(intent);
+               }
+               if(item.getItemId() == R.id.my_account){
+                   mData.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                       @Override
+                       public void onDataChange(DataSnapshot dataSnapshot) {
+                           if(dataSnapshot.child("Selected").exists()){
+                               if(dataSnapshot.child("Selected").getValue().equals("Customer")) {
+                                   Intent intent = new Intent(NewsStart.this, ProfileCustomer.class);
+                                   intent.putExtra("Current","Yes");
+                                   startActivity(intent);
+                               }
+                               if(dataSnapshot.child("Selected").getValue().equals("Temple")) {
+                                   Intent intent = new Intent(NewsStart.this, ProfileTemple.class);
+                                   intent.putExtra("Current","Yes");
+                                   startActivity(intent);
+                               }
+                               if(dataSnapshot.child("Selected").getValue().equals("Foundation")) {
+                                   Intent intent = new Intent(NewsStart.this, ProfileFoundation.class);
+                                   intent.putExtra("Current","Yes");
+                                   startActivity(intent);
+                               }
+                           }
+                           else{
+                               AlertDialog.Builder b = new AlertDialog.Builder(NewsStart.this);
+                               b.setTitle("เลือกชนิดลูกค้า");
+                               String[] types = {"General Customer", "Temple","Foundation"};
+                               b.setItems(types, new DialogInterface.OnClickListener() {
+
+                                   @Override
+                                   public void onClick(DialogInterface dialog, int which) {
+
+                                       dialog.dismiss();
+                                       switch(which){
+                                           case 0:
+                                               Intent intent = new Intent(NewsStart.this,ProfileCustomer.class);
+                                               intent.putExtra("Current","No");
+                                               startActivity(intent);
+                                               break;
+                                           case 1:
+                                               Intent intent1 = new Intent(NewsStart.this,ProfileTemple.class);
+                                               intent1.putExtra("Current","No");
+                                               startActivity(intent1);
+                                               break;
+                                           case 2:
+                                               Intent intent2 = new Intent(NewsStart.this,ProfileFoundation.class);
+                                               intent2.putExtra("Current","No");
+                                               startActivity(intent2);
+                                               break;
+                                       }
+                                   }
+
+                               });
+
+                               b.show();
+
+                           }
+                       }
+
+                       @Override
+                       public void onCancelled(DatabaseError databaseError) {
+
+                       }
+                   });
+
                }
                if(item.getItemId() == R.id.my_post_Admin){
                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();

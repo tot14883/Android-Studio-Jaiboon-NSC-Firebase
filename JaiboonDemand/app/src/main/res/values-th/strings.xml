@@ -166,8 +166,8 @@
         <item>50</item>
     </string-array>
     <string-array name="languages">
-        <item>Thai</item>
-        <item>English</item>
+        <item>🇹🇭 Thai</item>
+        <item>🇬🇧 English</item>
     </string-array>
     <string-array name="languages_select">
         <item>Thai</item>

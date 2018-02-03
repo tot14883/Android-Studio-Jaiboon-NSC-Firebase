@@ -24,6 +24,7 @@
             <TextView
                 android:textSize="20sp"
                 android:layout_gravity="center"
+                android:id="@+id/choose_name_donate"
                 android:text="บริจาคสิ่งของ"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
@@ -41,6 +42,7 @@
                 android:background="@drawable/factor"
                 android:onClick="FactorMain"/>
             <TextView
+                android:id="@+id/choose_name_money"
                 android:textSize="20sp"
                 android:layout_gravity="center"
                 android:text="บริจาคเงิน"
@@ -68,6 +70,7 @@
             <TextView
                 android:textSize="20sp"
                 android:layout_gravity="center"
+                android:id="@+id/choose_name_deposit"
                 android:text="ฝากสิ่งของบริจาค"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
@@ -85,6 +88,7 @@
                 android:background="@drawable/newsdonate"
                 android:onClick="NewsMain"/>
             <TextView
+                android:id="@+id/choose_name_news"
                 android:textSize="20sp"
                 android:layout_gravity="center"
                 android:text="ข่าวสาร"

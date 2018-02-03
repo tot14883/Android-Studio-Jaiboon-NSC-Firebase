@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import test.jaiboondemand.R;
 
 public class ProfileFoundation extends AppCompatActivity {
-    private EditText name_foun,name_owner,address_foun,post_foun,country_foun,phone_foun,input_type;
+    private EditText name_foun,name_owner,address_foun,post_foun,country_foun,phone_foun,input_type,editFacebook;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
@@ -43,6 +43,8 @@ public class ProfileFoundation extends AppCompatActivity {
         button_submit = (Button) findViewById(R.id.submit_profile_foun);
         butto_update = (Button)findViewById(R.id.submit_update_foun);
         input_type = (EditText) findViewById(R.id.input_type_foun);
+        editFacebook = (EditText) findViewById(R.id.Edit_Facebook_link);
+
 
         Exists = getIntent().getExtras().getString("Current");
 
@@ -66,6 +68,7 @@ public class ProfileFoundation extends AppCompatActivity {
                          String post = (String)dataSnapshot.child("Pos").getValue();
                          String country = (String)dataSnapshot.child("Country").getValue();
                          String Phone = (String)dataSnapshot.child("Phone").getValue();
+                         String face = (String) dataSnapshot.child("facebooklink").getValue();
                          name_foun.setText(post_name);
                          name_owner.setText(post_owner);
                          input_type.setText(Type_foun);
@@ -73,6 +76,7 @@ public class ProfileFoundation extends AppCompatActivity {
                          post_foun.setText(post);
                          country_foun.setText(country);
                          phone_foun.setText(Phone);
+                         editFacebook.setText(face);
                      }
                      @Override
                      public void onCancelled(DatabaseError databaseError) {
@@ -99,6 +103,7 @@ public class ProfileFoundation extends AppCompatActivity {
         final String Post_foun = post_foun.getText().toString().trim();
         final String Country_foun = country_foun.getText().toString().trim();
         final String Phone_foun = phone_foun.getText().toString().trim();
+        final String facebook_page = editFacebook.getText().toString().trim();
         if(!TextUtils.isEmpty(Name_foun) && !TextUtils.isEmpty(Name_Owner) && !TextUtils.isEmpty(Address_foun) &&
             !TextUtils.isEmpty(Post_foun) && !TextUtils.isEmpty(Country_foun) && !TextUtils.isEmpty(Phone_foun)) {
             databaseReference.addValueEventListener(new ValueEventListener() {
@@ -113,6 +118,13 @@ public class ProfileFoundation extends AppCompatActivity {
                     databaseReference.child(user_id).child("Country").setValue(Country_foun);
                     databaseReference.child(user_id).child("Phone").setValue(Phone_foun);
                     databaseReference.child(user_id).child("Selected").setValue("Foundation");
+                    if(TextUtils.isEmpty(facebook_page)) {
+                        databaseReference.child(user_id).child("facebooklink").setValue("-");
+                    }
+                    else if(!TextUtils.isEmpty(facebook_page)){
+                        databaseReference.child(user_id).child("facebooklink").setValue(facebook_page);
+                    }
+
                 }
 
                 @Override
@@ -134,6 +146,7 @@ public class ProfileFoundation extends AppCompatActivity {
         final String Post_foun = post_foun.getText().toString().trim();
         final String Country_foun = country_foun.getText().toString().trim();
         final String Phone_foun = phone_foun.getText().toString().trim();
+        final String facebook_page = editFacebook.getText().toString().trim();
         if(!TextUtils.isEmpty(Name_foun) && !TextUtils.isEmpty(Name_Owner) && !TextUtils.isEmpty(Address_foun) &&
                 !TextUtils.isEmpty(Post_foun) && !TextUtils.isEmpty(Country_foun) && !TextUtils.isEmpty(Phone_foun)) {
             databaseReference.addValueEventListener(new ValueEventListener() {
@@ -144,6 +157,12 @@ public class ProfileFoundation extends AppCompatActivity {
                     dataSnapshot.getRef().child(user_id).child("Name_Owner").setValue(Name_Owner);
                     dataSnapshot.getRef().child(user_id).child("Type").setValue(Type_foun);
                     dataSnapshot.getRef().child(user_id).child("Address").setValue(Address_foun);
+                    if(TextUtils.isEmpty(facebook_page)) {
+                        dataSnapshot.getRef().child(user_id).child("facebooklink").setValue("-");
+                    }
+                    else if(!TextUtils.isEmpty(facebook_page)){
+                        dataSnapshot.getRef().child(user_id).child("facebooklink").setValue(facebook_page);
+                    }
                     dataSnapshot.getRef().child(user_id).child("Post").setValue(Post_foun);
                     dataSnapshot.getRef().child(user_id).child("Country").setValue(Country_foun);
                     dataSnapshot.getRef().child(user_id).child("Phone").setValue(Phone_foun);

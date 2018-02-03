@@ -19,8 +19,8 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -29,7 +29,7 @@ import test.jaiboondemand.R;
 
 public class MyDeposit extends Fragment {
     View view;
-    private DatabaseReference mData;
+    private Query mData;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListner;
     private RecyclerView recyclerView;
@@ -40,9 +40,10 @@ public class MyDeposit extends Fragment {
        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_my_deposit);
        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
        recyclerView.setHasFixedSize(true);
+        mAuth = FirebaseAuth.getInstance();
 
-       mData = FirebaseDatabase.getInstance().getReference().child("Deposit");
-       mAuth = FirebaseAuth.getInstance();
+       mData = FirebaseDatabase.getInstance().getReference().child("Deposit").orderByChild("Status").equalTo("Waiting");
+
        mAuthListner = new FirebaseAuth.AuthStateListener() {
            @Override
            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -61,7 +62,7 @@ public class MyDeposit extends Fragment {
                 DepositFirebase.class,
                 R.layout.card_deposit,
                 MyDepositViewHolder.class,
-                mData
+                mData//error orderByChild `ซ้อน orderByChild ไม่ได้
         ) {
             @Override
             protected void populateViewHolder(final MyDepositViewHolder viewHolder, DepositFirebase model, final int position) {
@@ -83,7 +84,7 @@ public class MyDeposit extends Fragment {
                     @Override
                     public void onClick(View view) {
                         PopupMenu popup = new PopupMenu(getActivity(), viewHolder.del);
-                        popup.getMenuInflater().inflate(R.menu.menu_delete_post, popup.getMenu());
+                        popup.getMenuInflater().inflate(R.menu.menu_delete_deposit, popup.getMenu());
                         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -91,6 +92,7 @@ public class MyDeposit extends Fragment {
                                     getRef(position1).removeValue();
                                     Intent intent = new Intent(getActivity(),DepositMain.class);
                                     startActivity(intent);
+                                    getActivity().finish();
                                 }
                                 Toast.makeText(getActivity(), "Delete Success !!!", Toast.LENGTH_LONG).show();
                                 return true;

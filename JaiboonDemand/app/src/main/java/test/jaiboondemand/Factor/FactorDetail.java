@@ -46,8 +46,14 @@ public class FactorDetail extends AppCompatActivity implements BaseSliderView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_factor_detail);
-        toolbar = (Toolbar) findViewById(R.id.toolbar_factor);
+        mDemoSlider = (SliderLayout) findViewById(R.id.silder_factor);
+
+        mCollapsing = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout_factor);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
 
@@ -71,9 +77,6 @@ public class FactorDetail extends AppCompatActivity implements BaseSliderView.On
         txt_owner = (TextView) findViewById(R.id.text_owner_foundation);
         txt_time = (TextView) findViewById(R.id.post_time_factor);
         txt_acc = (TextView) findViewById(R.id.text_account);
-        mDemoSlider = (SliderLayout) findViewById(R.id.silder_factor);
-
-        mCollapsing = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout_factor);
 
 
 

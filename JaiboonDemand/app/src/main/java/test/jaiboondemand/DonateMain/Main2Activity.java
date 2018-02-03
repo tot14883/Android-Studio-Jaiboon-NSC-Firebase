@@ -36,6 +36,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.thefinestartist.finestwebview.FinestWebView;
 
 import test.jaiboondemand.Admin.AdminPost;
 import test.jaiboondemand.Nearby.NearbyActivity;
@@ -58,7 +59,7 @@ public class Main2Activity extends AppCompatActivity {
     private RecyclerView mIBstaList;
     private ImageButton imageButton;
     public static Toolbar toolbar;
-    private MenuItem item,item2,item3,item4,item5,item6,item7,item8,item9;
+    private MenuItem item,item2,item3,item4,item5,item6,item7,item8,item9,item10;
     private SharedPreferences mSharedPreferences;
     private Context mContext;
     private String Languages;
@@ -120,6 +121,8 @@ public class Main2Activity extends AppCompatActivity {
                 item7 = menu.findItem(R.id.nav_update_shop);
                 item8 = menu.findItem(R.id.my_manager_admin);
                 item9 = menu.findItem(R.id.To_Do_List);
+                item10 = menu.findItem(R.id.Nearby_place);
+                item10.setVisible(false);
 
                 if(firebaseAuth.getCurrentUser() == null ){
                     Toast.makeText(Main2Activity.this,"You not login",Toast.LENGTH_LONG).show();
@@ -276,6 +279,11 @@ public class Main2Activity extends AppCompatActivity {
                     });
 
                 }
+                if(menuItem.getItemId() == R.id.needs_help){
+                    new FinestWebView.Builder(Main2Activity.this)
+                            .toolbarColorRes(R.color.Color_Gold) // กำหนดสีตรงหัว webview
+                            .show("https://wannaphongcom.github.io/Jaiboon/");
+                }
                 if (menuItem.getItemId() == R.id.nav_home) {
                     FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
                     xfragmentTransaction.replace(R.id.containerView,new
@@ -308,6 +316,7 @@ public class Main2Activity extends AppCompatActivity {
                 }
                 if (menuItem.getItemId() == R.id.setting) {
                     Intent intent = new Intent(Main2Activity.this,Setting.class);
+                    intent.putExtra("Send","Main2Activity");
                     startActivity(intent);
                 }
                 if (menuItem.getItemId() == R.id.my_manager_admin){}
