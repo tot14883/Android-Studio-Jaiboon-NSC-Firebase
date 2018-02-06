@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="test.jaiboondemand">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+
+    <application
+        android:name=".offline.SimpleBlog"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_jaiboon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+        <activity
+            android:name=".DonateMain.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".DonateMain.SetupUsers" />
+        <activity
+            android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensor"
+            android:theme="@style/FinestWebViewTheme.Light" />
+        <activity
+            android:name=".DonateMain.Main2Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".DonateMain.PostActivity" />
+        <activity android:name=".DonateMain.EditPost" />
+        <activity
+            android:name=".DonateMain.SingleInstaActivity"
+            android:label="@string/title_activity_single_insta"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.gms.vision"
+            android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".DonateMain.Forget_Account" />
+        <activity android:name=".Admin.AdminPost" />
+        <activity android:name=".shop_type.Shopdetail" />
+        <activity
+            android:name=".DonateMain.CateGoryUser"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity android:name=".DonateMain.ProfileTemple" />
+        <activity android:name=".DonateMain.ProfileFoundation" />
+        <activity android:name=".DonateMain.ProfileCustomer" />
+        <activity android:name=".DonateMain.badgeLayout" />
+        <activity android:name=".map.map_content" />
+        <activity android:name=".DonateMain.thingDonate" />
+        <activity android:name=".post_activity.ChooseDonate" />
+        <activity android:name=".ShopDonate.Main3Activity" />
+        <activity android:name=".ShopDonate.DonateDetail" />
+        <activity android:name=".must_product.NeedProduct" />
+        <activity android:name=".placenearby.Main4Activity" />
+        <activity android:name=".Pay.PayMoney" />
+        <activity android:name=".Pay.PayChoose" />
+        <activity android:name=".Pay.PayCashDelivery" />
+        <activity android:name=".Pay.PlaceSend" />
+        <activity android:name=".Pay.PayBank" />
+        <activity android:name=".Pay.PayBankEvidence" />
+        <activity android:name=".Admin.AdminNews" />
+        <activity android:name=".NewsFuction.NewsDetail" />
+        <activity android:name=".Pay.PayPalCart" />
+        <activity android:name=".must_product.NeedDonateSend" />
+        <activity android:name=".must_product.NeedChoosePay" />
+        <activity android:name=".must_product.NeedPaypal" />
+        <activity android:name=".DonateMain.Setting" />
+        <activity android:name=".post_activity.CommentActivity" />
+        <activity android:name=".Choose.ChooseDonate">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".NewsFuction.NewsStart" />
+        <activity android:name=".Factor.FactorMain" />
+        <activity android:name=".Deposit.DepositMain" />
+        <activity android:name=".Deposit.AddressAdmin" />
+        <activity android:name=".Deposit.AddressPlaceDeposit" />
+        <activity android:name=".Deposit.Send" />
+        <activity android:name=".Factor.FacCategory" />
+        <activity android:name=".DonateMain.ResetPassword" />
+        <activity
+            android:name=".Factor.FactorDetail"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Factor.postFactor" />
+        <activity android:name=".Factor.CommentFactor" />
+        <activity android:name=".NewsFuction.CommentNews" />
+        <activity android:name=".Deposit.ChoosePayment" />
+        <activity android:name=".Deposit.DepositDetail" />
+        <activity android:name=".Deposit.BankSubmit" />
+        <activity android:name=".Deposit.SendPostSubmit"></activity>
+        <activity android:name=".Factor.EditPostFactor"/>
+    </application>
+
+</manifest>

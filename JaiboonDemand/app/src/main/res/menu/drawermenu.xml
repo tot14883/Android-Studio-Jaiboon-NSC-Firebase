@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title=""
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home"/>
+    <item android:id="@+id/Shopping_list"
+        android:icon="@drawable/shopping"
+        android:title="" />
+    <item
+         android:title=""
+        android:id="@+id/Nearby_place"
+        android:icon="@drawable/ic_location_on_black_24dp"
+        />
+    <item android:title=""
+        android:id="@+id/To_Do_List"
+        android:icon="@drawable/ic_star_black_24dp"/>
+    <group android:id="@+id/group_settings_id">
+        <item android:title=""
+            android:icon="@drawable/help"
+            android:id="@+id/needs_help"/>
+        <item android:title=""
+            android:icon="@drawable/settings"
+            android:id="@+id/setting"/>
+    </group>
+
+    <item android:title=""
+        android:id="@+id/my_account"
+        android:icon="@drawable/ic_account_box_black_24dp"/>
+    <item android:title=""
+        android:id="@+id/my_post"
+        android:icon="@drawable/ic_my_post"/>
+   <group android:id="@+id/group_admin">
+    <item android:title=""
+        android:id="@+id/nav_update_shop"
+        android:icon="@drawable/shopping"/>
+    <item android:title=""
+        android:id="@+id/my_manager_admin"
+        android:icon="@drawable/ic_add_box_black_24dp"
+        />
+   </group>
+    <item android:title=""
+        android:id="@+id/Log_Out"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"/>
+</menu>
