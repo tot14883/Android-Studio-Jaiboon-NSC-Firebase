@@ -81,10 +81,9 @@ public class NewsMain extends Fragment {
                     dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
                     Date date = new Date(Long.valueOf(model.getTimenews()));
                     String currentTime = dateFormat.format(date);
-                    viewHolder.setTitleNews(currentTime);
 
                     viewHolder.setTitleNews(model.getTopicname());
-                    viewHolder.setDescTitleNews(model.getDescname());
+                    viewHolder.setDescTitleNews(currentTime);
                     viewHolder.setImageNews(getActivity().getApplicationContext(), model.getImagenews());
                     viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -92,6 +91,7 @@ public class NewsMain extends Fragment {
                             Intent news = new Intent(getActivity(), NewsDetail.class);
                             news.putExtra("PostNews", post_key);
                             startActivity(news);
+                            getActivity().finish();
                         }
                     });
 

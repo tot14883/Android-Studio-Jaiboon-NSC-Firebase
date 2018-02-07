@@ -1,5 +1,6 @@
 package test.jaiboondemand.Factor;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -60,6 +61,7 @@ public class postFactor extends AppCompatActivity {
     private List<String> fileDoneList;
     private UploadListAdapter uploadListAdapter;
     private Spinner spinner;
+    private ProgressDialog mProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +71,8 @@ public class postFactor extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         setTitle("Post");
+
+        mProgress = new ProgressDialog(postFactor.this);
 
         button_image = (Button) findViewById(R.id.SelectImage_factor);
         button_image.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +150,8 @@ public class postFactor extends AppCompatActivity {
             final String typeValue = spinner.getSelectedItem().toString().trim();
             final String Time = String.valueOf(System.currentTimeMillis());
             if(!TextUtils.isEmpty(titleValue) && !TextUtils.isEmpty(descValue) && !TextUtils.isEmpty(accValue)){
+                mProgress.setMessage("Posting.....");
+                mProgress.show();
                 final int[] image1 = {0};
                 while(image1[0] < path.size()){
                     uri = path.get(image1[0]);
@@ -248,6 +254,7 @@ public class postFactor extends AppCompatActivity {
                                                     newPost.child("image" + String.valueOf(i)).setValue("-");
                                                 }
                                             }
+                                            mProgress.dismiss();
                                             Intent intent = new Intent(postFactor.this, FactorMain.class);
                                             intent.putExtra("Type","Home");
                                             startActivity(intent);

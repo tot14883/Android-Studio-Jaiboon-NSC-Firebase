@@ -73,7 +73,7 @@ public class NewsDetail extends AppCompatActivity implements BaseSliderView.OnSl
                         addimg(dataSnapshot.child("imagenews").getValue().toString());
                     }
                     else if(!dataSnapshot.child("imagenews"+String.valueOf(i)).getValue().toString().equals("-")){
-                        addimg(dataSnapshot.child("image"+String.valueOf(i)).getValue().toString());
+                        addimg(dataSnapshot.child("imagenews"+String.valueOf(i)).getValue().toString());
                     }
                     else{
                         break;

@@ -95,7 +95,7 @@
                    android:id="@+id/btn_favorite_factor"
                    android:layout_width="wrap_content"
                    app:mfb_type="star"
-                   app:mfb_size="80"
+                   app:mfb_size="48"
                    android:layout_height="wrap_content" />
            </LinearLayout>
        </LinearLayout>

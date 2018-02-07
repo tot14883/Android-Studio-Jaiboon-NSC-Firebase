@@ -63,6 +63,7 @@ public class Main2Activity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
     private Context mContext;
     private String Languages;
+    private String Province;
     public static Resources resources;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,8 @@ public class Main2Activity extends AppCompatActivity {
 
         mContext = getApplicationContext();
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        Languages = mSharedPreferences.getString(getString(R.string.setting_languages),"Select");
+        Languages = mSharedPreferences.getString(getString(R.string.setting_languages),"Thai");
+        Province = mSharedPreferences.getString(getString(R.string.setting_Province),"ทั้งหมด");
         if(Languages.equals("English")){
             mContext = LocaleHelper.setLocale(Main2Activity.this, "en");
             resources = mContext.getResources();
@@ -321,6 +323,7 @@ public class Main2Activity extends AppCompatActivity {
                     Intent intent = new Intent(Main2Activity.this,Setting.class);
                     intent.putExtra("Send","Main2Activity");
                     startActivity(intent);
+                    finish();
                 }
                 if (menuItem.getItemId() == R.id.my_manager_admin){}
                 return false;
@@ -413,6 +416,10 @@ public class Main2Activity extends AppCompatActivity {
         nav_uploadproduct.setTitle(R.string.UploadProduct);
         nav_depositadmin.setTitle(R.string.AdminDeposit);
         nav_sign_out.setTitle(R.string.SingOut);
+    }
+
+    public String getProvince() {
+        return this.Province;
     }
 
     @Override

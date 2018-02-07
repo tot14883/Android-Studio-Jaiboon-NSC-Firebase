@@ -125,6 +125,7 @@ public class HomeFactor extends Fragment {
                             Intent factor = new Intent(getActivity(), FactorDetail.class);
                             factor.putExtra("PostID", post_key);
                             startActivity(factor);
+                            getActivity().finish();
                         }
                     });
                 }catch (Exception e){}

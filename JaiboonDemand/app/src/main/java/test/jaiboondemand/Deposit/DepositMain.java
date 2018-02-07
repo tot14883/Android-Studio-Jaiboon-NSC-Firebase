@@ -150,6 +150,7 @@ public class DepositMain extends AppCompatActivity {
                     Intent intent = new Intent(DepositMain.this,Setting.class);
                     intent.putExtra("Send","Deposit");
                     startActivity(intent);
+                    finish();
                 }
                 if(item.getItemId() == R.id.log_out_deposit){
                     AlertDialog.Builder dialog = new AlertDialog.Builder(DepositMain.this);
@@ -182,6 +183,7 @@ public class DepositMain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DepositMain.this, MainActivity.class);
+                intent.putExtra("ChooseDonate","Deposit");
                 startActivity(intent);
             }
         });

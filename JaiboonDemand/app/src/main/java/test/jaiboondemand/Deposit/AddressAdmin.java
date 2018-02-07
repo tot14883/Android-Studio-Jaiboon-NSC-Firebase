@@ -32,11 +32,11 @@ public class AddressAdmin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_admin);
-        post_key = getIntent().getExtras().getString("post_key");
-        mDataDeposit = FirebaseDatabase.getInstance().getReference().child("Deposit").child(post_key);//Dataตัวใหม่่
+        post_key = getIntent().getExtras().getString("post_key");//Dataตัวใหม่่
         mData = FirebaseDatabase.getInstance().getReference().child("SendDonate");
         mUser = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
+        mDataDeposit = FirebaseDatabase.getInstance().getReference().child("Deposit").child(post_key).child(mAuth.getCurrentUser().getUid());
         mAuthListner = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -188,15 +188,15 @@ public class AddressAdmin extends AppCompatActivity {
         });
     }
     public void setInfo(){
-
+        final String uid = mAuth.getCurrentUser().getUid();
         mDataDeposit.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mDataDeposit.child("Name_Deposit").setValue(post_Name);
-                mDataDeposit.child("Phone_Deposit").setValue(Send_phone);
-                mDataDeposit.child("AddreeLocal_Deposit").setValue(Send_address);
-                mDataDeposit.child("PostLocal_Deposit").setValue(Send_post);
-                mDataDeposit.child("CountryLocal_Deposit").setValue(Send_country);
+                mDataDeposit.child(uid).child("Name_Deposit").setValue(post_Name);
+                mDataDeposit.child(uid).child("Phone_Deposit").setValue(Send_phone);
+                mDataDeposit.child(uid).child("AddreeLocal_Deposit").setValue(Send_address);
+                mDataDeposit.child(uid).child("PostLocal_Deposit").setValue(Send_post);
+                mDataDeposit.child(uid).child("CountryLocal_Deposit").setValue(Send_country);
             }
 
             @Override

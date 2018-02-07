@@ -6,6 +6,10 @@
        android:icon="@drawable/home"
       />
     <item
+        android:title="Favourites"
+        android:id="@+id/Favourite_fac"
+        android:icon="@drawable/ic_star_black_24dp"/>
+    <item
         android:title="Category"
         android:id="@+id/category_factor"
         android:icon="@drawable/category"

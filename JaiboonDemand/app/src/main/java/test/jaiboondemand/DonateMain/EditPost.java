@@ -70,7 +70,6 @@ public class EditPost extends AppCompatActivity {
 
         editName = (EditText) findViewById(R.id.editName);
         editDec = (EditText) findViewById(R.id.editDesc);
-        editFacebook = (EditText) findViewById(R.id.Edit_Facebook_link);
 
         image_btn.setVisibility(View.INVISIBLE);
         carouse1.setVisibility(View.INVISIBLE);
@@ -90,12 +89,9 @@ public class EditPost extends AppCompatActivity {
                 if(mAuth.getCurrentUser().getUid().equals(uid)){
                     String title = (String)dataSnapshot.child("title").getValue();
                     String desc = (String)dataSnapshot.child("desc").getValue();
-                    String facebooklink = (String) dataSnapshot.child("facebooklink").getValue();
 
                     editName.setText(title);
                     editDec.setText(desc);
-                    editFacebook.setText(facebooklink);
-
                 }
                 else {
                     Toast.makeText(EditPost.this,"คุณไม่มีสิทธิ์แก้ไขโพสต์",Toast.LENGTH_LONG);
@@ -127,7 +123,8 @@ public class EditPost extends AppCompatActivity {
         if(id == R.id.action_post){
             final String titleValue = editName.getText().toString().trim();
             final String titleDesc = editDec.getText().toString().trim();
-            final String facebook_page = editFacebook.getText().toString().trim();
+            final String time = String.valueOf(System.currentTimeMillis());
+
 
             if(!TextUtils.isEmpty(titleValue) && !TextUtils.isEmpty(titleDesc)) {
                 mDatabase.addValueEventListener(new ValueEventListener() {
@@ -135,7 +132,7 @@ public class EditPost extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         databaseReference.child(post_id).child("title").setValue(titleValue);
                         databaseReference.child(post_id).child("desc").setValue(titleDesc);
-                        databaseReference.child(post_id).child("facebooklink").setValue(facebook_page);
+                        databaseReference.child(post_id).child("timepost").setValue(time);
                         String key = post_id;
                         Intent post = new Intent(EditPost.this, SingleInstaActivity.class);
                         post.putExtra("PostID", key);

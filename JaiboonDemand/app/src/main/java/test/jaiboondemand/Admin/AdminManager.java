@@ -26,6 +26,11 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 import test.jaiboondemand.NewsFuction.News;
 import test.jaiboondemand.NewsFuction.NewsDetail;
 import test.jaiboondemand.R;
@@ -79,37 +84,48 @@ public class AdminManager extends Fragment {
             @Override
             protected void populateViewHolder(final AdminPostViewHoler viewHolder, News model, int position) {
                 final String post_key = getRef(position).getKey().toString();
-                final int position1 = position;
-                viewHolder.setTitleNews(model.getTopicname());
-                viewHolder.setImageNews(getActivity().getApplicationContext(),model.getImagenews());
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent news = new Intent(getActivity(),NewsDetail.class);
-                        news.putExtra("PostNews",post_key);
-                        startActivity(news);
-                    }
-                });
-                viewHolder.setImageInView();
-                viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        PopupMenu popup = new PopupMenu(getActivity(),viewHolder.imageView);
-                        popup.getMenuInflater().inflate(R.menu.menu_delete_post,popup.getMenu());
-                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            @Override
-                            public boolean onMenuItemClick(MenuItem menuItem) {
-                                if (menuItem.getTitle().equals("Delete")) {
-                                    getRef(position1).removeValue();
-                                }
-                                Toast.makeText(getActivity(), "Delete Success !!!", Toast.LENGTH_LONG).show();
-                                return true;
-                            }
-                        });
-                        popup.show();
-                    }
-                });
+                try {
+                    final int position1 = position;
+                    viewHolder.setTitleNews(model.getTopicname());
+                    viewHolder.setImageNews(getActivity().getApplicationContext(), model.getImagenews());
+                    viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent news = new Intent(getActivity(), NewsDetail.class);
+                            news.putExtra("PostNews", post_key);
+                            startActivity(news);
+                        }
+                    });
+                    SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                    dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+                    Date date = new Date(Long.valueOf(model.getTimenews()));
+                    String currentTime = dateFormat.format(date);
+                    viewHolder.setDescTitleNews(currentTime);
 
+                    viewHolder.setImageInView();
+                    viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            PopupMenu popup = new PopupMenu(getActivity(), viewHolder.imageView);
+                            popup.getMenuInflater().inflate(R.menu.menu_delete_post, popup.getMenu());
+                            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem menuItem) {
+                                    if (menuItem.getTitle().equals("Delete")) {
+                                        getRef(position1).removeValue();
+                                    }
+                                    Toast.makeText(getActivity(), "Delete Success !!!", Toast.LENGTH_LONG).show();
+                                    return true;
+                                }
+                            });
+                            popup.show();
+                        }
+                    });
+
+                }catch (Exception e){
+
+                }
             }
         };
         recyclerView.setAdapter(adapter);
@@ -129,6 +145,10 @@ public class AdminManager extends Fragment {
         public void setTitleNews(String title){
             TextView titlenews = (TextView) mView.findViewById(R.id.textTitle_news);
             titlenews.setText(title);
+        }
+        public void setDescTitleNews(String time){
+            TextView timenews = (TextView) mView.findViewById(R.id.text_time);
+            timenews.setText(time);
         }
         public void setImageNews(final Context ctx, final String image){
             final ImageView image_news = (ImageView) mView.findViewById(R.id.post_image_news);

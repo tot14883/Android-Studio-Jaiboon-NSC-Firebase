@@ -118,9 +118,10 @@ public class ProfileFoundation extends AppCompatActivity {
                     databaseReference.child(user_id).child("Type").setValue(Type_foun);
                     databaseReference.child(user_id).child("Address").setValue(Address_foun);
                     databaseReference.child(user_id).child("Post").setValue(Post_foun);
-                    databaseReference.child(user_id).child("Country").setValue(Country_foun);
+                    databaseReference.child(user_id).child("Province_Foundation").setValue(Country_foun);
                     databaseReference.child(user_id).child("Phone").setValue(Phone_foun);
                     databaseReference.child(user_id).child("Selected").setValue("Foundation");
+                    databaseReference.child(user_id).child("Country").setValue(Country_foun);
                     if(TextUtils.isEmpty(facebook_page)) {
                         databaseReference.child(user_id).child("facebooklink").setValue("-");
                     }
@@ -160,6 +161,7 @@ public class ProfileFoundation extends AppCompatActivity {
                     dataSnapshot.getRef().child(user_id).child("Name_Owner").setValue(Name_Owner);
                     dataSnapshot.getRef().child(user_id).child("Type").setValue(Type_foun);
                     dataSnapshot.getRef().child(user_id).child("Address").setValue(Address_foun);
+                    dataSnapshot.getRef().child(user_id).child("Country").setValue(Country_foun);
                     if(TextUtils.isEmpty(facebook_page)) {
                         dataSnapshot.getRef().child(user_id).child("facebooklink").setValue("-");
                     }
@@ -167,7 +169,7 @@ public class ProfileFoundation extends AppCompatActivity {
                         dataSnapshot.getRef().child(user_id).child("facebooklink").setValue(facebook_page);
                     }
                     dataSnapshot.getRef().child(user_id).child("Post").setValue(Post_foun);
-                    dataSnapshot.getRef().child(user_id).child("Country").setValue(Country_foun);
+                    dataSnapshot.getRef().child(user_id).child("Province_Foundation").setValue(Country_foun);
                     dataSnapshot.getRef().child(user_id).child("Phone").setValue(Phone_foun);
                     dataSnapshot.getRef().child(user_id).child("Selected").setValue("Foundation");
                 }

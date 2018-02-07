@@ -105,105 +105,182 @@ public class SingleInstaActivity extends AppCompatActivity implements BaseSlider
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
+               if(firebaseAuth.getCurrentUser() == null){
+                   mDatabase.addValueEventListener(new ValueEventListener() {
+                       @Override
+                       public void onDataChange(DataSnapshot dataSnapshot) {
+                           try {
+                               ArrayList<String> listUrl = new ArrayList<>();
+                               post_title = (String) dataSnapshot.child("title").getValue();
+                               post_desc = (String) dataSnapshot.child("desc").getValue();
+                               int num_image = 1;
+                               for (int i = 1; i < postSetting.num_image; i++) {
+                                   if (dataSnapshot.hasChild("image" + String.valueOf(i))) num_image++;
+                                   else break;
+                               }
+                               for (int i = 0; i < num_image; i++) {
+                                   if (i == 0) {
+                                       addimg(dataSnapshot.child("image").getValue().toString());
+                                   } else if (!dataSnapshot.child("image" + String.valueOf(i)).getValue().toString().equals("-")) {
+                                       addimg(dataSnapshot.child("image" + String.valueOf(i)).getValue().toString());
+                                   } else {
+                                       break;
+                                   }
+                               }
+                               address = (String) dataSnapshot.child("address").getValue();
+                               post = (String) dataSnapshot.child("post").getValue();
+                               country = (String) dataSnapshot.child("country").getValue();
+                               phone = (String) dataSnapshot.child("phone").getValue();
+                               type = (String) dataSnapshot.child("Type").getValue();
+                               owner = (String) dataSnapshot.child("username").getValue();
+                               facebook_link = (String) dataSnapshot.child("facebooklink").getValue();
+                               time = (String) dataSnapshot.child("timepost").getValue();
+                               if (dataSnapshot.child("Type").getValue().equals("Foundation")) {
+                                   type_text.setText(type);
+                                   owner_text.setText("ชื่อผู้ดูแล " + owner);
+                                   type_text.setVisibility(View.VISIBLE);
+                                   owner_text.setVisibility(View.VISIBLE);
+                               } else if (!dataSnapshot.child("Type").getValue().equals("Foundation")) {
+                                   type_text.setVisibility(View.INVISIBLE);
+                                   owner_text.setText("ชื่อผู้ดูแล " + owner);
+                                   owner_text.setVisibility(View.VISIBLE);
+                               }
+                               if (dataSnapshot.child("facebooklink").exists()) {
+                                   if (dataSnapshot.child("facebooklink").getValue().equals("-")) {
+                                       imageView.setVisibility(View.INVISIBLE);
+                                   } else if (!dataSnapshot.child("facebooklink").getValue().equals("-")) {
+                                       imageView.setVisibility(View.VISIBLE);
+                                   }
+                               }
+                               user_id = (String) dataSnapshot.child("uid").getValue();
+                               Name = (String) dataSnapshot.child("Name").getValue();
+                               phone_text.setText("เบอร์โทร " + phone);
+                               singlePostTitle.setText("หัวข้อ " + post_title);
+                               Local_text.setText(Name);
+                               text_Desc.setText("รายละเอียด" + "\n" + post_desc);
+                               local_address.setText("ที่อยู่ " + address + " ไปรษณีย์ " + post + "\n" + "จังหวัด " + country);
 
+                               SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
+                               DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                               dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+                               Date date = new Date(Long.valueOf(time));
+                               String currentTime = dateFormat.format(date);
+
+                               text_time.setText("วันเวลาโพส " + currentTime);
+                               addok();
+                               mCollapsing.setTitle(" ");
+                           }catch (Exception e){
+
+                           }
+                       }
+
+                       @Override
+                       public void onCancelled(DatabaseError databaseError) {
+
+                       }
+                   });
+               }
+               else if(firebaseAuth.getCurrentUser() != null){
+                    mDatabase.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            try {
+                                ArrayList<String> listUrl = new ArrayList<>();
+                                post_title = (String) dataSnapshot.child("title").getValue();
+                                post_desc = (String) dataSnapshot.child("desc").getValue();
+                                int num_image = 1;
+                                for (int i = 1; i < postSetting.num_image; i++) {
+                                    if (dataSnapshot.hasChild("image" + String.valueOf(i))) num_image++;
+                                    else break;
+                                }
+                                for (int i = 0; i < num_image; i++) {
+                                    if (i == 0) {
+                                        addimg(dataSnapshot.child("image").getValue().toString());
+                                    } else if (!dataSnapshot.child("image" + String.valueOf(i)).getValue().toString().equals("-")) {
+                                        addimg(dataSnapshot.child("image" + String.valueOf(i)).getValue().toString());
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                if (dataSnapshot.hasChild("favorite")) {
+                                    if (dataSnapshot.child("favorite").hasChild(user_id1)) {
+                                        if (dataSnapshot.child("favorite").child(user_id1).getValue().equals(true)) {
+                                            favourite.setFavorite(true);
+                                            isFavorite = true;
+                                        } else {
+                                            favourite.setFavorite(false);
+                                            isFavorite = false;
+                                        }
+                                    } else {
+                                        favourite.setFavorite(false);
+                                        isFavorite = false;
+                                    }
+                                } else {
+                                    favourite.setFavorite(false);
+                                    isFavorite = false;
+                                    DatabaseReference userRef = mDatabase.getRef().child("favorite").child(user_id1);
+                                    userRef.setValue(false);
+                                }
+
+                                address = (String) dataSnapshot.child("address").getValue();
+                                post = (String) dataSnapshot.child("post").getValue();
+                                country = (String) dataSnapshot.child("country").getValue();
+                                phone = (String) dataSnapshot.child("phone").getValue();
+                                type = (String) dataSnapshot.child("Type").getValue();
+                                owner = (String) dataSnapshot.child("username").getValue();
+                                facebook_link = (String) dataSnapshot.child("facebooklink").getValue();
+                                time = (String) dataSnapshot.child("timepost").getValue();
+                                if (dataSnapshot.child("Type").getValue().equals("Foundation")) {
+                                    type_text.setText(type);
+                                    owner_text.setText("ชื่อผู้ดูแล " + owner);
+                                    type_text.setVisibility(View.VISIBLE);
+                                    owner_text.setVisibility(View.VISIBLE);
+                                } else if (!dataSnapshot.child("Type").getValue().equals("Foundation")) {
+                                    type_text.setVisibility(View.INVISIBLE);
+                                    owner_text.setText("ชื่อผู้ดูแล " + owner);
+                                    owner_text.setVisibility(View.VISIBLE);
+                                }
+                                if (dataSnapshot.child("facebooklink").exists()) {
+                                    if (dataSnapshot.child("facebooklink").getValue().equals("-")) {
+                                        imageView.setVisibility(View.INVISIBLE);
+                                    } else if (!dataSnapshot.child("facebooklink").getValue().equals("-")) {
+                                        imageView.setVisibility(View.VISIBLE);
+                                    }
+                                }
+                                user_id = (String) dataSnapshot.child("uid").getValue();
+                                Name = (String) dataSnapshot.child("Name").getValue();
+                                phone_text.setText("เบอร์โทร " + phone);
+                                singlePostTitle.setText("หัวข้อ " + post_title);
+                                Local_text.setText(Name);
+                                text_Desc.setText("รายละเอียด" + "\n" + post_desc);
+                                local_address.setText("ที่อยู่ " + address + " ไปรษณีย์ " + post + "\n" + "จังหวัด " + country);
+
+                                SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
+                                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                                dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+                                Date date = new Date(Long.valueOf(time));
+                                String currentTime = dateFormat.format(date);
+
+                                text_time.setText("วันเวลาโพส " + currentTime);
+                                addok();
+                                mCollapsing.setTitle(" ");
+                            }catch (Exception e){
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
             }
         };
 
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-               try {
-                   ArrayList<String> listUrl = new ArrayList<>();
-                   post_title = (String) dataSnapshot.child("title").getValue();
-                   post_desc = (String) dataSnapshot.child("desc").getValue();
-                   int num_image = 1;
-                   for (int i = 1; i < postSetting.num_image; i++) {
-                       if (dataSnapshot.hasChild("image" + String.valueOf(i))) num_image++;
-                       else break;
-                   }
-                   for (int i = 0; i < num_image; i++) {
-                       if (i == 0) {
-                           addimg(dataSnapshot.child("image").getValue().toString());
-                       } else if (!dataSnapshot.child("image" + String.valueOf(i)).getValue().toString().equals("-")) {
-                           addimg(dataSnapshot.child("image" + String.valueOf(i)).getValue().toString());
-                       } else {
-                           break;
-                       }
-                   }
 
-                   if (dataSnapshot.hasChild("favorite")) {
-                       if (dataSnapshot.child("favorite").hasChild(user_id1)) {
-                           if (dataSnapshot.child("favorite").child(user_id1).getValue().equals(true)) {
-                               favourite.setFavorite(true);
-                               isFavorite = true;
-                           } else {
-                               favourite.setFavorite(false);
-                               isFavorite = false;
-                           }
-                       } else {
-                           favourite.setFavorite(false);
-                           isFavorite = false;
-                       }
-                   } else {
-                       favourite.setFavorite(false);
-                       isFavorite = false;
-                       DatabaseReference userRef = mDatabase.getRef().child("favorite").child(user_id1);
-                       userRef.setValue(false);
-                   }
-
-                   address = (String) dataSnapshot.child("address").getValue();
-                   post = (String) dataSnapshot.child("post").getValue();
-                   country = (String) dataSnapshot.child("country").getValue();
-                   phone = (String) dataSnapshot.child("phone").getValue();
-                   type = (String) dataSnapshot.child("Type").getValue();
-                   owner = (String) dataSnapshot.child("username").getValue();
-                   facebook_link = (String) dataSnapshot.child("facebooklink").getValue();
-                   time = (String) dataSnapshot.child("timepost").getValue();
-                   if (dataSnapshot.child("Type").getValue().equals("Foundation")) {
-                       type_text.setText(type);
-                       owner_text.setText("ชื่อผู้ดูแล " + owner);
-                       type_text.setVisibility(View.VISIBLE);
-                       owner_text.setVisibility(View.VISIBLE);
-                   } else if (!dataSnapshot.child("Type").getValue().equals("Foundation")) {
-                       type_text.setVisibility(View.INVISIBLE);
-                       owner_text.setText("ชื่อผู้ดูแล " + owner);
-                       owner_text.setVisibility(View.VISIBLE);
-                   }
-                   if (dataSnapshot.child("facebooklink").exists()) {
-                       if (dataSnapshot.child("facebooklink").getValue().equals("-")) {
-                           imageView.setVisibility(View.INVISIBLE);
-                       } else if (!dataSnapshot.child("facebooklink").getValue().equals("-")) {
-                           imageView.setVisibility(View.VISIBLE);
-                       }
-                   }
-                   user_id = (String) dataSnapshot.child("uid").getValue();
-                   Name = (String) dataSnapshot.child("Name").getValue();
-                   phone_text.setText("เบอร์โทร " + phone);
-                   singlePostTitle.setText("หัวข้อ " + post_title);
-                   Local_text.setText(Name);
-                   text_Desc.setText("รายละเอียด" + "\n" + post_desc);
-                   local_address.setText("ที่อยู่ " + address + " ไปรษณีย์ " + post + "\n" + "จังหวัด " + country);
-
-                   SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
-                   DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                   dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
-                   Date date = new Date(Long.valueOf(time));
-                   String currentTime = dateFormat.format(date);
-
-                   text_time.setText("วันเวลาโพส " + currentTime);
-                   addok();
-                   mCollapsing.setTitle(" ");
-               }catch (Exception e){
-
-               }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         mCommentEditTextView = (EditText) findViewById(R.id.et_comment);
         favourite.setOnClickListener(new View.OnClickListener() {
             @Override

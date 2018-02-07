@@ -19,8 +19,8 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -34,7 +34,7 @@ import test.jaiboondemand.R;
 
 public class MyDeposit extends Fragment {
     View view;
-    private Query mData;
+    private DatabaseReference mData;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListner;
     private RecyclerView recyclerView;
@@ -45,9 +45,10 @@ public class MyDeposit extends Fragment {
        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_my_deposit);
        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
        recyclerView.setHasFixedSize(true);
-        mAuth = FirebaseAuth.getInstance();
 
-       mData = FirebaseDatabase.getInstance().getReference().child("Deposit").orderByChild("Status").equalTo("Waiting");
+       mAuth = FirebaseAuth.getInstance();
+
+       mData = FirebaseDatabase.getInstance().getReference().child("Deposit");
 
        mAuthListner = new FirebaseAuth.AuthStateListener() {
            @Override
@@ -67,7 +68,7 @@ public class MyDeposit extends Fragment {
                 DepositFirebase.class,
                 R.layout.card_deposit,
                 MyDepositViewHolder.class,
-                mData//error orderByChild `ซ้อน orderByChild ไม่ได้
+                mData.child(mAuth.getCurrentUser().getUid())//error orderByChild `ซ้อน orderByChild ไม่ได้
         ) {
             @Override
             protected void populateViewHolder(final MyDepositViewHolder viewHolder, DepositFirebase model, final int position) {

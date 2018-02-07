@@ -74,7 +74,7 @@ public class ChooseDonate extends AppCompatActivity {
                 NeedDonate.class,
                 R.layout.card_donate,
                 DonateHolder.class,
-                mDatadonate.orderByChild("DonateProduct")
+                mDatadonate.child("DonateProduct")
         ) {
             @Override
             protected void populateViewHolder(DonateHolder viewHolder, NeedDonate model, final int position) {

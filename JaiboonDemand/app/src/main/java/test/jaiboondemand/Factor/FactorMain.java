@@ -45,7 +45,7 @@ public class FactorMain extends AppCompatActivity {
     private DatabaseReference mData;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListner;
-    private MenuItem item,item1,item2;
+    private MenuItem item,item1,item2,item3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +66,13 @@ public class FactorMain extends AppCompatActivity {
                    item = menu.findItem(R.id.myaccount_factor);
                    item1 = menu.findItem(R.id.Post_factor);
                    item2 = menu.findItem(R.id.SignOut_factor);
+                   item3 = menu.findItem(R.id.Favourite_fac);
                 if(firebaseAuth.getCurrentUser() == null){
                     Toast.makeText(FactorMain.this,"You not login",Toast.LENGTH_LONG).show();
                     item.setVisible(false);
                     item1.setVisible(false);
                     item2.setVisible(false);
+                    item3.setVisible(false);
                     text_profile.setText("Login ?");
                     text_type.setText("");
                     imageButton.setEnabled(true);
@@ -112,6 +114,7 @@ public class FactorMain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(FactorMain.this,MainActivity.class);
+                intent.putExtra("ChooseDonate","Factor");
                 startActivity(intent);
             }
         });
@@ -127,12 +130,17 @@ public class FactorMain extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 mDrawerLayout.closeDrawers();
                 if(item.getItemId() == R.id.Home_Factor){
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView_factor,new
-                            HomeFactor()).commit();
+                    Intent intent = new Intent(FactorMain.this,FactorMain.class);
+                    intent.putExtra("Type","Home");
+                    startActivity(intent);
+                     finish();
                 }
                 if(item.getItemId() == R.id.category_factor){
                     Intent intent = new Intent(FactorMain.this,FacCategory.class);
+                    startActivity(intent);
+                }
+                if(item.getItemId() == R.id.Favourite_fac){
+                    Intent intent = new Intent(FactorMain.this,FavouriteFac.class);
                     startActivity(intent);
                 }
                 if(item.getItemId() == R.id.myaccount_factor){
@@ -202,6 +210,7 @@ public class FactorMain extends AppCompatActivity {
                     Intent intent = new Intent(FactorMain.this, Setting.class);
                     intent.putExtra("Send","Factor");
                     startActivity(intent);
+                    finish();
                 }
                 if(item.getItemId() == R.id.Post_factor){
                     FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();

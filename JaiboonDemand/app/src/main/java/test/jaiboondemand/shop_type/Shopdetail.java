@@ -72,8 +72,8 @@ public class Shopdetail extends AppCompatActivity {
                 pro_image = (String) dataSnapshot.child("imageproduct").getValue();
 
 
-                productName.setText(pro_name);
-                productPrice.setText(pro_price);
+                productName.setText("ชื่อสินค้า:"+pro_name);
+                productPrice.setText("ราคา:"+pro_price);
                 productDesc.setText(pro_desc);
 
                 Picasso.with(Shopdetail.this).load(pro_image).networkPolicy(NetworkPolicy.OFFLINE).into(ProductImage, new Callback() {

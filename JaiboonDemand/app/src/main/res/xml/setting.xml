@@ -11,8 +11,8 @@
    <ListPreference
        android:title="เลือกเเสดงข้อมูลในเขตพื้นที่"
        android:entries="@array/Province"
-       android:entryValues="@array/select_Province"
-       android:defaultValue="เลือกจังหวัด"
+       android:entryValues="@array/select_Provinces"
+       android:defaultValue="ทั้งหมด"
        android:summary="%s"
        android:key="@string/setting_Province"
        />

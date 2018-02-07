@@ -1,5 +1,6 @@
 package test.jaiboondemand.Admin;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import test.jaiboondemand.Choose.ChooseDonate;
 import test.jaiboondemand.DonateMain.Main2Activity;
 import test.jaiboondemand.R;
 
@@ -31,10 +33,13 @@ public class AdminPost extends AppCompatActivity {
     private Spinner spinner;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private ProgressDialog mProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_post);
+
+        mProgress = new ProgressDialog(AdminPost.this);
 
         title = (EditText) findViewById(R.id.editName_Shop);
         count = (EditText) findViewById(R.id.editDesc_Shop);
@@ -70,6 +75,8 @@ public class AdminPost extends AppCompatActivity {
         final String priceValue = price.getText().toString().trim();
         final String typeValue = spinner.getSelectedItem().toString().trim();
         if(!TextUtils.isEmpty(titleValue) && !TextUtils.isEmpty(countValue)){
+            mProgress.setMessage("Posting......");
+            mProgress.show();
             StorageReference filePath = storageReference.child("PostImageShop").child(uri.getLastPathSegment());
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -86,9 +93,10 @@ public class AdminPost extends AppCompatActivity {
                     newPost.child("type").setValue(typeValue);
                 }
             });
-
-            Intent intent = new Intent(AdminPost.this,Main2Activity.class);
+            mProgress.dismiss();
+            Intent intent = new Intent(AdminPost.this,ChooseDonate.class);
             startActivity(intent);
+            finish();
 
         }
     }

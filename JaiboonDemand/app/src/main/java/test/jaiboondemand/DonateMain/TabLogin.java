@@ -48,6 +48,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import test.jaiboondemand.Choose.ChooseDonate;
+import test.jaiboondemand.Deposit.DepositMain;
+import test.jaiboondemand.Factor.FactorMain;
 import test.jaiboondemand.NewsFuction.NewsStart;
 import test.jaiboondemand.R;
 
@@ -141,6 +143,16 @@ public class TabLogin extends Fragment {
                    }
                    if(chooseDonate.equals("Main")){
                        Intent intent = new Intent(getActivity(), ChooseDonate.class);
+                       startActivity(intent);
+                       getActivity().finish();
+                   }
+                   if(chooseDonate.equals("Deposit")){
+                       Intent intent = new Intent(getActivity(), DepositMain.class);
+                       startActivity(intent);
+                       getActivity().finish();
+                   }
+                   if(chooseDonate.equals("Factor")){
+                       Intent intent = new Intent(getActivity(), FactorMain.class);
                        startActivity(intent);
                        getActivity().finish();
                    }
@@ -404,6 +416,16 @@ public class TabLogin extends Fragment {
                         getActivity().finish();
                         startActivity(loginIntent);
                         mProgress.dismiss();
+                    }
+                    if(chooseDonate.equals("Deposit")){
+                        Intent intent = new Intent(getActivity(), DepositMain.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                    if(chooseDonate.equals("Factor")){
+                        Intent intent = new Intent(getActivity(), FactorMain.class);
+                        startActivity(intent);
+                        getActivity().finish();
                     }
 
                 }

@@ -3,7 +3,9 @@ package test.jaiboondemand.DonateMain;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -38,10 +40,14 @@ public class foundation_donate extends Fragment {
     private Query mQuery;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private String Province;
+    private SharedPreferences mSharedPreferences;
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         x =  inflater.inflate(R.layout.activity_foundation_donate,container,false);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Province = mSharedPreferences.getString(getString(R.string.setting_Province),"ทั้งหมด");
 
         mRecycle = (RecyclerView) x.findViewById(R.id.my_post2_list);
         mRecycle.setHasFixedSize(true);
@@ -58,8 +64,12 @@ public class foundation_donate extends Fragment {
 
             }
         };
-
-        mQuery = FirebaseDatabase.getInstance().getReference().child("Jaiboon").orderByChild("Type").equalTo("Foundation");
+        if(Province.equals("ทั้งหมด")) {
+            mQuery = FirebaseDatabase.getInstance().getReference().child("Jaiboon").orderByChild("Type").equalTo("Foundation");
+        }
+        else{
+            mQuery = FirebaseDatabase.getInstance().getReference().child("Jaiboon").orderByChild("Province_Foundation").equalTo(Province);
+        }
         mQuery.keepSynced(true);
 
         return x;

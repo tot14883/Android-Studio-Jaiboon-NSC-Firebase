@@ -1,5 +1,6 @@
 package test.jaiboondemand.DonateMain;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -64,6 +65,7 @@ public class PostActivity extends AppCompatActivity{
     private ArrayList<Uri> path;
     private CarouselView carouse1;
     private Button image_btn;
+    private ProgressDialog mProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +75,8 @@ public class PostActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         setTitle(" ");
+
+        mProgress = new ProgressDialog(PostActivity.this);
 
         image_btn = (Button) findViewById(R.id.SelectImage);
         image_btn.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +148,8 @@ public class PostActivity extends AppCompatActivity{
             final String time = String.valueOf(System.currentTimeMillis());
 
             if(!TextUtils.isEmpty(titleValue) && !TextUtils.isEmpty(titleDesc)) {
+                mProgress.setMessage("Posting........");
+                mProgress.show();
                 final int[] image1 = {0};
                 while (image1[0] < path.size()) {
                     uri = path.get(image1[0]);
@@ -186,8 +192,9 @@ public class PostActivity extends AppCompatActivity{
                                         if (dataSnapshot.child("Selected").exists()) {
                                             if (dataSnapshot.child("Selected").getValue().equals("Foundation")) {
                                                 newPost.child("Foundation_Type").setValue(dataSnapshot.child("Type").getValue());
+                                                newPost.child("Province_Foundation").setValue(dataSnapshot.child("Country").getValue());
                                             } else if (!dataSnapshot.child("Selected").getValue().equals("Foundation")) {
-
+                                                newPost.child("Province_Temple").setValue(dataSnapshot.child("Country").getValue());
                                             }
                                             newPost.child("title").setValue(titleValue);
                                             newPost.child("desc").setValue(titleDesc);
@@ -213,6 +220,7 @@ public class PostActivity extends AppCompatActivity{
                                                     newPost.child("image" + String.valueOf(i)).setValue("-");
                                                 }
                                             }
+                                            mProgress.dismiss();
                                             String key = newPost.getKey();
                                             Intent ChooseDonate = new Intent(PostActivity.this, test.jaiboondemand.post_activity.ChooseDonate.class);
                                             ChooseDonate.putExtra("Keypost",key);
@@ -233,6 +241,7 @@ public class PostActivity extends AppCompatActivity{
                                     }
                                 });
                             }
+
 
                         }
                     });

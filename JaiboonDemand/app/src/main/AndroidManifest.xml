@@ -13,20 +13,23 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-feature
         android:name="android.hardware.camera.any"
         android:required="true" />
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="true" />
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-
 
     <application
         android:name=".offline.SimpleBlog"
@@ -43,8 +46,9 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
+
         <activity
             android:name=".DonateMain.MainActivity"
             android:screenOrientation="portrait" />
@@ -127,8 +131,13 @@
         <activity android:name=".Deposit.ChoosePayment" />
         <activity android:name=".Deposit.DepositDetail" />
         <activity android:name=".Deposit.BankSubmit" />
-        <activity android:name=".Deposit.SendPostSubmit"></activity>
-        <activity android:name=".Factor.EditPostFactor"/>
+        <activity android:name=".Deposit.SendPostSubmit" />
+        <activity android:name=".Factor.EditPostFactor" />
+        <activity android:name=".DonateMain.Favourite" />
+        <activity android:name=".Factor.FavouriteFac" />
+        <activity android:name=".shop_type.FoodShop" />
+        <activity android:name=".shop_type.MedicationShop" />
+        <activity android:name=".shop_type.OtherShop"></activity>
     </application>
 
 </manifest>

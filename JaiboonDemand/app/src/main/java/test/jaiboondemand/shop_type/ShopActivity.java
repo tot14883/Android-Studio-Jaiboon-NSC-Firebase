@@ -16,7 +16,7 @@ import test.jaiboondemand.R;
 public class ShopActivity extends Fragment {
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
-    public static int int_items = 2 ;
+    public static int int_items = 5 ;
 
     @Nullable
     @Override
@@ -54,6 +54,9 @@ public class ShopActivity extends Fragment {
             switch (position){
                 case 0:return new HomeShop();
                 case 1:return new SuitShop();
+                case 2:return new FoodShop();
+                case 3:return new MedicationShop();
+                case 4:return new OtherShop();
             }
             return null;
         }
@@ -75,6 +78,9 @@ public class ShopActivity extends Fragment {
             switch (position){
                 case 0:return "Home";
                 case 1:return "Suit";
+                case 2:return "Food";
+                case 3:return "Medication";
+                case 4:return "Other";
             }
             return null;
         }

@@ -41,8 +41,8 @@ public class SuccessDeposit extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
-        mData = FirebaseDatabase.getInstance().getReference().child("Deposit").orderByChild("Status").equalTo("Success");
         mAuth = FirebaseAuth.getInstance();
+        mData = FirebaseDatabase.getInstance().getReference().child("Deposit").child(mAuth.getCurrentUser().getUid());
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -59,7 +59,7 @@ public class SuccessDeposit extends Fragment {
                 DepositFirebase.class,
                 R.layout.card_deposit,
                 SuccessDepositViewHolder.class,
-                mData
+                mData.orderByChild("Status").equalTo("Success")
         ) {
             @Override
             protected void populateViewHolder(final SuccessDepositViewHolder viewHolder, DepositFirebase model, final int position) {

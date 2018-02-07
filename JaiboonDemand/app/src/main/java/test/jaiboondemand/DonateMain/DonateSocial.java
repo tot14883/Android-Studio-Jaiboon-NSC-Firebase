@@ -2,7 +2,9 @@ package test.jaiboondemand.DonateMain;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -39,10 +41,14 @@ public class DonateSocial extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private View x;
+    private SharedPreferences mSharedPreferences;
+    private String Province;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         x =  inflater.inflate(R.layout.activity_donate_social,container,false);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Province = mSharedPreferences.getString(getString(R.string.setting_Province),"ทั้งหมด");
 
         mIBstaList = (RecyclerView) x.findViewById(R.id.insta_list);
         mIBstaList.setHasFixedSize(true);
@@ -50,7 +56,12 @@ public class DonateSocial extends Fragment {
 
 
        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
-       mDatatype = FirebaseDatabase.getInstance().getReference().child("Jaiboon").orderByChild("Type").equalTo("Temple");
+       if(Province.equals("ทั้งหมด")) {
+           mDatatype = FirebaseDatabase.getInstance().getReference().child("Jaiboon").orderByChild("Type").equalTo("Temple");
+       }
+       else{
+           mDatatype = FirebaseDatabase.getInstance().getReference().child("Jaiboon").orderByChild("Province_Temple").equalTo(Province);
+       }
        mDatatype.keepSynced(true);
 
         mAuth = FirebaseAuth.getInstance();

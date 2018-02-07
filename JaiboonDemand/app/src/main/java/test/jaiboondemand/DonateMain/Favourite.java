@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,12 +40,15 @@ public class Favourite extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_donate_social);
+        setContentView(R.layout.favourtie);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_main);//Command find id Toolbar to our set
+        setSupportActionBar(toolbar);
 
-        mIBstaList = (RecyclerView) findViewById(R.id.insta_list);
+        mIBstaList = (RecyclerView) findViewById(R.id.recycler_favourite);
         mIBstaList.setHasFixedSize(true);
         mIBstaList.setLayoutManager(new LinearLayoutManager(Favourite.this));
         mAuth = FirebaseAuth.getInstance();

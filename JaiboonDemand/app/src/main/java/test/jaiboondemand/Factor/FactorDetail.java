@@ -99,97 +99,168 @@ public class FactorDetail extends AppCompatActivity implements BaseSliderView.On
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() == null){
+                    mData.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            ArrayList<String> listUrl = new ArrayList<>();
+                            String time,post_title,post_desc,post_image,address,post_number,country,phone,type,owner,uid,account,name_local;
+                            post_title = (String) dataSnapshot.child("title_factor").getValue();
+                            post_desc = (String) dataSnapshot.child("desc_factor").getValue();
+                            account = (String) dataSnapshot.child("account").getValue();
+                            type =(String) dataSnapshot.child("Category").getValue();
+                            owner = (String) dataSnapshot.child("username").getValue();
+                            address = (String) dataSnapshot.child("address").getValue();
+                            post_number = (String) dataSnapshot.child("post").getValue();
+                            country = (String) dataSnapshot.child("country").getValue();
+                            phone = (String) dataSnapshot.child("phone").getValue();
+                            time = (String) dataSnapshot.child("fac_time").getValue();
+                            facebook_link = (String) dataSnapshot.child("facebooklink").getValue();
+                            int num_image = 1;
+                            for(int i = 1;i<imagefac.num_image;i++){
+                                if(dataSnapshot.hasChild("image"+String.valueOf(i))) num_image++;
+                                else break;
+                            }
+                            for(int i = 0;i<num_image;i++){
+                                if(i == 0){
+                                    addimg(dataSnapshot.child("image").getValue().toString());
+                                }
+                                else if(!dataSnapshot.child("image"+String.valueOf(i)).getValue().toString().equals("-")){
+                                    addimg(dataSnapshot.child("image"+String.valueOf(i)).getValue().toString());
+                                }
+                                else{
+                                    break;
+                                }
+                            }
 
+                            if(dataSnapshot.child("facebooklink").exists()){
+                                if(dataSnapshot.child("facebooklink").getValue().equals("-")){
+                                    face_link.setVisibility(View.INVISIBLE);
+                                }
+                                else if(!dataSnapshot.child("facebooklink").getValue().equals("-")){
+                                    face_link.setVisibility(View.VISIBLE);
+                                }
+                            }
+                            name_local = (String) dataSnapshot.child("Name").getValue();
+                            txt_title.setText(post_title);
+                            txt_desc.setText(post_desc);
+                            txt_local.setText(name_local);
+                            txt_address.setText("ที่อยู่ "+address+" ไปรษณีย์ "+post_number+"\n"+"จังหวัด "+country);
+                            txt_desc.setText("รายละเอียด"+"\n"+post_desc);
+                            txt_phone.setText("เบอร์โทร "+phone);
+                            txt_owner.setText("ชื่อผู้ดูแล "+owner);
+                            txt_type.setText("ประเภท "+type);
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
+                            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                            dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+                            Date date = new Date(Long.valueOf(time));
+                            String currentTime = dateFormat.format(date);
+
+                            txt_time.setText("เวลาโพส "+currentTime);
+                            txt_acc.setText(account);
+                            addok();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                else if(firebaseAuth.getCurrentUser() != null){
+                    mData.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            ArrayList<String> listUrl = new ArrayList<>();
+                            String time,post_title,post_desc,post_image,address,post_number,country,phone,type,owner,uid,account,name_local;
+                            post_title = (String) dataSnapshot.child("title_factor").getValue();
+                            post_desc = (String) dataSnapshot.child("desc_factor").getValue();
+                            account = (String) dataSnapshot.child("account").getValue();
+                            type =(String) dataSnapshot.child("Category").getValue();
+                            owner = (String) dataSnapshot.child("username").getValue();
+                            address = (String) dataSnapshot.child("address").getValue();
+                            post_number = (String) dataSnapshot.child("post").getValue();
+                            country = (String) dataSnapshot.child("country").getValue();
+                            phone = (String) dataSnapshot.child("phone").getValue();
+                            time = (String) dataSnapshot.child("fac_time").getValue();
+                            facebook_link = (String) dataSnapshot.child("facebooklink").getValue();
+                            int num_image = 1;
+                            for(int i = 1;i<imagefac.num_image;i++){
+                                if(dataSnapshot.hasChild("image"+String.valueOf(i))) num_image++;
+                                else break;
+                            }
+                            for(int i = 0;i<num_image;i++){
+                                if(i == 0){
+                                    addimg(dataSnapshot.child("image").getValue().toString());
+                                }
+                                else if(!dataSnapshot.child("image"+String.valueOf(i)).getValue().toString().equals("-")){
+                                    addimg(dataSnapshot.child("image"+String.valueOf(i)).getValue().toString());
+                                }
+                                else{
+                                    break;
+                                }
+                            }
+
+                            if(dataSnapshot.child("facebooklink").exists()){
+                                if(dataSnapshot.child("facebooklink").getValue().equals("-")){
+                                    face_link.setVisibility(View.INVISIBLE);
+                                }
+                                else if(!dataSnapshot.child("facebooklink").getValue().equals("-")){
+                                    face_link.setVisibility(View.VISIBLE);
+                                }
+                            }
+                            if(dataSnapshot.hasChild("favorite")){
+                                if(dataSnapshot.child("favorite").hasChild(user_id1)){
+                                    if(dataSnapshot.child("favorite").child(user_id1).getValue().equals(true)){
+                                        favorite.setFavorite(true);
+                                        isFavorite = true;
+                                    }
+                                    else{
+                                        favorite.setFavorite(false);
+                                        isFavorite = false;
+                                    }
+                                }else{
+                                    favorite.setFavorite(false);
+                                    isFavorite = false;
+                                }
+                            }
+                            else{
+                                favorite.setFavorite(false);
+                                isFavorite = false;
+                                DatabaseReference userRef = mData2.getRef().child("favorite").child(user_id1);
+                                userRef.setValue(false);
+                            }
+                            name_local = (String) dataSnapshot.child("Name").getValue();
+                            txt_title.setText(post_title);
+                            txt_desc.setText(post_desc);
+                            txt_local.setText(name_local);
+                            txt_address.setText("ที่อยู่ "+address+" ไปรษณีย์ "+post_number+"\n"+"จังหวัด "+country);
+                            txt_desc.setText("รายละเอียด"+"\n"+post_desc);
+                            txt_phone.setText("เบอร์โทร "+phone);
+                            txt_owner.setText("ชื่อผู้ดูแล "+owner);
+                            txt_type.setText("ประเภท "+type);
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
+                            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                            dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+                            Date date = new Date(Long.valueOf(time));
+                            String currentTime = dateFormat.format(date);
+
+                            txt_time.setText("เวลาโพส "+currentTime);
+                            txt_acc.setText(account);
+                            addok();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
             }
         };
-        mData.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-              ArrayList<String> listUrl = new ArrayList<>();
-              String time,post_title,post_desc,post_image,address,post_number,country,phone,type,owner,uid,account,name_local;
-              post_title = (String) dataSnapshot.child("title_factor").getValue();
-              post_desc = (String) dataSnapshot.child("desc_factor").getValue();
-              account = (String) dataSnapshot.child("account").getValue();
-              type =(String) dataSnapshot.child("Category").getValue();
-              owner = (String) dataSnapshot.child("username").getValue();
-              address = (String) dataSnapshot.child("address").getValue();
-              post_number = (String) dataSnapshot.child("post").getValue();
-              country = (String) dataSnapshot.child("country").getValue();
-              phone = (String) dataSnapshot.child("phone").getValue();
-              time = (String) dataSnapshot.child("fac_time").getValue();
-              facebook_link = (String) dataSnapshot.child("facebooklink").getValue();
-              int num_image = 1;
-              for(int i = 1;i<imagefac.num_image;i++){
-                  if(dataSnapshot.hasChild("image"+String.valueOf(i))) num_image++;
-                  else break;
-              }
-              for(int i = 0;i<num_image;i++){
-                  if(i == 0){
-                    addimg(dataSnapshot.child("image").getValue().toString());
-                  }
-                  else if(!dataSnapshot.child("image"+String.valueOf(i)).getValue().toString().equals("-")){
-                      addimg(dataSnapshot.child("image"+String.valueOf(i)).getValue().toString());
-                  }
-                  else{
-                      break;
-                  }
-              }
 
-                if(dataSnapshot.child("facebooklink").exists()){
-                    if(dataSnapshot.child("facebooklink").getValue().equals("-")){
-                        face_link.setVisibility(View.INVISIBLE);
-                    }
-                    else if(!dataSnapshot.child("facebooklink").getValue().equals("-")){
-                        face_link.setVisibility(View.VISIBLE);
-                    }
-                }
-                if(dataSnapshot.hasChild("favorite")){
-                    if(dataSnapshot.child("favorite").hasChild(user_id1)){
-                        if(dataSnapshot.child("favorite").child(user_id1).getValue().equals(true)){
-                            favorite.setFavorite(true);
-                            isFavorite = true;
-                        }
-                        else{
-                            favorite.setFavorite(false);
-                            isFavorite = false;
-                        }
-                    }else{
-                        favorite.setFavorite(false);
-                        isFavorite = false;
-                    }
-                }
-                else{
-                    favorite.setFavorite(false);
-                    isFavorite = false;
-                    DatabaseReference userRef = mData2.getRef().child("favorite").child(user_id1);
-                    userRef.setValue(false);
-                }
-              name_local = (String) dataSnapshot.child("Name").getValue();
-              txt_title.setText(post_title);
-              txt_desc.setText(post_desc);
-              txt_local.setText(name_local);
-              txt_address.setText("ที่อยู่ "+address+" ไปรษณีย์ "+post_number+"\n"+"จังหวัด "+country);
-              txt_desc.setText("รายละเอียด"+"\n"+post_desc);
-              txt_phone.setText("เบอร์โทร "+phone);
-              txt_owner.setText("ชื่อผู้ดูแล "+owner);
-              txt_type.setText("ประเภท "+type);
-
-              SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
-              DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
-                Date date = new Date(Long.valueOf(time));
-                String currentTime = dateFormat.format(date);
-
-              txt_time.setText("เวลาโพส "+currentTime);
-              txt_acc.setText(account);
-              addok();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

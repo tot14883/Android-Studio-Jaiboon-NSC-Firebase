@@ -112,9 +112,10 @@ public class ProfileTemple extends AppCompatActivity {
                     databaseReference.child(user_id).child("Name_Owner").setValue(Name_Leader);
                     databaseReference.child(user_id).child("Address").setValue(Address_Temple);
                     databaseReference.child(user_id).child("Post").setValue(Post_Temple);
-                    databaseReference.child(user_id).child("Country").setValue(Country_Temple);
+                    databaseReference.child(user_id).child("Province_Temple").setValue(Country_Temple);
                     databaseReference.child(user_id).child("Phone").setValue(Phone_Temple);
                     databaseReference.child(user_id).child("Selected").setValue("Temple");
+                    databaseReference.child(user_id).child("Country").setValue(Country_Temple);
                     if(TextUtils.isEmpty(facebook_page)) {
                         databaseReference.child(user_id).child("facebooklink").setValue("-");
                     }
@@ -163,6 +164,7 @@ public class ProfileTemple extends AppCompatActivity {
                 dataSnapshot.getRef().child(user_id).child("Address").setValue(Address_Temple);
                 dataSnapshot.getRef().child(user_id).child("Post").setValue(Post_Temple);
                 dataSnapshot.getRef().child(user_id).child("Country").setValue(Country_Temple);
+                dataSnapshot.getRef().child(user_id).child("Province_Temple").setValue(Country_Temple);
                 dataSnapshot.getRef().child(user_id).child("Phone").setValue(Phone_Temple);
                 dataSnapshot.getRef().child(user_id).child("Selected").setValue("Temple");
                 if(TextUtils.isEmpty(facebook_page)) {

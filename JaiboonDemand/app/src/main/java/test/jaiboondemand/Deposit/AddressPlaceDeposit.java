@@ -50,9 +50,9 @@ public class AddressPlaceDeposit extends AppCompatActivity {
              Key_ok = null;
              Num = 0;
          }
-        mDataDeposit = FirebaseDatabase.getInstance().getReference().child("Deposit");
         mDatabase = FirebaseDatabase.getInstance().getReference().child("SendDonate");
         mAuth = FirebaseAuth.getInstance();
+        mDataDeposit = FirebaseDatabase.getInstance().getReference().child("Deposit").child(post_key).child(mAuth.getCurrentUser().getUid());
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -83,7 +83,7 @@ public class AddressPlaceDeposit extends AppCompatActivity {
                 SendPlace.class,
                 R.layout.row_send_place,
                 PlaceViewHolder.class,
-                mDatabase.orderByChild("uid").equalTo(mAuth.getCurrentUser().getUid())
+                mDatabase
         ) {
             @Override
             protected void populateViewHolder(final PlaceViewHolder viewHolder, SendPlace model, final int position) {

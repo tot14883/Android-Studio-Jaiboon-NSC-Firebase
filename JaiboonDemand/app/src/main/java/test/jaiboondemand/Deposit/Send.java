@@ -1,5 +1,6 @@
 package test.jaiboondemand.Deposit;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -54,6 +55,7 @@ public class Send extends AppCompatActivity {
     private StorageReference storageReference;
     private String typeSend,owner,phone,localname,localaddress,localpost,localcountry;
     private String post_name,address,post,country,phone_customer,Name_Leader,Type_foun,selected;
+    private ProgressDialog mProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,8 @@ public class Send extends AppCompatActivity {
        getSupportActionBar().setDisplayShowTitleEnabled(true);
        getSupportActionBar().setDisplayShowHomeEnabled(true);
        setTitle("ฝากสิ่งของที่ต้องการบริจาค");
+
+       mProgress = new ProgressDialog(Send.this);
 
        typeSend = getIntent().getExtras().getString("TypeSend");
         owner = getIntent().getExtras().getString("Name");
@@ -128,7 +132,10 @@ public class Send extends AppCompatActivity {
                                }
 
                            } else if (!dataSnapshot.child("Selected").exists()) {
-
+                                Intent intent = new Intent(Send.this,DepositMain.class);
+                                startActivity(intent);
+                                finish();
+                                Toast.makeText(Send.this,"You not have Info Account",Toast.LENGTH_LONG).show();
                            }
                        }
 
@@ -184,7 +191,10 @@ public class Send extends AppCompatActivity {
             final String topic = topic_text.getText().toString().trim();
             final String desc = desc_text.getText().toString().trim();
             final String time = String.valueOf(System.currentTimeMillis());
+            final String uid = mAuth.getCurrentUser().getUid();
             if(!TextUtils.isEmpty(topic) && !TextUtils.isEmpty(desc)){
+                mProgress.setMessage("Posting......");
+                mProgress.show();
                 final int[] image1 = {0};
                 while(image1[0] < path.size()){
                     uri = path.get(image1[0]);
@@ -221,53 +231,54 @@ public class Send extends AppCompatActivity {
                               mUsers.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                                   @Override
                                   public void onDataChange(DataSnapshot dataSnapshot) {
-                                         newPost.child("Topic_Deposit").setValue(topic);
-                                         newPost.child("Desc_Deposit").setValue(desc);
+                                         newPost.child(uid).child("Topic_Deposit").setValue(topic);
+                                         newPost.child(uid).child("Desc_Deposit").setValue(desc);
                                          for (int i = 0; i < depositSend.num_image; i++) {
                                              if (i < path.size()) {
                                                  if (i == 0) {
-                                                     newPost.child("image").setValue(download.get(i).toString());
+                                                     newPost.child(uid).child("image").setValue(download.get(i).toString());
                                                  } else {
-                                                     newPost.child("image" + String.valueOf(i)).setValue(download.get(i).toString());
+                                                     newPost.child(uid).child("image" + String.valueOf(i)).setValue(download.get(i).toString());
                                                  }
                                              } else {
-                                                 newPost.child("image" + String.valueOf(i)).setValue("-");
+                                                 newPost.child(uid).child("image" + String.valueOf(i)).setValue("-");
                                              }
                                      }
                                      String user = (String) dataSnapshot.child("Name_User").getValue();
                                      String post_key = newPost.getKey();
-                                      newPost.child("uid").setValue(mAuth.getCurrentUser().getUid());
-                                      newPost.child("Name_User").setValue(user);
-                                      newPost.child("Name_Cus").setValue(post_name);
-                                      newPost.child("Address_Cus").setValue(address);
-                                      newPost.child("Post_Cus").setValue(post);
-                                      newPost.child("Country_Cus").setValue(country);
-                                      newPost.child("Phone_Cus").setValue(phone_customer);
-                                      newPost.child("Status").setValue("Waiting");
-                                      newPost.child("time_deposit").setValue(time);
+                                      newPost.child(uid).child("uid").setValue(mAuth.getCurrentUser().getUid());
+                                      newPost.child(uid).child("Name_User").setValue(user);
+                                      newPost.child(uid).child("Name_Cus").setValue(post_name);
+                                      newPost.child(uid).child("Address_Cus").setValue(address);
+                                      newPost.child(uid).child("Post_Cus").setValue(post);
+                                      newPost.child(uid).child("Country_Cus").setValue(country);
+                                      newPost.child(uid).child("Phone_Cus").setValue(phone_customer);
+                                      newPost.child(uid).child("Status").setValue("Waiting");
+                                      newPost.child(uid).child("time_deposit").setValue(time);
                                       if(dataSnapshot.child("Selected").exists()) {
                                           if (dataSnapshot.child("Selected").getValue().equals("Customer")) {
-                                              newPost.child("Selected").setValue(selected);
+                                              newPost.child(uid).child("Selected").setValue(selected);
 
                                           }
                                           if (dataSnapshot.child("Selected").getValue().equals("Temple")) {
-                                              newPost.child("Name_Owner").setValue(Name_Leader);
-                                              newPost.child("Selected").setValue(selected);
+                                              newPost.child(uid).child("Name_Owner").setValue(Name_Leader);
+                                              newPost.child(uid).child("Selected").setValue(selected);
                                           }
                                           if (dataSnapshot.child("Selected").getValue().equals("Foundation")) {
-                                              newPost.child("Name_Owner").setValue(Name_Leader);
-                                              newPost.child("TypeFoun").setValue(Type_foun);
-                                              newPost.child("Selected").setValue(selected);
+                                              newPost.child(uid).child("Name_Owner").setValue(Name_Leader);
+                                              newPost.child(uid).child("TypeFoun").setValue(Type_foun);
+                                              newPost.child(uid).child("Selected").setValue(selected);
                                           }
                                       }
                                      if(typeSend.equals("Quick")) {
+                                         mProgress.dismiss();
                                          Intent intent = new Intent(Send.this,AddressAdmin.class);
-                                         newPost.child("NameLocal_Deposit").setValue(localname);
-                                         newPost.child("Name_Deposit").setValue(owner);
-                                         newPost.child("Phone_Deposit").setValue(phone);
-                                         newPost.child("AddreeLocal_Deposit").setValue(localaddress);
-                                         newPost.child("PostLocal_Deposit").setValue(localpost);
-                                         newPost.child("CountryLocal_Deposit").setValue(localcountry);
+                                         newPost.child(uid).child("NameLocal_Deposit").setValue(localname);
+                                         newPost.child(uid).child("Name_Deposit").setValue(owner);
+                                         newPost.child(uid).child("Phone_Deposit").setValue(phone);
+                                         newPost.child(uid).child("AddreeLocal_Deposit").setValue(localaddress);
+                                         newPost.child(uid).child("PostLocal_Deposit").setValue(localpost);
+                                         newPost.child(uid).child("CountryLocal_Deposit").setValue(localcountry);
                                          intent.putExtra("Name",owner);
                                          intent.putExtra("Phone",phone);
                                          intent.putExtra("Localname",localname);
@@ -278,6 +289,7 @@ public class Send extends AppCompatActivity {
                                          startActivity(intent);
                                      }
                                      else if(typeSend.equals("defualt")){
+                                         mProgress.dismiss();
                                           Intent intent = new Intent(Send.this,AddressPlaceDeposit.class);
                                           intent.putExtra("TypeSend","defualt");
                                           intent.putExtra("post_key",post_key);
@@ -291,6 +303,7 @@ public class Send extends AppCompatActivity {
                                   }
                               });
                             }
+
                         }
                     });
                     image1[0]++;
